@@ -1,7 +1,7 @@
 TARGET = Luiz_TCC.pdf
 
 BIBTEX = bibtex
-LATEX = latex
+LATEX = pdflatex
 DVIPS = dvips
 PS2PDF = ps2pdf
 
@@ -32,20 +32,37 @@ PDF_FILE  = $(addsuffix .pdf, $(basename $(MAIN_FILE)))
 
 SOURCES = $(FIXOS_FILES) $(EDITAVEIS_FILES)
 
+NPROCS := 1
+OS := $(shell uname)
+export NPROCS
+
+ifeq ($J,)
+
+ifeq ($(OS),Linux)
+  NPROCS := $(shell grep -c ^processor /proc/cpuinfo)
+else ifeq ($(OS),Darwin)
+  NPROCS := $(shell system_profiler | awk '/Number of CPUs/ {print $$4}{next;}')
+endif # $(OS)
+
+else
+  NPROCS := $J
+endif # $J
+
 .PHONY: all clean dist-clean
 
 all: 
-	@make $(TARGET)
+	@echo "Using" $(NPROCS) "jobs"
+	@make $(TARGET) -j$(NPROCS)
+	pdfinfo $(TARGET)
      
 $(TARGET): $(MAIN_FILE) $(SOURCES) bibliografia.bib
-	$(LATEX) $(MAIN_FILE) $(SOURCES)
-	$(BIBTEX) $(AUX_FILE)
-	$(LATEX) $(MAIN_FILE) $(SOURCES)  -interaction=batchmode
-	$(LATEX) $(MAIN_FILE) $(SOURCES)  -interaction=batchmode
-	$(DVIPS) $(DVI_FILE)
-	$(PS2PDF) $(PS_FILE)
+	$(LATEX) $(MAIN_FILE)
+	$(BIBTEX) $(AUX_FILE) -ters
+	#makeglossaries $(basename $(MAIN_FILE))
+	#makeindex $(addsuffix .glo, $(basename $(MAIN_FILE))) -s $(addsuffix .ist, $(basename $(MAIN_FILE))) -t $(addsuffix .glg, $(basename $(MAIN_FILE))) -o $(addsuffix .gls, $(basename $(MAIN_FILE)))
+	$(LATEX) -interaction=batchmode $(MAIN_FILE)
+	$(LATEX) -interaction=batchmode $(MAIN_FILE)
 	@mv $(PDF_FILE) $(TARGET)
-	rm -f *~ *.dvi *.ps *.backup *.aux *.log
 
 clean:
 	rm -f *~ *.dvi *.ps *.backup *.aux *.log
@@ -53,7 +70,7 @@ clean:
 	rm -f *.pdf
 	
 dist: clean
-	tar vczf tcc-fga-latex-$(VERSION).tar.gz *
+	tar vczf start-x_latex-$(VERSION).tar.gz *
 
 dist-clean: clean
 	rm -f $(PDF_FILE) $(TARGET)
