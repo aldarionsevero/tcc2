@@ -1,0 +1,385 @@
+diff --git a/apt-private/private-cmndline.cc b/apt-private/private-cmndline.cc
+index 1072b9a..aa85627 100644
+--- a/apt-private/private-cmndline.cc
++++ b/apt-private/private-cmndline.cc
+@@ -57,6 +57,7 @@ static bool addArgumentsAPTCache(std::vector<CommandLine::Args> &Args, char cons
+    {
+       addArg('n', "names-only", "APT::Cache::NamesOnly", 0);
+       addArg('f', "full", "APT::Cache::ShowFull", 0);
++      addArg(0, "order-by", "APT::Cache::OrderBy", 1);
+    }
+    else if (CmdMatches("show"))
+    {
+diff --git a/apt-private/private-output.cc b/apt-private/private-output.cc
+index b8e6dec..cde8cb7 100644
+--- a/apt-private/private-output.cc
++++ b/apt-private/private-output.cc
+@@ -188,7 +188,7 @@ static std::string GetArchitecture(pkgCacheFile &CacheFile, pkgCache::PkgIterato
+       return P.CurrentVer().Arch();
+ }
+ 									/*}}}*/
+-static std::string GetShortDescription(pkgCacheFile &CacheFile, pkgRecords &records, pkgCache::PkgIterator P)/*{{{*/
++std::string GetShortDescription(pkgCacheFile &CacheFile, pkgRecords &records, pkgCache::PkgIterator P)/*{{{*/
+ {
+    pkgPolicy *policy = CacheFile.GetPolicy();
+ 
+diff --git a/apt-private/private-output.h b/apt-private/private-output.h
+index 4930fd9..0870143 100644
+--- a/apt-private/private-output.h
++++ b/apt-private/private-output.h
+@@ -25,6 +25,7 @@ APT_PUBLIC extern unsigned int ScreenWidth;
+ 
+ APT_PUBLIC bool InitOutput(std::basic_streambuf<char> * const out = std::cout.rdbuf());
+ 
++std::string GetShortDescription(pkgCacheFile &CacheFile, pkgRecords &records, pkgCache::PkgIterator P);
+ void ListSingleVersion(pkgCacheFile &CacheFile, pkgRecords &records,
+                        pkgCache::VerIterator const &V, std::ostream &out,
+                        std::string const &format);
+diff --git a/apt-private/private-package-info.cc b/apt-private/private-package-info.cc
+new file mode 100644
+index 0000000..66600e4
+--- /dev/null
++++ b/apt-private/private-package-info.cc
+@@ -0,0 +1,130 @@
++// Includes                      /*{{{*/
++#include <config.h>
++
++#include <apt-pkg/configuration.h>
++#include <apt-pkg/strutl.h>
++#include <apt-pkg/error.h>
++#include <apt-pkg/cachefile.h>
++#include <apt-pkg/pkgrecords.h>
++#include <apt-pkg/policy.h>
++#include <apt-pkg/depcache.h>
++#include <apt-pkg/pkgcache.h>
++#include <apt-pkg/cacheiterators.h>
++
++#include <apt-private/private-output.h>
++#include <apt-private/private-cachefile.h>
++#include <apt-private/private-package-info.h>
++
++#include <regex.h>
++#include <stdio.h>
++#include <stdlib.h>
++#include <string.h>
++#include <iomanip>
++#include <iostream>
++#include <sstream>
++#include <langinfo.h>
++#include <cctype>
++#include <algorithm>
++#include <unistd.h>
++#include <signal.h>
++#include <sys/ioctl.h>
++#include <sstream>
++
++#include <apti18n.h>
++                  /*}}}*/
++
++
++using namespace std;
++
++PackageInfo::PackageInfo(pkgCacheFile &CacheFile, pkgRecords &records,
++                       pkgCache::VerIterator const &V, std::string formated_output)
++{
++   _formated_output = formated_output;
++
++   if(V)
++   {
++      pkgCache::PkgIterator const P = V.ParentPkg();
++      _name = P.Name();
++      _version = DeNull(V.VerStr());
++      _description = GetShortDescription(CacheFile, records, P);
++      _status = GetPackageStatus(CacheFile, V);
++   }
++
++}
++
++// PackageInfo::GetPackageStatus - Populate the package status       /*{{{*/
++// ---------------------------------------------------------------------
++/* Returns the actual status of a package */
++PackageInfo::PackageStatus 
++PackageInfo::GetPackageStatus(pkgCacheFile &CacheFile,   
++                       pkgCache::VerIterator const &V)
++{
++   pkgCache::PkgIterator const P = V.ParentPkg();
++   pkgDepCache * const DepCache = CacheFile.GetDepCache();
++   pkgDepCache::StateCache const &state = (*DepCache)[P];
++
++   PackageStatus Status = UNINSTALLED;
++   if (P->CurrentVer != 0)
++   {
++      if (P.CurrentVer() == V)
++      {
++         if (state.Upgradable() && state.CandidateVer != NULL)
++            Status = INSTALLED_UPGRADABLE;
++         else if (V.Downloadable() == false)
++            Status = INSTALLED_LOCAL;
++         else if(V.Automatic() == true && state.Garbage == true)
++            Status = INSTALLED_AUTO_REMOVABLE;
++         else if ((state.Flags & pkgCache::Flag::Auto) == pkgCache::Flag::Auto)
++            Status = INSTALLED_AUTOMATIC;
++         else
++            Status = INSTALLED;
++      }
++      else if (state.CandidateVer == V && state.Upgradable())
++      Status = UPGRADABLE;
++   }
++   else if (V.ParentPkg()->CurrentState == pkgCache::State::ConfigFiles)
++      Status = RESIDUAL_CONFIG;
++
++    return Status;
++}
++                  /*}}}*/
++
++
++PackageInfo::SortBy 
++hashit (string inString)
++{
++   std::transform(inString.begin(), inString.end(), inString.begin(), ::tolower);
++   if (inString == "alphabetic") return PackageInfo::ALPHABETIC;
++   else if (inString == "reverse") return PackageInfo::REVERSEALPHABETIC;
++   else if (inString == "reverse alphabetic") return PackageInfo::REVERSEALPHABETIC;
++   else if (inString == "version") return PackageInfo::VERSION;
++   else if (inString == "status") return PackageInfo::STATUS;
++   return PackageInfo::ALPHABETIC;
++}
++
++bool OrderByStatus (const PackageInfo &a, const PackageInfo &b)
++{
++   if(a.status() == b.status())
++      return a.name() < b.name();
++   else
++      return a.status() < b.status();
++}
++
++bool OrderByAlphabetic (const PackageInfo &a, const PackageInfo &b)
++{
++   return a.name() < b.name();
++}
++
++bool OrderByReverseAlphabetic (const PackageInfo &a, const PackageInfo &b)
++{
++        return a.name() > b.name();
++}
++
++
++bool OrderByVersion (const PackageInfo &a, const PackageInfo &b)
++{
++   if(a.version() == b.version())
++      return a.name() < b.name();
++   else
++      return a.version() > b.version();
++}
+diff --git a/apt-private/private-package-info.h b/apt-private/private-package-info.h
+new file mode 100644
+index 0000000..8c60d13
+--- /dev/null
++++ b/apt-private/private-package-info.h
+@@ -0,0 +1,56 @@
++#ifndef APT_PRIVATE_PACKAGE_INFO_H
++#define APT_PRIVATE_PACKAGE_INFO_H
++
++class PackageInfo
++{
++public:
++
++    typedef enum{
++        UNINSTALLED,
++        INSTALLED_UPGRADABLE,
++        INSTALLED_LOCAL,
++        INSTALLED_AUTO_REMOVABLE,
++        INSTALLED_AUTOMATIC,
++        INSTALLED,
++        UPGRADABLE,
++        RESIDUAL_CONFIG
++    } PackageStatus;
++
++    typedef enum{
++        ALPHABETIC,
++        REVERSEALPHABETIC,
++        STATUS,
++        VERSION
++    } SortBy;
++
++    PackageInfo(pkgCacheFile &CacheFile, pkgRecords &records,
++                       pkgCache::VerIterator const &V, std::string formated_output="");
++
++    std::string format() const {return _format;}
++    std::string name() const {return _name;}
++    std::string version() const {return _version;}
++    PackageStatus status() const {return _status;}
++    std::string formated_output() const {return _formated_output;}
++
++    void set_formated_output(const std::string& formated_output){_formated_output = formated_output;}
++    void set_format(const std::string& format){_format = format;}
++
++private:
++    std::string  _name, 
++            _formated_output, 
++            _description, 
++            _version, 
++            _format = "${db::Status-Abbrev} ${Package} ${Version} ${Origin} ${Description}";
++    PackageStatus _status;        
++
++    PackageStatus GetPackageStatus(pkgCacheFile &CacheFile, pkgCache::VerIterator const &V);
++};
++
++PackageInfo::SortBy hashit (std::string inString);
++//Sort kinds
++bool OrderByStatus (const PackageInfo &a, const PackageInfo &b);
++bool OrderByVersion (const PackageInfo &a, const PackageInfo &b);
++bool OrderByAlphabetic (const PackageInfo &a, const PackageInfo &b);
++bool OrderByReverseAlphabetic (const PackageInfo &a, const PackageInfo &b);
++
++#endif
+diff --git a/apt-private/private-search.cc b/apt-private/private-search.cc
+index 6bce9ff..199a03b 100644
+--- a/apt-private/private-search.cc
++++ b/apt-private/private-search.cc
+@@ -16,11 +16,12 @@
+ #include <apt-private/private-cacheset.h>
+ #include <apt-private/private-output.h>
+ #include <apt-private/private-search.h>
++#include <apt-private/private-package-info.h>
+ 
+ #include <string.h>
+ #include <iostream>
+ #include <sstream>
+-#include <map>
++#include <vector>
+ #include <string>
+ #include <utility>
+ 
+@@ -58,7 +59,7 @@ bool FullTextSearch(CommandLine &CmdL)					/*{{{*/
+ 
+    bool const NamesOnly = _config->FindB("APT::Cache::NamesOnly", false);
+ 
+-   std::map<std::string, std::string> output_map;
++   std::vector<PackageInfo> outputVector;
+ 
+    LocalitySortedVersionSet bag;
+    OpTextProgress progress(*_config);
+@@ -111,18 +112,32 @@ bool FullTextSearch(CommandLine &CmdL)					/*{{{*/
+ 	 PkgsDone[P->ID] = true;
+ 	 std::stringstream outs;
+ 	 ListSingleVersion(CacheFile, records, V, outs, format);
+-	 output_map.insert(std::make_pair<std::string, std::string>(
+-		  PkgName, outs.str()));
++	 PackageInfo pkg(CacheFile, records, V, outs.str());
++	 outputVector.push_back(pkg);
+       }
+    }
++   switch(hashit(_config->Find("APT::Cache::OrderBy","Alphabetic")))
++   {
++      case PackageInfo::REVERSEALPHABETIC:
++         std::sort(outputVector.begin(), outputVector.end(), OrderByReverseAlphabetic);
++         break;
++      case PackageInfo::STATUS:
++         std::sort(outputVector.begin(), outputVector.end(), OrderByStatus);
++         break;
++      case PackageInfo::VERSION:
++         std::sort(outputVector.begin(), outputVector.end(), OrderByVersion);
++         break;
++      default:
++         std::sort(outputVector.begin(), outputVector.end(), OrderByAlphabetic);
++         break;
++   }
+    APT_FREE_PATTERNS();
+    progress.Done();
+ 
+-   // FIXME: SORT! and make sorting flexible (alphabetic, by pkg status)
+-   // output the sorted map
+-   std::map<std::string, std::string>::const_iterator K;
+-   for (K = output_map.begin(); K != output_map.end(); ++K)
+-      std::cout << (*K).second << std::endl;
++   // output the sorted vector
++   for(auto k:outputVector)
++      std::cout << k.formated_output() << std::endl;
++
+ 
+    return true;
+ }
+diff --git a/test/integration/test-apt-cli-search b/test/integration/test-apt-cli-search
+index e86661d..dc58175 100755
+--- a/test/integration/test-apt-cli-search
++++ b/test/integration/test-apt-cli-search
+@@ -15,11 +15,15 @@ fi
+ 
+ DESCR='Some description that has a unusual word xxyyzz and aabbcc and a UPPERCASE'
+ DESCR2='Some other description with the unusual aabbcc only'
++DESCR3='Some package description'
++DESCR4='an autogenerated dummy baz=0.1/installed'
+ insertpackage 'unstable' 'foo' 'all' '1.0' '' '' "$DESCR
+  Long description of stuff and such, with lines
+  .
+  and paragraphs and everything."
+ insertpackage 'testing' 'bar' 'i386' '2.0' '' '' "$DESCR2"
++insertpackage 'stable' 'package' 'all' '1.5' '' '' "$DESCR3"
++insertinstalledpackage 'baz' 'all' '0.1'
+ 
+ setupaptarchive
+ 
+@@ -83,3 +87,61 @@ testsuccessequal "bar/testing 2.0 i386
+ foo/unstable 1.0 all
+   $DESCR
+ " apt search -qq aabbcc
++
++# output is sorted in alphabetic reverse order
++testsuccessequal "package/stable 1.5 all
++  $DESCR3
++
++foo/unstable 1.0 all
++  $DESCR
++
++baz/now 0.1 all [installed,local]
++  $DESCR4
++
++bar/testing 2.0 i386
++  $DESCR2
++" apt search --order-by reverse -qq "\\w"
++
++# output is sorted by version
++testsuccessequal "bar/testing 2.0 i386
++  $DESCR2
++
++package/stable 1.5 all
++  $DESCR3
++
++foo/unstable 1.0 all
++  $DESCR
++
++baz/now 0.1 all [installed,local]
++  $DESCR4
++" apt search --order-by version -qq "\\w"
++
++# output is sorted by status
++testsuccessequal "bar/testing 2.0 i386
++  $DESCR2
++
++foo/unstable 1.0 all
++  $DESCR
++
++package/stable 1.5 all
++  $DESCR3
++
++baz/now 0.1 all [installed,local]
++  $DESCR4
++" apt search --order-by status -qq "\\w"
++
++# output is sorted by default
++testsuccessequal "bar/testing 2.0 i386
++  $DESCR2
++
++baz/now 0.1 all [installed,local]
++  $DESCR4
++" apt search --order-by some_strange_pattner -qq ba
++
++# output is sorted by Alphabetic (non case sense)
++testsuccessequal "bar/testing 2.0 i386
++  $DESCR2
++
++baz/now 0.1 all [installed,local]
++  $DESCR4
++" apt search --order-by Alphabetic -qq ba
+\ No newline at end of file
