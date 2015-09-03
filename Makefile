@@ -30,7 +30,7 @@ AUX_FILE  = $(addsuffix .aux, $(basename $(MAIN_FILE)))
 PS_FILE   = $(addsuffix .ps, $(basename $(MAIN_FILE)))
 PDF_FILE  = $(addsuffix .pdf, $(basename $(MAIN_FILE)))
 
-SOURCES = $(FIXOS_FILES) $(EDITAVEIS_FILES)
+SOURCES = $(FIXOS_FILES) $(EDITAVEIS_FILES) $(wildcard editaveis/conteudo/*.tex)
 
 NPROCS := 1
 OS := $(shell uname)
@@ -56,6 +56,7 @@ all:
 	pdfinfo $(TARGET)
      
 $(TARGET): $(MAIN_FILE) $(SOURCES) bibliografia.bib
+	$(MAKE) clean
 	$(LATEX) $(MAIN_FILE)
 	$(BIBTEX) $(AUX_FILE) -ters
 	#makeglossaries $(basename $(MAIN_FILE))

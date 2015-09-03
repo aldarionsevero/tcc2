@@ -30,6 +30,7 @@
     morecomment=[f][\color{diffrem}]{-\ },
   }
 
+
 %Definições para código com fundo listrado
 \newcommand\realnumberstyle[1]{#1}
 \makeatletter
@@ -42,17 +43,30 @@
     \else
         \color{#2}%
     \fi
-        \rlap{\hspace*{\lst@numbersep}%
-        \color@block{\linewidth}{\ht\strutbox}{\dp\strutbox}%
+        \rlap{
+        \color@block{0.94\textwidth}{\ht\strutbox}{\dp\strutbox}%
+        \hspace*{\lst@numbersep}%
         }%
     \endgroup
 }
 \makeatother
+\renewcommand\lstlistingname{Código}
+
+\DeclareCaptionFormat{listing}{\vskip1pt\rule{\dimexpr\textwidth\relax}{0.4pt}\par\vskip1pt{\centering#1#2$-$ #3}}
+\captionsetup[lstlisting]{format=listing,singlelinecheck=false, margin=0pt, font={sf},labelsep=space,labelfont=bf}
+
+\DeclareMathVersion{sans}
+\SetSymbolFont{operators}{sans}{OT1}{cmbr}{m}{n}
+\SetSymbolFont{letters}  {sans}{OML}{cmbrm}{m}{it}
+\SetSymbolFont{symbols}  {sans}{OMS}{cmbrs}{m}{n}
+
+\lstnewenvironment{sflisting}[1][]
+  {\lstset{#1}\mathversion{sans}}{}
 
 \lstset{%
-language=C++,						%linguagem
-numbers=left,						%posição dos números
-stepnumber=1,						%frequencia de aparição dos números
+language=C++,           %linguagem
+numbers=left,           %posição dos números
+stepnumber=1,           %frequencia de aparição dos números
 numbersep=5pt,
 numberstyle=\zebra{gray!15}{white!35},
 basewidth={0.6em,0.45em},
@@ -80,3 +94,41 @@ breaklines=true,
 showstringspaces=false,
 stringstyle=\color{cyan},
 basicstyle=\small\ttfamily}
+
+\lstset{%
+language=Python,           %linguagem
+numbers=left,           %posição dos números
+stepnumber=1,           %frequencia de aparição dos números
+numbersep=5pt,
+numberstyle=\zebra{gray!15}{white!35},
+basewidth={0.6em,0.45em},
+fontadjust=true,
+mathescape=true,
+tabsize=4,
+commentstyle=\color{blue},
+literate={á}{{\'a}}1 {à}{{\`a}}1 {ã}{{\~a}}1 {é}{{\'e}}1 {É}{{\'E}}1 {ê}{{\^e}}1 {õ}{{\~o}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1 {ç}{{\c c}}1 {Ω}{{$\Omega$}}1,
+breaklines=true,
+showstringspaces=false,
+% inputencoding=latin1,
+stringstyle=\color{cyan},
+xleftmargin=\leftmargini,
+columns=flexible,
+basicstyle=\footnotesize\ttfamily}
+
+%% Tabelas
+%------------------------------
+
+% \DeclareCaptionSubType*[fnsymbol]{table}
+% \captionsetup{singlelinecheck=off,labelfont=bf,labelsep=space}
+\newcommand{\code}{\small\ttfamily}
+\renewcommand{\appendixautorefname}{Apêndice} % correção do bug do abntex2
+\renewcommand{\tableautorefname}{Tabela} % correção do bug do abntex2
+\newlistof{lstlistoflistings}{lol}{\lstlistlistingname}
+%% Nameref
+%-------------------------------
+
+\newcommand{\lnameref}[1]{%
+\bgroup
+\let\nmu\MakeLowercase
+\nameref{#1}\egroup}
+\newcommand{\nmu}{}
