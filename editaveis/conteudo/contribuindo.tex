@@ -1,10 +1,10 @@
 \section{Contribuindo com plataformas abertas} % (fold)
 \label{sec:contribuindo_com_plataformas_abertas}
 
-Um dos intuitos deste trabalho baseia-se em contruibuir com uma aplicação \textit{open-souce} disponível na plataforma \href{GitHub.com}{GitHub}. A seguinte sessão se destina em apresentar a forma como tais contribuições podem ser realizadas. Devido ao repositório do APT esta armazenado no GitHub, a sessão pode se tornar tendenciosa, porém o conceito de \textit{pull-request} ou  \textit{merge-request} requeste é amplamente utilizado em outras plataformas de contribuição, como \href{https://bitbucket.org/}{Bitbucket}, \href{https://gitlab.com/}{GitLab} ou ate mesmo \href{http://sourceforge.net/}{SourceGorge}
+Um dos intuitos deste trabalho baseia-se em contribuir com uma aplicação \textit{open-souce} disponível na plataforma \href{GitHub.com}{GitHub}. A seguinte sessão se destina em apresentar a forma como tais contribuições podem ser realizadas. Devido ao repositório do APT esta armazenado no GitHub, a sessão pode se tornar tendenciosa, porém o conceito de \textit{pull-request} ou  \textit{merge-request} requeste é amplamente utilizado em outras plataformas de contribuição, como \href{https://bitbucket.org/}{Bitbucket}, \href{https://gitlab.com/}{GitLab} ou ate mesmo \href{http://sourceforge.net/}{SourceGorge}
 
 
-\subsection{Mantendo uma copia sua} % (fold)
+\subsection*{Mantendo uma copia} % (fold)
 \label{sub:mantendo_uma_copia_sua}
 
 
@@ -23,5 +23,26 @@ Normalmente não temos autorização pra alterar as informações de outra pesso
 	\item [\textit{Adicionando \textit{remote}}]: Quando desejamos realizar uma copia do repositório em uma plataforma distinta da original, a forma mais simples de proceder é clonando o repositório e incluindo nele um novo \textit{remote} para a nova plataforma. Assim conseguimos trabalhar com a mesma arvore de \textit{commits} do repositório original, mantendo os créditos e alterações originais.
 \end{description}
 % subsection mantendo_uma_copia_sua (end)
+
+\subsection*{Evoluindo o código} % (fold)
+\label{sub:evoluindo_o_c_digo}
+
+Nesto ponto de contribuição, o contribuinte desenvolve o código semelhante ao processo de produção de código pessoal. O código já esta em um repositório pessoal e o usuário já possui todos os direitos administrativos do repositório. Obviamente que caso a contribuição esteja sendo feita à uma aplicação grande e com muitos contribuidores, é importante se manter sincronizado com o código original, para evitar que o retorno da contribuição não seja tão trabalhoso para o revisor, além de evitar situações de confitos.
+% subsection evoluindo_o_c_digo (end)
+
+\subsection*{Retornando sua contribuição} % (fold)
+\label{sub:retornando_sua_contribui_o}
+
+Quando se decidido que a contribuição já esta a um ponto aceitável para encaminha-la de volta para o código original, é o momento de se realizar o \textit{pull-request}\footnote{Ou \textit{merge-request} dependendo do ambiente de desenvolvimento em que esteja-se contribuindo.}. Uma contribuição é interessante quando possui as seguintes características:
+
+
+\begin{itemize}
+	\item Evolução de código mantendo os padrões de guia de estilo definido pelo desenvolvedor original/linguagem.
+	\item Testes para a evolução de código proposto.
+	\item Documentação da feature implementada ou atualização da documentação como reflexão das modificações sugeridas.
+\end{itemize}
+% subsection retornando_sua_contribui_o (end)
+
+Realizada a contribuição, é dever do mantenedor do repositório original revisar o código e decidir se deve ou não aceita-lo.
 
 % section contribuindo_com_plataformas_abertas (end)
