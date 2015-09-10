@@ -46,3 +46,36 @@ Quando se decidido que a contribuição já esta a um ponto aceitável para enca
 Realizada a contribuição, é dever do mantenedor do repositório original revisar o código e decidir se deve ou não aceita-lo.
 
 % section contribuindo_com_plataformas_abertas (end)
+
+
+\section{Primeira contribuição} % (fold)
+\label{sec:primeira_contribui_o}
+
+A primeira contribuição tinha como objetivos a ambientalização com o ambiente e o time oficial de desenvolvimento. Como tarefa, foi definido a implementação minima de uma estrutura que permita um contexto de ordenação que possa ser definido pelo usuário. O intuito era oferecer as seguintes opções de ordenação na primeira contribuição:
+
+\begin{description}
+	\item [\textit{Alphabetic}] Ordenação padrão em ordem alfabética. Os pacotes são ordenados de acordo com seu nome.
+	\item [\textit{Reverse Alphabetic}] Semelhante a ordenação alfabética, porém em ordem decrescente, ou seja, palavras que começam com {\code Z} são apresentadas antes das iniciadas com {\code A}.
+	\item [\textit{Status}] Ordena os pacotes de acordo com as seguintes características:
+	\begin{enumerate}
+		\item Desinstalado,
+		\item Instalado e com possível atualização,
+		\item Instalado via pacote local,
+		\item Instalado e descartável (auto removível),
+		\item Instalado automaticamente,
+		\item Instalado,
+		\item Atualizável,
+		\item om configuração residual
+	\end{enumerate}
+	\item [\textit{Version}] Ordena a saída de acordo com a versão da aplicação.
+\end{description}
+
+\subsection*{Alteração da estrutuda de dados} % (fold)
+\label{sub:altera_o_da_estrutuda_de_dados}
+
+Originalmente, os dados eram armazenados em um {\code map}, visto que essa estrutura não permite a duplicação de chaves e possui uma ordenação alfabética automática. Todavia, alterar o algoritmo de ordenação de um {\code map} ocorrem em seu tempo de declaração. Esta condição inviabiliza a possibilidade de alterar a ordenação através de uma \textit{flag} como parâmetro de execução. Visto essa condição, a estrutura foi atualizada para a estrutura de dados {\code vector}.
+
+A inserção de candidatos na saída do APT ocorre de acordo com os repositórios inseridos no {\code source.list} da distribuição. Isso implica que apenas adicionar candidatos no vetor implicaria em uma ordenação com baixa precisão, visto que a sequência de repositórios variaria de usuário para usuário. Assim, a simples troca de estrutura de dados de {\code map} para {\code vector} implica na necessidade de implementar o método de ordenação alfabética, antes nativamente implementado pela estrutura {\code map}.
+% subsection altera_o_da_estrutuda_de_dados (end)
+
+% section primeira_contribui_o (end)
