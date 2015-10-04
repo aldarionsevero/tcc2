@@ -153,3 +153,18 @@ baz/now 0.1 all [installed,local]
 \end{lstlisting}
 
 % section primeira_contribui_o (end)
+
+
+\section{Segunda contribuição} % (fold)
+\label{sec:segunda_contribui_o}
+
+O suporte a expressões regulares amplia como a busca por pacotes pode ser efetuada, possibilitando uma maior gama de ferramentas para desenvolvedores experientes. Todavia, deixar essa opção como padrão acarretam em alguns pontos negativos que são desempenhados todas as vezes que a aplicação é executada:
+
+\begin{description}
+	\item [Alto consumo de memoria:] Buscas com expressões regulares consomem cerca de $O(2^n)$ para uma expressão de tamanho $n$, ou $O(n^2)$ para melhores casos, com hardware dedicado\cite{sidhu2001fast}.
+	\item [Baixo desempenho:] Buscas com expressões regulares tem custo de desempenho $O(n)$, sendo $n$ o tamanho da palavra a ser analisada.
+\end{description}
+
+
+
+% section segunda_contribui_o (end)
