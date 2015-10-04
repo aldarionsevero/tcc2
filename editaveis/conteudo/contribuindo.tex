@@ -136,7 +136,7 @@ testsuccessequal "foo/unstable 1.0 all
 
 Como estamos fazendo ordenação de pacotes, é importante que se possa realizar uma busca por uma grande quantidade de pacotes. Uma das possibilidades que o APT possui hoje é a de se realizar buscas utilizando de expressões regulares. Unindo esta duas características, podemos montar uma lista maior de pacotes e realizar uma busca por um termo genérico, a fim de obter como resultado toda a lista de pacotes. O exemplo o código \ref{buscacomregex} demostra este resultado, onde a busca é feita utilizando a \textit{regex} {\code \textbackslash w}, a fim de selecionar todos os pacotes que possuam ao menos um caractere no nome.
 
-\begin{lstlisting}[language=Bash,label=buscacomregex,caption={Teste por busca pelo pacote \textit{foo}}]
+\begin{lstlisting}[language=Bash,label=buscacomregex,caption={Busca com uso de expressão regular}]
 # output is sorted by status
 testsuccessequal "bar/testing 2.0 i386
   $DESCR2
@@ -161,9 +161,13 @@ baz/now 0.1 all [installed,local]
 O suporte a expressões regulares amplia como a busca por pacotes pode ser efetuada, possibilitando uma maior gama de ferramentas para desenvolvedores experientes. Todavia, deixar essa opção como padrão acarretam em alguns pontos negativos que são desempenhados todas as vezes que a aplicação é executada:
 
 \begin{description}
-	\item [Alto consumo de memoria:] Buscas com expressões regulares consomem cerca de $O(2^n)$ para uma expressão de tamanho $n$, ou $O(n^2)$ para melhores casos, com hardware dedicado\cite{sidhu2001fast}.
-	\item [Baixo desempenho:] Buscas com expressões regulares tem custo de desempenho $O(n)$, sendo $n$ o tamanho da palavra a ser analisada.
+	\item [Alto consumo de memoria:] Buscas com expressões regulares consomem cerca de $\Theta(2^n)$ para uma expressão de tamanho $n$, ou $\Theta(n^2)$ para melhores casos, com hardware dedicado\cite{sidhu2001fast}.
+	\item [Baixo desempenho:] Buscas com expressões regulares tem custo de desempenho $\Theta(n)$, sendo $n$ o tamanho da palavra a ser analisada.
 \end{description}
+
+Mesmo a busca com expressões regulares oferecendo um grande poder de busca, questiona-se se o custo que ela requer é interessante. Lembrando que este trabalho visa ampliar a comodidade daqueles novos usuário ao mundo Linux, as funções de expressões regulares normalmente não são de conhecimento do usuário leigo. Considerando que este usuário leigo não irá fazer comumente das funções {\code less}, {\code more} ou {\code grep} para auxiliar com buscas, será de menor representatividade então o uso de expressões regulares.
+
+Ora, se há a possibilidade de ganhar desempenho e gasto de memoria mesmo ainda com busca exatas, há de se propor algoritmos para nos auxiliar com essas buscas.
 
 
 
