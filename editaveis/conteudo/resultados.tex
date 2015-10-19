@@ -11,9 +11,15 @@ Para o funcionamento do \textit{script}, as variáveis {\code MAX} e {\code \_MA
 
 No intuito de coletar o tempo pontual do algoritmo, o \autoref{libtime} foi desenvolvido a fim de ser usado como cronometro. O algoritmo desenvolvido com o auxilio da biblioteca {\code Chrono}\footnote{A biblioteca é disponibilizada no {\code C++11} sob o \textit{namespace} {\code std::crono::}.} permite a captura do intervalo de tempo com ate $9$ casas decimais de segundos (nanosegundos), todavia foi utilizado a precisão de microssegundos apenas, visto que o intervalo de nanosegundos não iria gerar alto impacto na diferença dos valores. Os métodos {\code begin} e {\code end} da classe são utilizados para pontuar os intervalos onde o tempo deve ser contado. O resultado da contagem pode ser obtido com o retorno do método {\code end} ou com a chamada do {\code currenttime}, dedicado apenas para o retorno deste valor.
 
-\section{Memoria}
+\section{Memória}
 
-Para a coleta de memoria, foi utilizado o {\code valgrind} com o auxilio da ferramenta {\code massif}. Devido a haver uma criação de \textit{hash} de forma  algebrica e o método de \textit{KMP} faz uso de um autômato finito deterministico, a previa repetição das buscas com apenas $10$ ciclos já apontavam não haver a variação do gasto de memoria.
+Para a coleta de memória, foi utilizado o {\code Valgrind} com o auxilio da ferramenta {\code Massif}. Devido a haver uma criação de \textit{hash} de forma  algébrica e o método de \textit{KMP} faz uso de um autômato finito determinístico, a previa repetição das buscas com apenas $10$ ciclos confirmavam a suspeita de não haver a variação do gasto de memória para a repetição da ação.
+
+Para a execução da aplicação com o suporte do {\code Valgrind} para analise do uso de memória, foi utilizado o seguinte comando:
+
+\begin{lstlisting}[language=Bash,label=valgrind_call, numbers=none]
+   $ valgrind --tool=massif  ./apt search pacote [--regex]
+\end{lstlisting}
 % section tempo (end)
 % chapter coleta_de_dados (end)
 
@@ -32,7 +38,7 @@ Para a busca com algorítimos de \textit{string matching} exatos, foram consider
 	\item[Rabin-Karpin:]  Método que faz de uso de \textit{hash}. Foi previamente comentado na sessão \nameref{ssub:rabin_karp}.
 \end{description}
 
-Após a coleta de $150$ chamadas de cada pacote usando os algoritimos apontados acima, a \autoref{ssub:rabin_karp} foi criada contendo a médiana dos tempos de execução de cada método para os pacotes selecionados.
+Após a coleta de $150$ chamadas de cada pacote usando os algorítimos apontados acima, a \autoref{ssub:rabin_karp} foi criada contendo a mediana dos tempos de execução de cada método para os pacotes selecionados.
 
 \begin{figure}[htbp]
   \centering
@@ -43,4 +49,24 @@ Após a coleta de $150$ chamadas de cada pacote usando os algoritimos apontados 
 
 Como podemos observar, tanto o \textit{Rabin-Karpin} quanto o \textit{KMP} tiveram um rendimento de cerca de $\frac{1}{3}$ do tempo gasto atualmente com o uso de expressões regulares, sendo no tempo geral, o método de \textit{Rabin-Karpin} possui um desempenho ligeiramente melhor.
 
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.95\textwidth]{figuras/memory_rk.png}
+  \caption{Apontamento de uso de memória com uso do método de \textit{Rabin-Karpin}}
+  \label{memory_rk}
+\end{figure}
+
+O consumo total de memória para ambos os métodos, \textit{Rabin-Karpin} na \autoref{memory_rk} e expressões regulares na \autoref{memory_std},  apresentaram resultados similares, porém o método de \textit{Rabin-Karpin} faz um uso de memória mais pontual, alcançando o pico de consumo ao final do processo, quando esta prestes a liberar os recursos. Já o método de expressões regulares apresenta um consumo mais linear de memória. 
+
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.95\textwidth]{figuras/memory_regex.png}
+  \caption{Apontamento de uso de memória com uso de expressões regulares}
+  \label{memory_std}
+\end{figure}
+
+Um gasto mais prologado de memória vem a ser prejudicial para sistemas em que diversos processos possam estar sendo executados em conjunto, todavia o grau de consumo é muito baixo para o posicionamento de que o consumo por um período mais extenso venha a ser prejudicial, visto que para um sistema com $2Gb$ de memória RAM, $15Mb$ seria um valor irrisório de menos de $1\%$ do total de recurso disponível.
 % chapter analise_de_resultados (end)
+
