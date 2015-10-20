@@ -13,7 +13,9 @@ global b
 data = {}
 type_algorithm = {'kmp': [u'KMP', 1],
                   'rk': [u'Rabin-Karp', 0],
-                  'ori': [u'Original', 2]
+                  'ori': [u'Original', 2],
+                  'levenshtein': [u'Levenshtein', 3],
+                  'dice_coefficient': [u'Dice Coefficient', 4],
                   }
 
 commands = sys.argv[1:]
@@ -25,7 +27,8 @@ if len(commands) == 0:
                 'qtdeclarative', 'qwerty'
                 ]
 for cmds in commands:
-    data[cmds] = [[u'Rabin-Karp'], [u'KMP'], [u'Original']]
+    data[cmds] = [[u'Rabin-Karp'], [u'KMP'],
+                  [u'Original'], [u'Levenshtein'], [u'Dice']]
 
 
 def run(search):
@@ -49,7 +52,11 @@ def process(file='firefox_test_apt-search-ori.txt'):
 
 if __name__ == '__main__':
     branchs = ['test/apt-search-kmp',
-               'test/apt-search-rk', 'test/apt-search-ori']
+               'test/apt-search-rk',
+               'test/apt-search-ori',
+               ' test/apt-search-levenshtein',
+               'test/apt-search-dice_coefficient',
+               ]
     for branch in branchs:
         subprocess.call('git checkout ' + branch, shell=True)
         subprocess.call("make clean && make", shell=True)
