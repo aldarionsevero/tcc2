@@ -180,4 +180,17 @@ def calculate_distance(lenstr1,lenstr2,d):
 
 A distinção do método de \textit{Damerau-Levenshtein} para o modelo tradicional é apenas a inserção das linhas \textbf{13} e \textbf{14} do \autoref{damerau_levenshtein_distance_py}, que realiza a transposição dos caracteres, quando for o caso, ao custo de uma única operação.
 
+\subsubsection*{Sørensen–Dice coefficient} % (fold)
+\label{ssub:s_rensen_dice_coefficient}
+
+Também conhecido como \textit{indice de Sørensen} ou \textit{Coeficiente de Dice}, o algoritmo que faz de uso de análise estatistica foi independentemente desenvolvido por \citeonline{sorensen1948method} e \citeonline{dice1945measures} para analise  de estudos amostras. O modelo propõe o uso de \textit{bigrams}, um subgrupo de \textit{n-grams}\cite{cavnar1994n}, para calcular a proximidade entre duas \textit{strings} contando as intersecções entre elas.
+
+Matematicamente, o comparativo é realizado com a intersecção de conjuntos:
+
+\begin{equation}
+  s = \frac{2\mid X\cap Y\mid}{\mid X\mid+\mid Y\mid}
+\end{equation}
+
+% subsubsection s_rensen_dice_coefficient (end)
+
 % subsection algoritimos_inexatos (end)

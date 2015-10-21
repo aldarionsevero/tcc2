@@ -54,7 +54,7 @@ if __name__ == '__main__':
     branchs = ['test/apt-search-kmp',
                'test/apt-search-rk',
                'test/apt-search-ori',
-               ' test/apt-search-levenshtein',
+               'test/apt-search-levenshtein',
                'test/apt-search-dice_coefficient',
                ]
     for branch in branchs:
