@@ -180,16 +180,35 @@ def calculate_distance(lenstr1,lenstr2,d):
 
 A distinção do método de \textit{Damerau-Levenshtein} para o modelo tradicional é apenas a inserção das linhas \textbf{13} e \textbf{14} do \autoref{damerau_levenshtein_distance_py}, que realiza a transposição dos caracteres, quando for o caso, ao custo de uma única operação.
 
-\subsubsection*{Sørensen–Dice coefficient} % (fold)
+\subsubsection*{Coeficiente de Sørensen–Dice} % (fold)
 \label{ssub:s_rensen_dice_coefficient}
 
-Também conhecido como \textit{indice de Sørensen} ou \textit{Coeficiente de Dice}, o algoritmo que faz de uso de análise estatistica foi independentemente desenvolvido por \citeonline{sorensen1948method} e \citeonline{dice1945measures} para analise  de estudos amostras. O modelo propõe o uso de \textit{bigrams}, um subgrupo de \textit{n-grams}\cite{cavnar1994n}, para calcular a proximidade entre duas \textit{strings} contando as intersecções entre elas.
+Também conhecido como \textit{índice de Sørensen} ou \textit{coeficiente de Dice}, o algoritmo que faz de uso de análise estatística foi independentemente desenvolvido por \citeonline{dice1945measures} e \citeonline{sorensen1948method} para analise  de estudos amostras. O modelo propõe o uso de \textit{bigrams}, um subgrupo de \textit{n-grams}\cite{cavnar1994n}, para calcular a proximidade entre duas \textit{strings} contando as intersecções entre elas. Com o valor das intersecções entre as \textit{strings}, o coeficiente é calculado de acordo com a \autoref{dice_equation}.
 
-Matematicamente, o comparativo é realizado com a intersecção de conjuntos:
-
-\begin{equation}
+\begin{equation}\label{dice_equation}
   s = \frac{2\mid X\cap Y\mid}{\mid X\mid+\mid Y\mid}
 \end{equation}
+
+Por haver uma comparação de \textit{bigrams} nas duas \textit{strings}, a ordem com que elas aparecem não influenciam no resultado final. A \autoref{fig:dice_example} apresenta um comparativo entre as \textit{strings} {\code ALGORITHMS ARE FUN} e {\code LOGARITHMS ARE NOT}. Observe que o \textit{bigram} {\code AR} é selecionado em ambos.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.75\textwidth]{figuras/dice}
+  \caption{Representação da saída do algoritmo deSørensen–Dice\protect\footnotemark.}
+  \label{fig:dice_example}
+\end{figure}
+\footnotetext{\label{note:dice_example}\textbf{Fonte:} \href{http://www.algomation.com/algorithm/sorensen-dice-string-similarity}{http://www.algomation.com/algorithm/sorensen-dice-string-similarity}}
+
+O \autoref{dice_index} apresenta uma solução simples e não otimizada para o calculo do coeficiente de Sørensen–Dice na linguagem Python com o uso de {\code sets}. Apesar de não ser uma solução ortodoxa do algoritmo e permitir falhas como apontar que as \textit{strings} {\code AA} e {\code AAAA} seriam apontadas como idênticas, a solução é interessante para apresentar de forma objetiva o funcionamento do algoritmo.
+
+\begin{lstlisting}[language=Python,label=dice_index,caption={Simples implementação do coeficiente de Sørensen–Dice}]
+def dice_coefficient(a, b):
+    """dice coefficient 2nt/na + nb."""
+    a_bigrams = set(a)
+    b_bigrams = set(b)
+    overlap = len(a_bigrams & b_bigrams)
+    return overlap * 2.0/(len(a_bigrams) + len(b_bigrams))
+\end{lstlisting}
 
 % subsubsection s_rensen_dice_coefficient (end)
 
