@@ -183,13 +183,13 @@ A distinção do método de \textit{Damerau-Levenshtein} para o modelo tradicion
 \subsubsection*{Coeficiente de Sørensen–Dice} % (fold)
 \label{ssub:s_rensen_dice_coefficient}
 
-Também conhecido como \textit{índice de Sørensen} ou \textit{coeficiente de Dice}, o algoritmo que faz de uso de análise estatística foi independentemente desenvolvido por \citeonline{dice1945measures} e \citeonline{sorensen1948method} para analise  de estudos amostras. O modelo propõe o uso de \textit{bigrams}, um subgrupo de \textit{n-grams}\cite{cavnar1994n}, para calcular a proximidade entre duas \textit{strings} contando as intersecções entre elas. Com o valor das intersecções entre as \textit{strings}, o coeficiente é calculado de acordo com a \autoref{dice_equation}.
+Também conhecido como \textit{índice de Sørensen} ou \textit{coeficiente de Dice}, o algoritmo que faz de uso de análise estatística foi independentemente desenvolvido por \citeonline{dice1945measures} e \citeonline{sorensen1948method} para analise  de estudos amostras de especies, porém, semelhante ao acontecido com o algoritmo de Smith-Waterman\cite{smith1981identification}, o modelo apontado por \textit{Lee Dice} e \textit{Thorvald Sørensen} acabou sendo abstraído para conjuntos de caracteres e fatalmente utilizado para o apontamento de semelhanças entre \textit{strings}. O modelo propõe o uso de \textit{n-grams}\cite{cavnar1994n} para calcular a proximidade entre duas \textit{strings} contando as intersecções entre elas. Tradicionalmente é utilizado \textit{bigrams}, grupos de dois caracteres, para a execução do algoritmo, porém a restrição do tamanho dos grupo implica apenas na rigorosidade com que a semelhança entre os grupos serão analisados. Com o valor das intersecções entre as \textit{strings}, o índice de coincidência é calculado de acordo com a \autoref{dice_equation}, onde $x$ e $Y$ representam os \textit{n-grams} de cada \textit{string}.
 
 \begin{equation}\label{dice_equation}
   s = \frac{2\mid X\cap Y\mid}{\mid X\mid+\mid Y\mid}
 \end{equation}
 
-Por haver uma comparação de \textit{bigrams} nas duas \textit{strings}, a ordem com que elas aparecem não influenciam no resultado final. A \autoref{fig:dice_example} apresenta um comparativo entre as \textit{strings} {\code ALGORITHMS ARE FUN} e {\code LOGARITHMS ARE NOT}. Observe que o \textit{bigram} {\code AR} é selecionado em ambos.
+Por haver uma comparação de \textit{n-grams} nas duas \textit{strings}, a ordem com que elas aparecem não influenciam no resultado final, porém  a um custo extremamente alto, visto que este algoritmo pode vir a ter ordem de complexidade $\Theta(n)$ dependendo da sua implementação, tendo assim um desempenho semelhante ao das expressões regulares. A \autoref{fig:dice_example} apresenta um comparativo entre as \textit{strings} {\code ALGORITHMS ARE FUN} e {\code LOGARITHMS ARE NOT}. Observe que o \textit{bigram} {\code AR} é selecionado em ambos.
 
 \begin{figure}[h]
   \centering
@@ -199,7 +199,7 @@ Por haver uma comparação de \textit{bigrams} nas duas \textit{strings}, a orde
 \end{figure}
 \footnotetext{\label{note:dice_example}\textbf{Fonte:} \href{http://www.algomation.com/algorithm/sorensen-dice-string-similarity}{http://www.algomation.com/algorithm/sorensen-dice-string-similarity}}
 
-O \autoref{dice_index} apresenta uma solução simples e não otimizada para o calculo do coeficiente de Sørensen–Dice na linguagem Python com o uso de {\code sets}. Apesar de não ser uma solução ortodoxa do algoritmo e permitir falhas como apontar que as \textit{strings} {\code AA} e {\code AAAA} seriam apontadas como idênticas, a solução é interessante para apresentar de forma objetiva o funcionamento do algoritmo.
+O \autoref{dice_index} apresenta uma solução simples e não otimizada para o calculo do coeficiente de Sørensen–Dice na linguagem Python com o uso de {\code sets}. Apesar de não ser uma solução ortodoxa do algoritmo e permitir falhas como apontar que as \textit{strings} {\code AA} e {\code AAAA} seriam apontadas como idênticas, a solução é interessante para apresentar de forma o funcionamento do algoritmo, visto a simplicidade que ele passa a ter quando implementado com {\code sets} e utilizando do operador lógico {\code and} para identificar as interseções entre as \textit{strings}.
 
 \begin{lstlisting}[language=Python,label=dice_index,caption={Simples implementação do coeficiente de Sørensen–Dice}]
 def dice_coefficient(a, b):
