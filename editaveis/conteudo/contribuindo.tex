@@ -48,6 +48,31 @@ Realizada a contribuição, é dever do mantenedor do repositório original revi
 % section contribuindo_com_plataformas_abertas (end)
 
 
+\section{Coleta de Dados} % (fold)
+\label{cha:coleta_de_dados}
+
+\subsection*{Tempo} % (fold)
+\label{sec:tempo}
+
+A coleta de tempo de performance de um software é árdua. A estimativa de tempo depende das otimizações que o compilador pode vir a fazer para a arquitetura, memoria disponível, aplicativos rodando em concorrência, temperatura do hardware, etc. No intuito de simplificar o processo de estimativa de tempo, foi utilizado a mediana de uma serie de chamadas da aplicação. Segundo \citeonline{dolan2002benchmarking}, esta solução pode vir ser a melhor para um ponto geral de $25\%$ das possíveis alternativas de coletas de dados. Assim sendo, o \autoref{scriptods} foi uma solução desenvolvida que permitisse deixar a maquina com tempo dedicado para a aquisição de dados.
+
+Para o funcionamento do \textit{script}, as variáveis {\code MAX} e {\code \_MAX\_THREADS} devem ser definidas com a quantidade de dados que se deseja coletar e a quantidade máxima de \textit{threads} que devem ser levantadas para a chamada do processo respectivamente. Usar uma quantidade superior a quantidade de \textit{cores}  da maquina pode produzir valores com baixa confiabilidade, visto a concorrência gerada pelas \textit{threads}. Como parâmetros, foram escolhidos $150$ dados com $7$ \textit{threads}, possibilitando haver ao menos $1$ \textit{core} livre. Para maior dinamismo da coleta dos dados, o \textit{script} é responsável por realizar a troca das \textit{branchs} onde estão localizadas as possíveis soluções e a compilação e concentração dos dados em uma planilha do \textit{LibreOffice Calc}. Assim, os algoritmos nunca são executados em concorrência, porém os dados serão coletado sob a demanda da $CPU$ em que o \textit{script} é executado.
+
+No intuito de coletar o tempo pontual do algoritmo, o \autoref{libtime} foi desenvolvido a fim de ser usado como cronometro. O algoritmo desenvolvido com o auxilio da biblioteca {\code Chrono}\footnote{A biblioteca é disponibilizada no {\code C++11} sob o \textit{namespace} {\code std::crono::}.} permite a captura do intervalo de tempo com ate $9$ casas decimais de segundos (nanosegundos), todavia foi utilizado a precisão de microssegundos apenas, visto que o intervalo de nanosegundos não iria gerar alto impacto na diferença dos valores. Os métodos {\code begin} e {\code end} da classe são utilizados para pontuar os intervalos onde o tempo deve ser contado. O resultado da contagem pode ser obtido com o retorno do método {\code end} ou com a chamada do {\code currenttime}, dedicado apenas para o retorno deste valor.
+
+\subsection*{Memória}
+
+Para a coleta de memória, foi utilizado o {\code Valgrind} com o auxilio da ferramenta {\code Massif}. Devido a haver uma criação de \textit{hash} de forma  algébrica e o método de \textit{KMP} faz uso de um autômato finito determinístico, a previa repetição das buscas com apenas $10$ ciclos confirmavam a suspeita de não haver a variação do gasto de memória para a repetição da ação.
+
+Para a execução da aplicação com o suporte do {\code Valgrind} para analise do uso de memória, foi utilizado o seguinte comando:
+
+\begin{lstlisting}[language=Bash,label=valgrind_call, numbers=none]
+   $ valgrind --tool=massif  ./apt search pacote [--regex]
+\end{lstlisting}
+% section tempo (end)
+% chapter coleta_de_dados (end)
+
+
 \section{Primeira contribuição} % (fold)
 \label{sec:primeira_contribui_o}
 
@@ -167,8 +192,38 @@ O suporte a expressões regulares amplia como a busca por pacotes pode ser efetu
 
 Mesmo a busca com expressões regulares oferecendo um grande poder de busca, questiona-se se o custo que ela requer é interessante. Lembrando que este trabalho visa ampliar a comodidade daqueles novos usuário ao mundo Linux, as funções de expressões regulares normalmente não são de conhecimento do usuário leigo. Considerando que este usuário leigo não irá fazer comumente das funções {\code less}, {\code more} ou {\code grep} para auxiliar com buscas, será de menor representatividade então o uso de expressões regulares.
 
-Ora, se há a possibilidade de ganhar desempenho e gasto de memoria mesmo ainda com busca exatas, há de se propor algoritmos para nos auxiliar com essas buscas.
+% Ora, se há a possibilidade de ganhar desempenho e gasto de memoria mesmo ainda com busca exatas, há de se propor algoritmos para nos auxiliar com essas buscas.
 
 
+Visando uma alternativa para a busca de pacotes que ofereça menor tempo de processamento e maior economia de memoria, foram estudados dois algoritmos de \textit{string matching} exato abordados inicialmente neste trabalho na \autoref{sec:algoritimos_de_textit}, são os modelos de \nameref{ssub:rabin_karp} e \nameref{ssub:knuth_morris_pratt_}. Para ambos os modelos foram criadas \textit{branchs} para seu desenvolvimento e testes de desempenho, fazendo de uso da rotina apresentada no \autoref{libtime} para mensurar o tempo gasto para formular a resposta da pesquisa. 
+
+Diante dos resultados de tempo obtidos com o algoritmo de \textit{Rabin-Karp}, a segunda contribuição foi planejada e executada. A \autoref{sec:segundo_pr} apresenta na integra o \textit{diff} da contribuição submetida para o repositório oficial.
+
+
+A fim de manter a cobertura das funcionalidades, testes foram feitos para garantir que as buscas continuavam a ser realizadas com ou sem o uso da \textit{flag} que habilitava o uso de expressões regulares, como pode ser observado no \autoref{regextestscli}, onde um trecho dos testes da segunda submissão é apresentado.
+
+\begin{lstlisting}[language=Bash,label=regextestscli,caption={Teste com e sem o uso de expressões regulares}]
+# output is sorted by status
+testequal "bar/testing 2.0 i386
+  $DESCR2
+
+foo/unstable 1.0 all
+  $DESCR
+
+package/stable 1.5 all
+  $DESCR3
+
+baz/now 0.1 all [installed,local]
+  $DESCR4
+" apt search --order-by status -qq "\\w" --regex
+
+# output is sorted by Alphabetic (non case sense)
+testequal "bar/testing 2.0 i386
+  $DESCR2
+
+baz/now 0.1 all [installed,local]
+  $DESCR4
+" apt search --order-by Alphabetic -qq ba
+\end{lstlisting}
 
 % section segunda_contribui_o (end)
