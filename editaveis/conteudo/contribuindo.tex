@@ -247,13 +247,38 @@ Por fim chegamos ao ponto desejado para este trabalho, oferecer uma ferramenta d
 	\item [Inserir método de buscas inexatas:] Quando uma busca não obtiver nenhum resultado, a aplicação deve executar a busca novamente com o método de buscas inexatas e apontar os pacotes que poderiam se encaixar com a busca realizada.
 \end{description}
 
-Para realizar a primeira tarefa devemos primeiro implementar uma função que verifique se entre os parâmetros passados na busca há um caractere especial utilizado para expressões regulares. Estes caracteres deveriam de ser {\code |\textbackslash\{\}[]()*+-\$?.\^{}}, porém os caracteres {\code .} e {\code -} costumam aparecer nos nomes dos pacotes e assim devem ser ignoradas como sinais que indicam uso de expressões regulares.
-O \autoref{regexidentify} apresenta uma solução para a identificação de caracteres que indicam o uso de expressões regulares nas buscas.
+Para realizar a primeira tarefa devemos primeiro implementar uma função que verifique se entre os parâmetros passados na busca há um caractere especial utilizado para expressões regulares. Estes caracteres deveriam de ser {\code |\textbackslash\{\}[]():*+-\$?.\^{}}, porém os caracteres {\code .}, {\code :} e {\code -} costumam aparecer nos nomes dos pacotes e assim devem ser ignoradas como sinais que indicam uso de expressões regulares.
 
 \begin{lstlisting}[language=C++,label=regexidentify,caption={Identificação de Expressões Regulares}]
-	
+bool identify_regex(std::vector<std::string> input)
+{
+   /*
+      not all characters can be included, as have
+      packages with the chars .-:
+   */
+   std::string reserver_regex = "^$*+?()[]{}\\|";
+
+   for(auto k:input)
+      if( reserver_regex.find(k) == std::string::npos )
+	 return true;
+   return false;
+
+}
 \end{lstlisting}
 
+O \autoref{regexidentify} apresenta uma solução para a identificação de caracteres que indicam o uso de expressões regulares nas buscas, verificando cada palavra em uma lista de \textit{strings} em busca dos caracteres que identificariam uma expressão regular. Caso algum caractere especial seja localizado, a função retorna verdadeiro.
 
 
+Em seguida, verificamos se é utilizado a \textit{flag} de uso de expressão regular ou caracteres reservados com a seguinte verificação:
+
+\begin{lstlisting}[language=C++,basicstyle=\footnotesize\ttfamily,numbers=none]
+if ((_config->FindB("APT::Cache::UsingRegex",false)) || identify_regex(args))
+\end{lstlisting}
+
+Caso a chamada acima seja verdadeira, as rotinas que compilam as expressões regulares serão executadas, caso contrario, o método de \nameref{ssub:rabin_karp} será executado para realizar a busca, visto este método ter apresentado melhor desempenho frente ao método de \nameref{ssub:knuth_morris_pratt_}, como será melhor apresentando em \lnameref{part:resultados} na \autoref{sec:algor_timos_de_string_matching_exatos}.
+
+
+Realizado esta etapa, o próximo, e ultimo, passo é identificar buscas onde nenhum pacote é localizado. Nestes casos, o modelo de \textit{\nameref{sec:leveinstein}} deve ser utilizado para encontrar os pacotes que contenham a menor diferença com a pesquisa realizada. Essa chamada deve ser realizada somente caso não haja o uso de caracteres que identifiquem o uso de expressões regulares, visto ser uma busca que requer um tempo maior e que será executada após uma busca já ter sido realizada.
+
+Para realizar a busca utilizando o modelo de \textit{Leveinstein} seria necessário percorrer a lista de pacotes duas vezes. Na primeira vez é pontuado a distância do nome do pacote com os parâmetros de entrada da busca e na segunda vez os pacotes são ordenados de acordo com sua pontuação.
 % section terceira_contribui_o (end)
