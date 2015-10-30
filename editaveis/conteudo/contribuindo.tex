@@ -235,5 +235,25 @@ Garantido haver testes e documentação que validem as implementações, foi rea
   \label{fig:pr2_travisok}
 \end{figure}
 
-
 % section segunda_contribui_o (end)
+
+\section{Terceira contribuição} % (fold)
+\label{sec:terceira_contribui_o}
+
+Por fim chegamos ao ponto desejado para este trabalho, oferecer uma ferramenta de busca de pacotes o mais transparente possível quanto ao método de busca. Para tal precisamos ainda realizar duas tarefas:
+
+\begin{description}
+	\item [Escolha inteligente entre expressões regulares ou busca padrão:] Mesmo oferecendo uma \textit{flag} para selecionar a busca com suporte a expressões regulares, é importante deixar que o programa seja capaz de identificar quando uma \textit{flag} é passada para que a busca seja realizada corretamente.
+	\item [Inserir método de buscas inexatas:] Quando uma busca não obtiver nenhum resultado, a aplicação deve executar a busca novamente com o método de buscas inexatas e apontar os pacotes que poderiam se encaixar com a busca realizada.
+\end{description}
+
+Para realizar a primeira tarefa devemos primeiro implementar uma função que verifique se entre os parâmetros passados na busca há um caractere especial utilizado para expressões regulares. Estes caracteres deveriam de ser {\code |\textbackslash\{\}[]()*+-\$?.\^{}}, porém os caracteres {\code .} e {\code -} costumam aparecer nos nomes dos pacotes e assim devem ser ignoradas como sinais que indicam uso de expressões regulares.
+O \autoref{regexidentify} apresenta uma solução para a identificação de caracteres que indicam o uso de expressões regulares nas buscas.
+
+\begin{lstlisting}[language=C++,label=regexidentify,caption={Identificação de Expressões Regulares}]
+	
+\end{lstlisting}
+
+
+
+% section terceira_contribui_o (end)
