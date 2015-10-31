@@ -45,6 +45,41 @@ Quando se decidido que a contribuição já esta a um ponto aceitável para enca
 
 Realizada a contribuição, é dever do mantenedor do repositório original revisar o código e decidir se deve ou não aceita-lo.
 
+
+\subsection*{Testando} % (fold)
+\label{sub:testando}
+
+É como em desenvolvimento de software haver ao menos testes unitários a cada evolução de código, a fim de validar a funcionalidade. Neste trabalho em especial estará sendo utilizado o \href{https://github.com/google/googletest}{Google C++ Testing Framework} (Google Test), um \textit{framework} desenvolvido pela Google para testes. Ele tem suporte para um conjunto de assertivas pre-definidas e definidas pelo usuário, tornando-se uma das melhores ferramentas para a escrita de \textit{suite} de testes para C/C++ hoje disponíveis.
+
+Outra categoria de testes bastante usuais são os testes de integração. Neste trabalho em especial estará sendo utilizado um \textit{script shell} que oferece diversas funcionalidades para a criação dos testes de integração. Os testes de integração são utilizados no APT como testes caixa preta, a fim de verificar a funcionalidade de cenários de testes.
+
+Os testes de integração são mais priorizados que os unitários no APT, e podemos observar isso pela quantidade de casos de testes em cada um deles. Nos testes unitários temos 20 casos de testes, totalizando um total de 78 testes unitários. Já na integração temos um conjunto de 199 cenários de testes com um total de 24.976 testes de integração\footnote{Dados relativos a \textit{build} \#219 do \href{https://travis-ci.org/Debian/apt/builds/}{Travis-CI}}.
+
+
+\begin{lstlisting}[language=C++,label=gtestexample,caption={Teste de validação de armazenamento de parâmetros}]
+TEST(CommandLineTest,SaveInConfig)
+{
+   EXPECT_CMD("apt-get install -sf",
+	 "apt-get", "install", "-sf");
+   EXPECT_CMD("apt-cache -s apt -so Debug::test=Test",
+	 "apt-cache", "-s", "apt", "-so", "Debug::test=Test");
+   EXPECT_CMD("apt-cache -s apt -so Debug::test=\"Das ist ein Test\"",
+	 "apt-cache", "-s", "apt", "-so", "Debug::test=Das ist ein Test");
+   EXPECT_CMD("apt-cache -s apt --hallo test=1.0",
+	 "apt-cache", "-s", "apt", "--hallo", "test=1.0");
+}
+\end{lstlisting}
+
+Um exemplo de teste unitário realizados é a validação do armazenamento dos parâmetros nas chamadas, como pode ser observado no \autoref{gtestexample}. Já testes de integração possuem um um comparativo entre uma chamada e sua saída, como pode ser observado no \autoref{integrationtesteexample}.
+
+\begin{lstlisting}[language=Bash,label=integrationtesteexample,caption={Teste de verificação de saída para busca}]
+# without op progress
+testsuccessequal "foo/unstable 1.0 all
+  $DESCR
+" apt search -qq xxyyzz
+\end{lstlisting}
+
+% subsection testando (end)
 % section contribuindo_com_plataformas_abertas (end)
 
 
