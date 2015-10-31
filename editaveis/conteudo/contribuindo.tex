@@ -315,5 +315,47 @@ Caso a chamada acima seja verdadeira, as rotinas que compilam as expressões reg
 
 Realizado esta etapa, o próximo, e ultimo, passo é identificar buscas onde nenhum pacote é localizado. Nestes casos, o modelo de \textit{\nameref{sec:leveinstein}} deve ser utilizado para encontrar os pacotes que contenham a menor diferença com a pesquisa realizada. Essa chamada deve ser realizada somente caso não haja o uso de caracteres que identifiquem o uso de expressões regulares, visto ser uma busca que requer um tempo maior e que será executada após uma busca já ter sido realizada.
 
-Para realizar a busca utilizando o modelo de \textit{Leveinstein} seria necessário percorrer a lista de pacotes duas vezes. Na primeira vez é pontuado a distância do nome do pacote com os parâmetros de entrada da busca e na segunda vez os pacotes são ordenados de acordo com sua pontuação.
+Para realizar a busca utilizando o modelo de \textit{Leveinstein} é necessário percorrer a lista de pacotes duas vezes. Na primeira vez é pontuado a distância do nome do pacote com os parâmetros de entrada da busca e na segunda vez os pacotes são ordenados de acordo com sua pontuação. O \autoref{levisearchapt} apresenta a realização desta busca, percorrendo toda a lista de pacotes, {\code bag}, disponível e em seguida ordenando a saída.
+
+\begin{lstlisting}[language=C++,label=levisearchapt,caption={Busca ordenada por distância de \textit{Levenshtein}}]
+for(auto V:bag)
+{
+
+	// we want to list each package only once
+	pkgCache::PkgIterator const P = V.ParentPkg();
+	if (PkgsDone[P->ID] == true)
+		continue;
+
+	std::string PkgName = P.Name();
+	pkgCache::DescIterator Desc = V.TranslatedDescription();
+	pkgRecords::Parser &parser = records.Lookup(Desc.FileList());
+	std::string const LongDesc = parser.LongDesc();
+
+	for (auto arg:args)
+	{
+		int distance = levenshtein_distance(PkgName, arg);
+		if ((distance >=0) && (distance <= (int)PkgName.length()/2 ))
+		{
+			PkgsDone[P->ID] = true;
+			std::stringstream outs;
+			ListSingleVersion(CacheFile, records, V, outs, format);
+			outputVector.emplace_back(CacheFile, records, V, outs.str());
+			outputVector.back().distance = distance;
+		}
+	}
+}
+std::sort(outputVector.begin(), outputVector.end(), OrderByDistance);
+\end{lstlisting}
+
+Devido a buscas inexatas consumirem mais recursos e necessitarem de passar por todo o vetor novamente, elas foram deixadas para executar apenas quando a busca não tivesse nenhum resultado. O \autoref{calllevisearchapt} apresenta a chamada quando esta situação correr.
+
+\begin{lstlisting}[language=C++,label=calllevisearchapt,caption={Chamada seletiva para buscas inexatas}]
+if(outputVector.size() == 0)
+{
+	outputVector = SimilarSearch(bag,args);
+	if(outputVector.size() > 10)
+	outputVector.resize(10);
+	std::cout << "None package fould. Maybe you are looking for one of those:" << std::endl;
+}
+\end{lstlisting}
 % section terceira_contribui_o (end)
