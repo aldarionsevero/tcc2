@@ -9,7 +9,7 @@ Há inúmeros exemplos possíveis de algorítimos voltados para \textit{string m
 \subsubsection*{Rabin-Karp} % (fold)
 \label{ssub:rabin_karp}
 
-Criado  em 1987  por  Richard M. Karp e Michael O. Rabin, o algoritmo faz de uso de uma \textit{hash} no intuito de agilizar a busca por um padrão em um texto. Para condições de busca em um texto de tamanho $n$ por um padrão de tamanho $p$, o algoritmo de Rabin-Karp pode ter em melhor caso ordem de complexidade $\Theta(n-m+1)$\cite{paulo2015algoritmos}\footnote{Onde $m=n+p$}. Em pior caso, a ordem de complexidade chega a $\Theta((n-m+1)m)$, mesma ordem de complexidade que uma busca comum/força bruta\cite{paulo2015algoritmos}. Todavia, a situação de pior caso só ocorre quando a \textit{hash} não é propriamente calculada. No código \ref{rkalgoritm} apresentamos de forma simples como implementar o algoritmo de Rabin–Karp.
+Criado  em 1987  por  Richard M. Karp e Michael O. Rabin, o algoritmo faz de uso de uma \textit{hash} no intuito de agilizar a busca por um padrão em um texto. Para condições de busca em um texto de tamanho $n$ por um padrão de tamanho $p$, o algoritmo de Rabin-Karp pode ter em melhor caso ordem de complexidade $\Theta(n-m+1)$\cite{paulo2015algoritmos}\footnote{Onde $m=n+p$}. Em pior caso, a ordem de complexidade chega a $\Theta((n-m+1)m)$, mesma ordem de complexidade que uma busca comum/força bruta\cite{paulo2015algoritmos}. Todavia, a situação de pior caso só ocorre quando a \textit{hash} não é propriamente calculada. No \autoref{rkalgoritm} apresentamos de forma simples como implementar o algoritmo de Rabin–Karp.
 
 \begin{lstlisting}[language=Bash,label=rkalgoritm,caption={Algoritmo de Rabin–Karp}]
 function RabinKarp(string s[1..n], string pattern[1..m])
@@ -22,7 +22,7 @@ function RabinKarp(string s[1..n], string pattern[1..m])
 	return not found
 \end{lstlisting}
 
-Observe que na linha $7$ do código \ref{rkalgoritm} temos o calculo de uma nova \textit{hash}, porém a variável {\code hs} já possui a \textit{hash} para {\code [i+1..i+m]-1}. Se aplicarmos o conceito de \textit{rolling hash}, poderemos obter este valor, nos poupando tempo no calculo da \textit{hash} e evitando que a linha $5$ seja executada em casos de chances nulas. Este é o ponto onde o algoritmo de Rabin–Karp se mostra com alto desempenho. Normalmente, o algoritmo é utilizado com uma \textit{rolling hash} simples que faz de uso  de multiplicações e somas apenas:
+Observe que na linha $7$ do \autoref{rkalgoritm} temos o calculo de uma nova \textit{hash}, porém a variável {\code hs} já possui a \textit{hash} para {\code [i+1..i+m]-1}. Se aplicarmos o conceito de \textit{rolling hash}, poderemos obter este valor, nos poupando tempo no calculo da \textit{hash} e evitando que a linha $5$ seja executada em casos de chances nulas. Este é o ponto onde o algoritmo de Rabin–Karp se mostra com alto desempenho. Normalmente, o algoritmo é utilizado com uma \textit{rolling hash} simples que faz de uso  de multiplicações e somas apenas:
 
 \begin{equation}
 	H=c_1a^{k-1}+ c_2a^{k-2} + c_3a^{k-3} + ... + c_ka^{0}
@@ -61,7 +61,7 @@ function KMP(string S, string pattern)
 	return not found
 \end{lstlisting}
 
-No código \ref{kmpalgoritm} podemos observar o algorítimo de Knuth–Morris–Pratt genericamente aplicado.
+No \autoref{kmpalgoritm} podemos observar o algorítimo de Knuth–Morris–Pratt genericamente aplicado.
 
 % subsubsection* knuth_morris_pratt_ (end)
 % subsection algoritimos_exatos (end)

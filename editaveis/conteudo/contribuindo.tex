@@ -185,7 +185,7 @@ insertinstalledpackage 'baz' 'all' '0.1'
 setupaptarchive
 \end{lstlisting}
 
-Como apresentado no código \ref{googletest_decl}, algumas macros foram criadas pela equipe do APT para simplificar o processo de declaração de instâncias. Com estas instâncias declaradas, o contexto do teste é estabelecido e esta pronto para a \textit{suite} de testes rodarem. Os testes são basicamente cenários do estado do sistema, como pode ser observado no código \ref{gtest_foo}.
+Como apresentado no \autoref{googletest_decl}, algumas macros foram criadas pela equipe do APT para simplificar o processo de declaração de instâncias. Com estas instâncias declaradas, o contexto do teste é estabelecido e esta pronto para a \textit{suite} de testes rodarem. Os testes são basicamente cenários do estado do sistema, como pode ser observado no \autoref{gtest_foo}.
 
 \begin{lstlisting}[language=Bash,label=gtest_foo,caption={Teste por busca pelo pacote \textit{foo}}]
 # search name
@@ -194,7 +194,7 @@ testsuccessequal "foo/unstable 1.0 all
 " apt search -qq foo
 \end{lstlisting}
 
-Como estamos fazendo ordenação de pacotes, é importante que se possa realizar uma busca por uma grande quantidade de pacotes. Uma das possibilidades que o APT possui hoje é a de se realizar buscas utilizando de expressões regulares. Unindo esta duas características, podemos montar uma lista maior de pacotes e realizar uma busca por um termo genérico, a fim de obter como resultado toda a lista de pacotes. O exemplo o código \ref{buscacomregex} demostra este resultado, onde a busca é feita utilizando a \textit{regex} {\code \textbackslash w}, a fim de selecionar todos os pacotes que possuam ao menos um caractere no nome.
+Como estamos fazendo ordenação de pacotes, é importante que se possa realizar uma busca por uma grande quantidade de pacotes. Uma das possibilidades que o APT possui hoje é a de se realizar buscas utilizando de expressões regulares. Unindo esta duas características, podemos montar uma lista maior de pacotes e realizar uma busca por um termo genérico, a fim de obter como resultado toda a lista de pacotes. O exemplo o \autoref{buscacomregex} demostra este resultado, onde a busca é feita utilizando a \textit{regex} {\code \textbackslash w}, a fim de selecionar todos os pacotes que possuam ao menos um caractere no nome.
 
 \begin{lstlisting}[language=Bash,label=buscacomregex,caption={Busca com uso de expressão regular}]
 # output is sorted by status
