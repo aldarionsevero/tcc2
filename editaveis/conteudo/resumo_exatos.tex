@@ -6,8 +6,8 @@ Para a busca com algorítimos de \textit{string matching} exatos, foram consider
 
 \begin{description}
 	\item[Expressão Regular:] Método atual de como a verificação é realizada atualmente. Foi previamente comentado na sessão de \lnameref{sec:algoritimos_de_textit}.
-	\item[Knuth-Morris-Pratt:] Método que faz de uso do conceito de autômatos de estados para agilizar a busca. Previamente apresentado na sessão \ref{ssub:knuth_morris_pratt_}.
-	\item[Rabin-Karp:]  Método que faz de uso de \textit{hash}. Foi previamente comentado na sessão \ref{ssub:rabin_karp}.
+	\item[Knuth-Morris-Pratt:] Método que faz de uso do conceito de autômatos de estados para agilizar a busca. Previamente apresentado na \autoref{ssub:knuth_morris_pratt_}.
+	\item[Rabin-Karp:]  Método que faz de uso de \textit{hash}. Foi previamente comentado na \autoref{ssub:rabin_karp}.
 \end{description}
 
 Após a coleta de $150$ chamadas de cada pacote usando os algorítimos apontados acima, a \autoref{ssub:rabin_karp} foi criada contendo a mediana dos tempos de execução de cada método para os pacotes selecionados.
@@ -39,6 +39,6 @@ O consumo total de memória para ambos os métodos, \textit{Rabin-Karp} na \auto
   \label{memory_std}
 \end{figure}
 
-Um gasto mais prologado de memória vem a ser prejudicial para sistemas em que diversos processos possam estar sendo executados em conjunto, todavia o grau de consumo é muito baixo para o posicionamento de que o consumo por um período mais extenso venha a ser prejudicial, visto que para um sistema com $2GB$ de memória RAM, $15MB$ seria um valor irrisório de menos de $1\%$ do total de recurso disponível.
+Um gasto mais prologado de memória vem a ser prejudicial para sistemas em que diversos processos possam estar sendo executados em conjunto, todavia o grau de consumo é muito baixo para o posicionamento de que o consumo por um período mais extenso venha a ser prejudicial, visto que para um sistema com 2GB de memória RAM, 15MB seria um valor irrisório de menos de $1\%$ do total de recurso disponível.
 % chapter analise_de_resultados (end)
 

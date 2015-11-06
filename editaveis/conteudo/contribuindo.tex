@@ -1,7 +1,7 @@
 \section{Contribuindo com plataformas abertas} % (fold)
 \label{sec:contribuindo_com_plataformas_abertas}
 
-Um dos intuitos deste trabalho baseia-se em contribuir com uma aplicação \textit{open-souce} disponível na plataforma \href{GitHub.com}{GitHub}. A seguinte sessão se destina em apresentar a forma como tais contribuições podem ser realizadas. Devido ao repositório do APT esta armazenado no GitHub, a sessão pode se tornar tendenciosa, porém o conceito de \textit{pull-request} ou  \textit{merge-request} requeste é amplamente utilizado em outras plataformas de contribuição, como \href{https://bitbucket.org/}{Bitbucket}, \href{https://gitlab.com/}{GitLab} ou ate mesmo \href{http://sourceforge.net/}{SourceGorge}.
+Um dos intuitos deste trabalho baseia-se em contribuir com uma aplicação \textit{open-souce} disponível na plataforma \href{GitHub.com}{GitHub}. A seguinte sessão se destina em apresentar a forma como tais contribuições podem ser realizadas. Devido ao repositório do APT esta armazenado no GitHub, a sessão pode se tornar tendenciosa, porém o conceito de \textit{pull-request} ou  \textit{merge-request} requeste é amplamente utilizado em outras plataformas de contribuição, como \href{https://bitbucket.org/}{Bitbucket}, \href{https://gitlab.com/}{GitLab} ou ate mesmo \href{http://sourceforge.net/}{SourceForge}.
 
 
 \subsection*{Mantendo uma copia} % (fold)
@@ -11,11 +11,11 @@ Um dos intuitos deste trabalho baseia-se em contribuir com uma aplicação \text
 Normalmente não temos autorização pra alterar as informações de outra pessoa sem seu consentimento. Da mesma forma  é com os repositórios {\code git}. Assim, um dos primeiros passos para começar a contribuir com uma ferramenta \textit{open-source} é fazer uma copia dela em seu repositório. Essa cópia pode ser feita de duas formas basicamente, no intuito de manter os autores das modificações anteriores:
 
 \begin{description}
-	\item [\textit{Fork}]: O termo é amplamente utilizado quando queremos fazer uma copia de um repositório para a nossa conta em uma mesma plataforma. Normalmente este passo é realizado via interface gráfica, ainda no navegador. Na \cref{fig:github_fork} é possível observar o botão no canto superior direito indicado para realizar um \textit{fork} do atual repositório.
+	\item [\textit{Fork}]: O termo é amplamente utilizado quando queremos fazer uma copia de um repositório para a nossa conta em uma mesma plataforma. Normalmente este passo é realizado via interface gráfica, ainda no navegador. Na \autoref{fig:github_fork} é possível observar o botão no canto superior direito indicado para realizar um \textit{fork} do atual repositório.
 
 	\begin{figure}[h]
 	  \centering
-		\includegraphics[width=0.85\textwidth]{figuras/fork}
+		\includegraphics[width=0.90\textwidth]{figuras/fork}
 	  \caption{Visão de um repositório do \textit{GitHub}}
 	  \label{fig:github_fork}
 	\end{figure}
@@ -49,7 +49,7 @@ Realizada a contribuição, é dever do mantenedor do repositório original revi
 \subsection*{Testando} % (fold)
 \label{sub:testando}
 
-É como em desenvolvimento de software haver ao menos testes unitários a cada evolução de código, a fim de validar a funcionalidade. Neste trabalho em especial estará sendo utilizado o \href{https://github.com/google/googletest}{Google C++ Testing Framework} (Google Test), um \textit{framework} desenvolvido pela Google para testes. Ele tem suporte para um conjunto de assertivas pre-definidas e definidas pelo usuário, tornando-se uma das melhores ferramentas para a escrita de \textit{suite} de testes para C/C++ hoje disponíveis.
+É como em desenvolvimento de software haver ao menos testes unitários a cada evolução de código, a fim de validar a funcionalidade. No projeto abordado neste trabalho em especial há testes utilizado o \href{https://github.com/google/googletest}{Google C++ Testing Framework} (Google Test), um \textit{framework} desenvolvido pela Google para testes. Ele tem suporte para um conjunto de assertivas pre-definidas e definidas pelo usuário, tornando-se uma das melhores ferramentas para a escrita de \textit{suite} de testes para C/C++ hoje disponíveis.
 
 Outra categoria de testes bastante usuais são os testes de integração. Neste trabalho em especial estará sendo utilizado um \textit{script shell} que oferece diversas funcionalidades para a criação dos testes de integração. Os testes de integração são utilizados no APT como testes caixa preta, a fim de verificar a funcionalidade de cenários de testes.
 
@@ -70,7 +70,7 @@ TEST(CommandLineTest,SaveInConfig)
 }
 \end{lstlisting}
 
-Um exemplo de teste unitário realizados é a validação do armazenamento dos parâmetros nas chamadas, como pode ser observado no \autoref{gtestexample}. Já testes de integração possuem um um comparativo entre uma chamada e sua saída, como pode ser observado no \autoref{integrationtesteexample}.
+Um exemplo de teste unitário realizados é a validação do armazenamento dos parâmetros nas chamadas, como pode ser observado no \autoref{gtestexample}. Já testes de integração possuem um comparativo entre uma chamada e sua saída, como pode ser observado no \autoref{integrationtesteexample}.
 
 \begin{lstlisting}[language=Bash,label=integrationtesteexample,caption={Teste de verificação de saída para busca}]
 # without op progress
@@ -211,6 +211,15 @@ baz/now 0.1 all [installed,local]
   $DESCR4
 " apt search --order-by status -qq "\\w"
 \end{lstlisting}
+
+\begin{figure}[h]
+  \centering
+	\includegraphics[width=0.75\textwidth]{figuras/pr1}
+  \caption{Submissão do primeiro \textit{merge request}}
+  \label{fig:pr1_travisnotok}
+\end{figure}
+
+A \autoref{fig:pr1_travisnotok} apresenta o resultado do \textit{merge request} e alguns dos commits enviados, sendo o ultimo deles com o resultado do \textit{Travis CI} apontando falha na \textit{build} devido à falha em um dos testes de integração que verificam concorrência de download de arquivos.
 
 % section primeira_contribui_o (end)
 

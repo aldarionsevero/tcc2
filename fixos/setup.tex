@@ -143,11 +143,11 @@ literate={_}{{\_}}1 ,
 \newcommand{\code}{\small\ttfamily}
 \renewcommand\lstlistingname{Código}
 \renewcommand\lstlistlistingname{Código}
-\def\lstlistingautorefname{código}
-\renewcommand{\appendixautorefname}{apêndice} % correção do bug do abntex2
-\renewcommand{\tableautorefname}{tabela} % correção do bug do abntex2
-\renewcommand{\figureautorefname}{figura} % correção do bug do abntex2
-\newcommand{\refanexo}[1]{\hyperref[#1]{anexo~\ref{#1}}} % correção do bug do abntex2
+\def\lstlistingautorefname{Código}
+\renewcommand{\appendixautorefname}{Apêndice} % correção do bug do abntex2
+\renewcommand{\tableautorefname}{Tabela} % correção do bug do abntex2
+\renewcommand{\figureautorefname}{Figura} % correção do bug do abntex2
+\newcommand{\refanexo}[1]{\hyperref[#1]{Anexo~\ref{#1}}} % correção do bug do abntex2
 \newlistof{lstlistoflistings}{lol}{\lstlistlistingname}
 %% Nameref
 %-------------------------------
@@ -157,6 +157,6 @@ literate={_}{{\_}}1 ,
 \let\nmu\MakeLowercase
 \nameref{#1}\egroup}
 \newcommand{\nmu}{}
-\def\equationautorefname~#1\null{equação~(#1)\null}
+\def\equationautorefname~#1\null{Equação~(#1)\null}
 %  Should use \nmu before the word to be put in lowercase, like:
 %  \section{\nmu This \nmu Is a \nmu Section}
