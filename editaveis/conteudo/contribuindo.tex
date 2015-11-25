@@ -1,7 +1,7 @@
 \section{Contribuindo com plataformas abertas} % (fold)
 \label{sec:contribuindo_com_plataformas_abertas}
 
-Um dos intuitos deste trabalho baseia-se em contribuir com uma aplicação \textit{open-souce} disponível na plataforma \href{GitHub.com}{GitHub}. A seguinte sessão se destina em apresentar a forma como tais contribuições podem ser realizadas. Devido ao repositório do APT esta armazenado no GitHub, a sessão pode se tornar tendenciosa, porém o conceito de \textit{pull-request} ou  \textit{merge-request} é amplamente utilizado em outras plataformas de contribuição, como \href{https://bitbucket.org/}{Bitbucket}, \href{https://gitlab.com/}{GitLab} ou ate mesmo \href{http://sourceforge.net/}{SourceForge}.
+Um dos objetivos deste trabalho era contribuir com uma aplicação \textit{open-souce} disponível na plataforma \href{http://github.com}{GitHub}\footnote{Disponível em \url{http://github.com}.}. Na próxima seção será apresentada a forma como tais contribuições foram realizadas. Devido ao fato do repositório do {\code APT} estar armazenado no GitHub, a terminologia apresentada estará em maior conformidade com esta plataforma, porém o conceito de \textit{pull-request} ou  \textit{merge-request} é amplamente utilizado em outras plataformas, como \href{https://bitbucket.org/}{Bitbucket}\footnote{Disponível em \url{https://bitbucket.org}.}, \href{https://gitlab.com/}{GitLab}\footnote{Disponível em \url{http://gitlab.com}.} ou até mesmo \href{http://sourceforge.net/}{SourceForge}\footnote{Disponível em \url{http://sourceforge.net}.}.
 
 
 \subsection*{Mantendo uma copia} % (fold)
@@ -49,11 +49,11 @@ Realizada a contribuição, é dever do mantenedor do repositório original revi
 \subsection*{Testando} % (fold)
 \label{sub:testando}
 
-É como em desenvolvimento de software haver ao menos testes unitários a cada evolução de código, a fim de validar a funcionalidade. No projeto abordado neste trabalho em especial há testes utilizado o \href{https://github.com/google/googletest}{Google C++ Testing Framework} (Google Test), um \textit{framework} desenvolvido pela Google para testes. Ele tem suporte para um conjunto de assertivas pre-definidas e definidas pelo usuário, tornando-se uma das melhores ferramentas para a escrita de \textit{suite} de testes para C/C++ hoje disponíveis.
+É como em desenvolvimento de software haver ao menos testes unitários a cada evolução de código, a fim de validar a funcionalidade. No projeto abordado neste trabalho em especial há testes utilizado o \href{https://github.com/google/googletest}{Google C++ Testing Framework}\footnote{Disponível em \url{https://github.com/google/googletest}.} (Google Test), um \textit{framework} desenvolvido pela Google para testes. Ele tem suporte para um conjunto de assertivas pre-definidas e definidas pelo usuário, tornando-se uma das melhores ferramentas para a escrita de \textit{suite} de testes para C/C++ hoje disponíveis.
 
-Outra categoria de testes bastante usuais são os testes de integração. Neste trabalho em especial estará sendo utilizado um \textit{script shell} que oferece diversas funcionalidades para a criação dos testes de integração. Os testes de integração são utilizados no APT como testes caixa preta, a fim de verificar a funcionalidade de cenários de testes.
+Outra categoria de testes bastante usuais são os testes de integração. Neste trabalho em especial estará sendo utilizado um \textit{script shell} que oferece diversas funcionalidades para a criação dos testes de integração. Os testes de integração são utilizados no {\code APT} como testes caixa preta, a fim de verificar a funcionalidade de cenários de testes.
 
-Os testes de integração são mais priorizados que os unitários no APT, e podemos observar isso pela quantidade de casos de testes em cada um deles. Nos testes unitários temos 20 casos de testes, totalizando um total de 78 testes unitários. Já na integração temos um conjunto de 199 cenários de testes com um total de 24.976 testes de integração\footnote{Dados relativos a \textit{build} \#219 do \href{https://travis-ci.org/Debian/apt/builds/}{Travis-CI}}.
+Os testes de integração são mais priorizados que os unitários no APT, e podemos observar isso pela quantidade de casos de testes em cada um deles. Nos testes unitários temos 20 casos de testes, totalizando um total de 78 testes unitários. Já na integração temos um conjunto de 199 cenários de testes com um total de 24.976 testes de integração\footnote{Dados relativos a \textit{build} \#219 do \href{https://travis-ci.org/Debian/apt/builds/}{Travis-CI}, disponível em \url{https://travis-ci.org/Debian/apt/builds/}.}.
 
 
 \begin{lstlisting}[language=C++,label=gtestexample,caption={Teste de validação de armazenamento de parâmetros}]
@@ -135,7 +135,7 @@ A primeira contribuição tinha como objetivos a ambientalização com o ambient
 
 Originalmente, os dados eram armazenados em um {\code map}, visto que essa estrutura não permite a duplicação de chaves e possui uma ordenação alfabética automática. Todavia, alterar o algoritmo de ordenação de um {\code map} ocorrem em seu tempo de declaração, o que  inviabiliza a possibilidade de alterar a ordenação através de uma \textit{flag} como parâmetro de execução. Visto essa condição, a estrutura foi alterada para a estrutura de dados {\code vector}, por ser mais flexiva quanto a sua forma de ordenação.
 
-Naturalmente, a inserção de candidatos na saída do APT ocorre  em dois níveis. O primeiro ordena de acordo com os repositórios inseridos no {\code source.list} da distribuição. Candidatos de um mesmo repositório serão naturalmente ordenados alfabeticamente. Isso implica que apenas adicionar candidatos no vetor implicaria em uma ordenação com baixa precisão, visto que a sequência de repositórios variaria de usuário para usuário. Assim, a simples troca de estrutura de dados de {\code map} para {\code vector} implica na necessidade de implementar o método de ordenação alfabética, antes nativamente implementado pela estrutura {\code map}.
+Naturalmente, a inserção de candidatos na saída do {\code APT} ocorre  em dois níveis. O primeiro ordena de acordo com os repositórios inseridos no {\code source.list} da distribuição. Candidatos de um mesmo repositório serão naturalmente ordenados alfabeticamente. Isso implica que apenas adicionar candidatos no vetor implicaria em uma ordenação com baixa precisão, visto que a sequência de repositórios variaria de usuário para usuário. Assim, a simples troca de estrutura de dados de {\code map} para {\code vector} implica na necessidade de implementar o método de ordenação alfabética, antes nativamente implementado pela estrutura {\code map}.
 
 Tendo um método para ordenação alfabética simplifica o processo de ordenação alfabético reverso, visto que basta enviar as referências do vetor com suas reversas, ao invez da normais. Assim, bastando ser necessário a escrita de três métodos no total para a primeira contribuição. No trecho de código a seguir é apresentado como a seleção de ordenação é tomada.
 
@@ -164,7 +164,7 @@ A versão apresentada neste trabalho é o resultado de alguns \textit{feedback} 
 
 \subsection*{Testando alterações} % (fold)
 
-Realizar uma contribuição sem seus testes implica em oferecer um trabalho sem garantias de funcionalidade. Desta forma, as contribuições realizadas neste trabalho também estão sempre acompanhadas de seus respectivos testes. O APT utiliza uma ferramenta de testes muito comum em $C++$, a \textit{Google Test}\footnote{Mais informações sobre a ferramenta podem ser obtidas em seu repositório oficial: \url{https://github.com/google/googletest}.}. Uma \textit{suite} de testes é caracterizada pelo \textit{Google Test} como um arquivo contendo $n$ testes. Para manter o contexto, as condições da \textit{suite} de testes deve ser definida no inicio.
+Realizar uma contribuição sem seus testes implica em oferecer um trabalho sem garantias de funcionalidade. Desta forma, as contribuições realizadas neste trabalho também estão sempre acompanhadas de seus respectivos testes. O {\code APT} utiliza uma ferramenta de testes muito comum em $C++$, a \textit{Google Test}\footnote{Mais informações sobre a ferramenta podem ser obtidas em seu repositório oficial: \url{https://github.com/google/googletest}.}. Uma \textit{suite} de testes é caracterizada pelo \textit{Google Test} como um arquivo contendo $n$ testes. Para manter o contexto, as condições da \textit{suite} de testes deve ser definida no inicio.
 
 \begin{lstlisting}[language=Bash,label=googletest_decl,caption={Declarações de instâncias para o teste}]
 setupenvironment
@@ -185,7 +185,7 @@ insertinstalledpackage 'baz' 'all' '0.1'
 setupaptarchive
 \end{lstlisting}
 
-Como apresentado no \autoref{googletest_decl}, algumas macros foram criadas pela equipe do APT para simplificar o processo de declaração de instâncias. Com estas instâncias declaradas, o contexto do teste é estabelecido e esta pronto para a \textit{suite} de testes rodarem. Os testes são basicamente cenários do estado do sistema, como pode ser observado no \autoref{gtest_foo}.
+Como apresentado no \autoref{googletest_decl}, algumas macros foram criadas pela equipe do {\code APT} para simplificar o processo de declaração de instâncias. Com estas instâncias declaradas, o contexto do teste é estabelecido e esta pronto para a \textit{suite} de testes rodarem. Os testes são basicamente cenários do estado do sistema, como pode ser observado no \autoref{gtest_foo}.
 
 \begin{lstlisting}[language=Bash,label=gtest_foo,caption={Teste por busca pelo pacote \textit{foo}}]
 # search name
@@ -194,7 +194,7 @@ testsuccessequal "foo/unstable 1.0 all
 " apt search -qq foo
 \end{lstlisting}
 
-Como estamos fazendo ordenação de pacotes, é importante que se possa realizar uma busca por uma grande quantidade de pacotes. Uma das possibilidades que o APT possui hoje é a de se realizar buscas utilizando de expressões regulares. Unindo esta duas características, podemos montar uma lista maior de pacotes e realizar uma busca por um termo genérico, a fim de obter como resultado toda a lista de pacotes. O exemplo o \autoref{buscacomregex} demostra este resultado, onde a busca é feita utilizando a \textit{regex} {\code \textbackslash w}, a fim de selecionar todos os pacotes que possuam ao menos um caractere no nome.
+Como estamos fazendo ordenação de pacotes, é importante que se possa realizar uma busca por uma grande quantidade de pacotes. Uma das possibilidades que o {\code APT} possui hoje é a de se realizar buscas utilizando de expressões regulares. Unindo esta duas características, podemos montar uma lista maior de pacotes e realizar uma busca por um termo genérico, a fim de obter como resultado toda a lista de pacotes. O exemplo o \autoref{buscacomregex} demostra este resultado, onde a busca é feita utilizando a \textit{regex} {\code \textbackslash w}, a fim de selecionar todos os pacotes que possuam ao menos um caractere no nome.
 
 \begin{lstlisting}[language=Bash,label=buscacomregex,caption={Busca com uso de expressão regular}]
 # output is sorted by status
