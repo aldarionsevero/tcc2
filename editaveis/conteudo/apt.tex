@@ -6,64 +6,95 @@
 % \label{sub:sobre}
 % \textit{Advanced Packaging Tool} (APT) é um conjunto de ferramentas utilizadas pelos sistemas \textit{debian-like} para o gerenciamento de pacotes \textit{*.deb}. Dentre muitas de suas funcionalidades, o APT é capaz de identificar as dependências de um pacote requisitado para instalação e, automaticamente, adiciona-las a lista de pacotes a serem instalados, de forma que não venha a instalar um pacote de dependência quebrada.
 
-
 O {\code APT}, \textit{Advanced Package Tool, Ferramenta de Empacotamento Avançada}, é um gerenciador de repositórios  amplamente utilizado em distribuições oriundas da Debian (\textit{Debian-like}).
 É provavelmente o gerenciador mais comum atualmente devido a popularidade de distribuições como \textbf{Ubuntu}, \textbf{Mint} e \textbf{Debian}.
-Projetado inicialmente para substituir o gerenciador {\code dselect}, o APT teve suas primeiras \textit{builds} distribuídas via IRC em Agosto de 1998,  sendo integrado ao \textit{Debian} na \textit{release} de Março de 1999 \cite{garbee2008brief}. O  APT pode ser considerado como uma interface para o {\code dpkg}, gerenciando as dependências de um pacote para a instalação e remoção, alem de apresentar uma listagem dos pacotes disponíveis na lista de repositórios. 
+Projetado inicialmente para substituir o gerenciador {\code dselect}\footnote{O {\code dselect} é uma interface em console para o gerenciamento de pacotes Debian. Altamente utilizada na decada de 90, atualmente é uma ferramenta que um dos manuais do Debian \cite{dselect} desestimula o uso.}, o APT teve suas primeiras \textit{builds} distribuídas via IRC em Agosto de 1998,  sendo integrado ao \textit{Debian} na \textit{release} de Março de 1999 \cite{garbee2008brief}. O  APT pode ser considerado como uma interface para o {\code dpkg}, gerenciando as dependências de um pacote para a instalação e remoção, alem de apresentar uma relação dos pacotes disponíveis na lista de repositórios. 
 
-Um dos recursos que o APT fornece de forma transparente para o usuário é a ordenação de pacotes para instalação ou remoção com o uso das chamadas do {\code dpkg}, suprindo as dependências dos pacotes que são requisitos para o pacote ao qual o usuário deseja instalar na máquina, de forma que não venha a instalar um pacote de dependência quebrada.. Dentre as desvantagens que o APT pode apresentar, as que se destacam são justamente o fato de estar escrito em C++, que apesar do ganho de performance que apresenta aos seus concorrentes, carrega junto uma maior dificuldade de manutenção devido ao tamanho e complexidade. 
+Um dos recursos que o APT fornece de forma transparente para o usuário é a ordenação de pacotes para instalação ou remoção com o uso das chamadas do {\code dpkg}, suprindo as dependências dos pacotes que são requisitos para o pacote ao qual o usuário deseja instalar na máquina, de forma que não venha a instalar um pacote de dependência quebrada. Dentre as desvantagens que o APT pode apresentar, as que se destacam são justamente o fato de estar escrito em C++, que apesar do ganho de performance que apresenta em relação aos seus concorrentes, carrega junto uma maior dificuldade de manutenção devido ao tamanho e complexidade. 
 
-Outro problema do APT é sua fragmentação. Apesar de serem tratados como parte do APT, as aplicações como {\code apt-get} ou {\code apt-cache} são na realidade aplicações que fazem de uso do APT como uma biblioteca para interface, mas são comumente tratadas como aplicações integradas ao APT. Como consequências, o APT possuiu uma das interfaces menos intuitivas quando comparado com gerenciadores como o \textit{YUM} ou o \textit{Portage} justamente por frequentemente serem apresentadas soluções utilizando as aplicações como o {\code apt-get} ao invés do {\code apt}.
+Outro problema do APT é sua fragmentação. Apesar de serem tratadas como parte do APT, as aplicações como {\code apt-get} ou {\code apt-cache} são na realidade aplicações que fazem de uso do APT como uma biblioteca para interface, mas são comumente tratadas como aplicações integradas ao APT. Como consequências, o APT possuiu uma das interfaces menos intuitivas quando comparado com gerenciadores como o \textit{YUM} ou o \textit{Portage} justamente por frequentemente serem apresentadas soluções utilizando as aplicações como o {\code apt-get} ao invés do {\code apt}.
 
-Por ser um \textit{gerenciador de repositórios}, o {\code APT} trabalha unicamente com os arquivos \textit{.deb} que possuem seus respectivos endereços registrados no arquivo {\code/etc/apt/sources. list}, possibilitando o uso de diretórios remotos ou locais para a disponibilização dos pacotes a serem gerenciados. Requisitada a instalação de um pacote ao {\code APT}, será feito o \textit{download} do pacote e  suas respectivas dependências e estes arquivos são repassados ao {\code dpkg} para que seja realizado o processo de instalação.
+Por ser um \textit{gerenciador de repositórios}, o {\code APT} trabalha unicamente com os arquivos \textit{.deb} que possuam seus respectivos endereços registrados no arquivo {\code/etc/apt/sources. list}, possibilitando o uso de diretórios remotos ou locais para a disponibilização dos pacotes a serem gerenciados. Requisitada a instalação de um pacote ao {\code APT}, será feito o \textit{download} do pacote e  suas respectivas dependências e estes arquivos são repassados ao {\code dpkg} para que seja realizado o processo de instalação.
 
-O \textit{APT} possui como repositório oficial o \url{git://anonscm.debian.org/apt/apt.git}, apesar de também ser hospedado em outros repositórios, tal como o \url{https://github.com/Debian/apt}. Neste trabalho estaremos trabalhando em busca de soluções que venha a contribuir e enriquecer em especial a aplicação \href{https://github.com/Debian/apt/blob/debian/experimental/cmdline/apt-cache.cc}{apt-cache}, em especial o comando \textbf{search}. Segundo podemos observar o código disponibilizado do \textit{APT}, a apresentação dos resultados de uma busca são ordenados alfabeticamente, de acordo com a lista de repositórios disponíveis.
+O \textit{APT} possui como repositório oficial o \url{git://anonscm.debian.org/apt/apt.git}, apesar de também ser hospedado em outros repositórios, tal como o \url{https://github.com/Debian/apt}, de forma espelhada. Neste trabalho estaremos desenvolvendo soluções que venham a contribuir e enriquecer a aplicação 
+% \href{https://github.com/Debian/apt/blob/debian/experimental/apt-private/private-search.cc}{apt}
+{\code apt}
+, em especial o comando \textbf{search}. Segundo podemos observar o código disponibilizado do \textit{APT}, a apresentação dos resultados de uma busca são ordenados alfabeticamente, de acordo com a lista de repositórios disponíveis.
 
 % subsection sobre (end)
 
 \subsubsection*{Interfaces} % (fold)
 \label{ssub:interfaces}
-Atualmente existem varias interfaces para o uso do APT. Apesar de aplicações como \textit{Synaptic, Aptitude} e \textit{Adept Package Manager} serem bastantes usuais e conhecidas, há diversos \textit{bindings} disponíveis para integrar o APT junto a outras ferramentas, sendo o \href{https://apt.alioth.debian.org/python-apt-doc/library/index.html}{python-apt} um dos mais comuns  devido sua estabilidade e simplicidade. Outra interface interessante é o \href{http://apt-rpm.org/about.shtml}{apt-rpm}, uma interface voltada para o uso de pacotes distribuidos em RPM, voltado para distribuições como Fedora, Red Hat, SuSE, ALT-Linux, etc)\cite{apt-rpm}.
+Atualmente existem varias interfaces para o uso do APT. Apesar de aplicações como \textit{Synaptic, Aptitude} e \textit{Adept Package Manager} serem bastantes usuais e conhecidas, há diversos \textit{bindings} disponíveis para integrar o APT junto a outras ferramentas, sendo o \href{https://apt.alioth.debian.org/python-apt-doc/library/index.html}{python-apt} um dos mais comuns  devido sua estabilidade e simplicidade. Outra interface interessante é o \href{http://apt-rpm.org/about.shtml}{apt-rpm}, uma interface para o uso de pacotes distribuidos em RPM, para distribuições como Fedora, Red Hat, SuSE, ALT-Linux, etc \cite{apt-rpm}.
 % subsubsection interfaces (end)
 
 \subsubsection*{Comandos} % (fold)
 \label{ssub:comandos}
 
-Assim como diversas outras aplicações CLI, \textit{Command Line Interface, Interface de Linha de Comando}, o APT possui comandos que podem ser passados como parâmetros em linha de execução. Segue a listagem deles:
+Assim como diversas outras aplicações CLI, \textit{Command Line Interface, Interface de Linha de Comando}, o APT possui comandos que podem ser passados como parâmetros em linha de execução. Segue eles:
 
-\begin{description}
-	\item[autoclean] Apaga arquivos antigos já baixados. %Erase old downloaded archive files
-	\item[autoremove] Remove automaticamente todos os pacotes não utilizáveis. %Remove automatically all unused packages
-	\item[build] Constroe pacotes localmente a partir dos códigos fontes. %Build binary or source packages from sources
-	\item[build-dep] Configura dependências para pacotes. %Configure build-dependencies for source packages
-	\item[changelog] Apresenta histórico de modificações de um pacote. %View a package's changelog
-	\item[check] Verifica se há alguma dependência quebrada. %Verify that there are no broken dependencies
-	\item[clean] Apaga arquivos temporários baixados. %Erase downloaded archive files
-	\item[contains] Lista pacotes contendo um arquivo. %List packages containing a file
-	\item[content] Lista arquivos contendo um pacote. %List files contained in a package
-	\item[deb] Instala um arquivo \textit{.deb}. %Install a .deb package
-	\item[depends] Apresenta dependências brutas de um pacote. %Show raw dependency information for a package
-	\item[dist-upgrade] Realiza uma atualização de versão do sistema operacional, com instalações e remoções necessárias. %Perform an upgrade, possibly installing and removing packages
-	\item[download] Baixa o arquivo \textit{.deb} de um pacote.  %Download the .deb file for a package
-	\item[dselect-upgrade] Segue as seleções do comando {\code dselect}. %Follow dselect selections
-	\item[held] Lista todos os pacotes guardados. %List all held packages
-	\item[help] Apresenta a ajuda de um comando especifico. %Show help for a command
-	\item[hold] Guarda um pacote. %Hold a package
-	\item[install] Instala ou atualiza pacotes, com suas dependências. %Install/upgrade packages
-	\item[policy] Apresenta politicas de configurações. %Show policy settings
-	\item[purge] Remove pacotes e seus arquivos de configuração. %Remove packages and their configuration files
-	\item[rdepends] Apresenta dependências reversas de um pacote. %Show reverse dependency information for a package
-	\item[reinstall] Reinstala um já instalado. %Download and (possibly) reinstall a currently installed package
-	\item[remove] Remove um pacote. %Remove packages
-	\item[search] Busca por pacotes utilizando nomes ou expressões. %Search for a package by name and/or expression
-	\item[show] Mostra informações detalhadas de um pacote. %Display detailed information about a package
-	\item[source] Baixa código fonte de um pacote. %Download source archives
-	\item[sources] Edita arquivo {\code /etc/apt/sources.list} com editor padrão. %Edit /etc/apt/sources.list with nano
-	\item[unhold] Remove um pacote guardado. %Unhold a package
-	\item[update] Atualiza cache com lista de pacotes disponíveis. %Download lists of new/upgradable packages
-	\item[upgrade] Realiza a atualização de um pacote. %Perform a safe upgrade
-	\item[version] Apresenta a versão instalada de um pacote. %Show the installed version of a package
-\end{description}
+\begin{longtable}{lm{11cm}}
+% \begin{table}[htbp]
+\caption{Parâmetros disponíveis para uso da interface CLI do APT.}\\
+% \centering
+% \begin{tabular}{lm{11cm}}
+\toprule
+\textbf{Parâmetro} & \textbf{Ação} \\ 
+\midrule
+% \begin{description}
+	\textbf{\code autoclean} & Apaga arquivos antigos já baixados. \\ %Erase old downloaded archive files
+	\rowcolor[gray]{0.8}
+	\textbf{\code autoremove} & Remove automaticamente todos os pacotes não utilizados. \\ %Remove automatically all unused packages
+	\textbf{\code build} & Constrói pacotes localmente a partir dos códigos fontes. \\ %Build binary or source packages from sources
+	\rowcolor[gray]{0.8}
+	\textbf{\code build-dep} & Configura dependências para pacotes. \\ %Configure build-dependencies for source packages
+	\textbf{\code changelog} & Apresenta histórico de modificações de um pacote. \\ %View a package's changelog
+	\rowcolor[gray]{0.8}
+	\textbf{\code check} & Verifica se há alguma dependência quebrada. \\ %Verify that there are no broken dependencies
+	\textbf{\code clean} & Apaga arquivos temporários baixados. \\ %Erase downloaded archive files
+	\rowcolor[gray]{0.8}
+	\textbf{\code contains} & Lista pacotes contidos em um arquivo. \\ %List packages containing a file
+	\textbf{\code content} & Lista arquivos contidos em um pacote. \\ %List files contained in a package
+	\rowcolor[gray]{0.8}
+	\textbf{\code deb} & Instala um arquivo \textit{.deb}. \\ %Install a .deb package
+	\textbf{\code depends} & Apresenta dependências de um pacote. \\ %Show raw dependency information for a package
+	\rowcolor[gray]{0.8}
+	\textbf{\code dist-upgrade} & Realiza uma atualização de versão do sistema operacional, com instalações e remoções necessárias. \\ %Perform an upgrade, possibly installing and removing packages
+	\textbf{\code download} & Baixa o arquivo \textit{.deb} de um pacote. \\ %Download the .deb file for a package
+	\rowcolor[gray]{0.8}
+	\textbf{\code dselect-upgrade} & Segue as seleções do comando {\code dselect}. \\ %Follow dselect selections
+	\textbf{\code held} & Lista todos os pacotes guardados. \\ %List all held packages
+	\rowcolor[gray]{0.8}
+	\textbf{\code help} & Apresenta a ajuda de um comando específico. \\ %Show help for a command
+	\textbf{\code hold} & Guarda um pacote. \\ %Hold a package
+	\rowcolor[gray]{0.8}
+	\textbf{\code install} & Instala ou atualiza pacotes, com suas dependências. \\ %Install/upgrade packages
+	\textbf{\code policy} & Apresenta politicas de configurações. \\ %Show policy settings
+	\rowcolor[gray]{0.8}
+	\textbf{\code purge} & Remove pacotes e seus arquivos de configuração. \\ %Remove packages and their configuration files
+	\textbf{\code rdepends} & Apresenta dependências reversas de um pacote. \\ %Show reverse dependency information for a package
+	\rowcolor[gray]{0.8}
+	\textbf{\code reinstall} & Reinstala um pacote já instalado. \\ %Download and (possibly) reinstall a currently installed package
+	\textbf{\code remove} & Remove um pacote. \\ %Remove packages
+	\rowcolor[gray]{0.8}
+	\textbf{\code search} & Busca por pacotes utilizando nomes ou expressões. \\ %Search for a package by name and/or expression
+	\textbf{\code show} & Mostra informações detalhadas de um pacote. \\ %Display detailed information about a package
+	\rowcolor[gray]{0.8}
+	\textbf{\code source} & Baixa código fonte de um pacote. \\ %Download source archives
+	\textbf{\code sources} & Edita o arquivo {\code /etc/apt/sources.list} com editor padrão. \\ %Edit /etc/apt/sources.list with nano
+	\rowcolor[gray]{0.8}
+	\textbf{\code unhold} & Remove um pacote guardado. \\ %Unhold a package
+	\textbf{\code update} & Atualiza cache com lista de pacotes disponíveis. \\ %Download lists of new/upgradable packages
+	\rowcolor[gray]{0.8}
+	\textbf{\code upgrade} & Realiza a atualização de um pacote. \\ %Perform a safe upgrade
+	\textbf{\code version} & Apresenta a versão instalada de um pacote. \\ %Show the installed version of a package
+% \end{description}
+\bottomrule
+% \textbf{\code Pacman} & {\code\# pacman -Ss}  \\ \hline
+% \end{tabular}
+\label{sync_gerenciadores}
+\end{longtable}
+% \end{table}
 
 % subsubsection comandos (end)
 

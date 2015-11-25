@@ -1,15 +1,15 @@
-\section{\nmu Algorítimos de  \textit{string matching}} % (fold)
+\section{\nmu Algoritmos de  \textit{string matching}} % (fold)
 \label{sec:algoritimos_de_textit}
 
-\subsection{\nmu Algorítimos de \textit{string matching} exatos} % (fold)
+\subsection{\nmu Algoritmos de \textit{string matching} exatos} % (fold)
 \label{sub:algoritimos_de_textit}
 
-Há inúmeros exemplos possíveis de algorítimos voltados para \textit{string matching} exatos, mas iremos citar e apresentar dois dos mais usuais.
+Há inúmeros exemplos possíveis de algoritmos voltados para \textit{string matching} exatos, mas iremos citar e apresentar dois dos mais importantes.
 
 \subsubsection*{Rabin-Karp} % (fold)
 \label{ssub:rabin_karp}
 
-Criado  em 1987  por  Richard M. Karp e Michael O. Rabin, o algoritmo faz de uso de uma \textit{hash} no intuito de agilizar a busca por um padrão em um texto. Para condições de busca em um texto de tamanho $n$ por um padrão de tamanho $p$, o algoritmo de Rabin-Karp pode ter em melhor caso ordem de complexidade $\Theta(n-m+1)$\cite{paulo2015algoritmos}\footnote{Onde $m=n+p$}. Em pior caso, a ordem de complexidade chega a $\Theta((n-m+1)m)$, mesma ordem de complexidade que uma busca comum/força bruta\cite{paulo2015algoritmos}. Todavia, a situação de pior caso só ocorre quando a \textit{hash} não é propriamente calculada. No \autoref{rkalgoritm} apresentamos de forma simples como implementar o algoritmo de Rabin–Karp.
+Criado  em 1987  por  Richard M. Karp e Michael O. Rabin, o algoritmo faz de uso de uma \textit{hash} com o intuito de agilizar a busca por um padrão em um texto. Para busca em um texto de tamanho $n$ por um padrão de tamanho $p$, o algoritmo de Rabin-Karp pode ter em melhor caso ordem de complexidade $\Theta(n-m+1)$ \cite{paulo2015algoritmos}\footnote{Onde $m=n+p$}. Em pior caso, a ordem de complexidade chega a $\Theta((n-m+1)m)$, mesma ordem de complexidade que uma busca comum/força bruta \cite{paulo2015algoritmos}. Todavia, a situação de pior caso só ocorre quando a \textit{hash} não é propriamente calculada. No \autoref{rkalgoritm} apresentamos de forma simples como implementar o algoritmo de Rabin–Karp.
 
 \begin{lstlisting}[language=Bash,label=rkalgoritm,caption={Algoritmo de Rabin–Karp}]
 function RabinKarp(string s[1..n], string pattern[1..m])
@@ -22,27 +22,27 @@ function RabinKarp(string s[1..n], string pattern[1..m])
 	return not found
 \end{lstlisting}
 
-Observe que na linha $7$ do \autoref{rkalgoritm} temos o calculo de uma nova \textit{hash}, porém a variável {\code hs} já possui a \textit{hash} para {\code [i+1..i+m]-1}. Se aplicarmos o conceito de \textit{rolling hash}, poderemos obter este valor, nos poupando tempo no calculo da \textit{hash} e evitando que a linha $5$ seja executada em casos de chances nulas. Este é o ponto onde o algoritmo de Rabin–Karp se mostra com alto desempenho. Normalmente, o algoritmo é utilizado com uma \textit{rolling hash} simples que faz de uso  de multiplicações e somas apenas:
-
-\begin{equation}
+Observe que na linha $7$ do \autoref{rkalgoritm} temos o cálculo de uma nova \textit{hash}, porém a variável {\code hs} já possui a \textit{hash} para {\code [i+1..i+m]-1}. Se aplicarmos o conceito de \textit{rolling hash}, poderemos obter este valor, nos poupando tempo no cálculo da \textit{hash} e evitando que a linha $5$ seja executada em casos de chances nulas. Este é o ponto onde o algoritmo de Rabin–Karp se mostra com alto desempenho. Normalmente, o algoritmo é utilizado com uma \textit{rolling hash} simples que faz de uso  de multiplicações e somas apenas, conforme apresentada na \autoref{eq:rolling_hash},
+%
+\begin{equation}\label{eq:rolling_hash}
 	H=c_1a^{k-1}+ c_2a^{k-2} + c_3a^{k-3} + ... + c_ka^{0}
 \end{equation}
-
-Onde $a$ é uma constante e $c_1,...c_k$ são os caracteres de entrada. Para evitar o calculo de números muito grandes, normalmente é usado o módulo de $m$ para o valor dos índices. A chave para uma boa \textit{hash} esta na escolha para os valores de $m$ e $a$ que satisfaçam a arquitetura utilizada para os cálculos e que se enquadrem nas condições recomendadas para uma congruência linear\cite{knuth1998art}, o que nessa \textit{hash} implica que $0<a<m$.
+%
+onde $a$ é uma constante e $c_1,...c_k$ são os caracteres de entrada. Para evitar o cálculo de números muito grandes, normalmente é usado o módulo de $m$ para o valor dos índices. A chave para uma boa \textit{hash} está na escolha dos valores de $m$ e $a$ que satisfaçam a arquitetura utilizada para os cálculos e que se enquadrem nas condições recomendadas para uma congruência linear \cite{knuth1998art}, o que nessa \textit{hash} implica que $0<a<m$.
 
 % subsubsection* rabin_karp (end)
 
 \subsubsection*{Knuth–Morris–Pratt (KMP)} % (fold)
 \label{ssub:knuth_morris_pratt_}
 
-O algoritmo publicado em 1977 tem autoria de  Donald Knuth, Vaughan Pratt e James H. Morris faz de uso do conceito de autômato de estados, ou seja, uma máquina abstrata que deve estar em um, e apenas um, de seus finitos estados\cite{thierbach1985finite}. Este algoritmo segue do pressuposto que o texto é um fluxo continuo\cite{paulo2015algoritmos}, evitando de voltar a pontos anteriores do texto após uma falha de verificação, mas sim executar os seguintes passos quando encontrarmos um conflito entre {\code txt[i]} e {\code pat[j]}:
+O algoritmo publicado em 1977 tem autoria de  Donald Knuth, Vaughan Pratt e James H. Morris e faz de uso do conceito de autômato de estados, ou seja, uma máquina abstrata que deve estar em um, e apenas um, de seus finitos estados \cite{thierbach1985finite}. Este algoritmo segue do pressuposto que o texto é um fluxo contínuo \cite{paulo2015algoritmos}, evitando de voltar a pontos anteriores do texto após uma falha de verificação, mas sim executar os seguintes passos quando encontrarmos um conflito entre {\code txt[i]} e {\code pat[j]}:
 
 \begin{enumerate}
 	\item Localizar o maior $k$ tal que {\code pat[0..k-1]} é igual a {\code txt[i-k+1..i]}.
 	\item Seguir a comparação de {\code txt[i+1..]} com {\code pat[k..]}.
 \end{enumerate}
 
-Por considerar sempre um fluxo continuo do texto, a ordem de complexidade do algorítimo de Knuth–Morris–Pratt é previsível: $\Theta(n)$, porém requer um pré-processamento com ordem $\Theta(m)$ \cite{hume1991fast}.
+Por considerar sempre um fluxo continuo do texto, a ordem de complexidade do algoritmo de Knuth–Morris–Pratt é previsível: $\Theta(n)$, porém requer um pré-processamento com ordem $\Theta(m)$ \cite{hume1991fast}.
 
 \begin{lstlisting}[language=Bash,label=kmpalgoritm,caption={Knuth–Morris–Pratt (KMP)}]
 function KMP(string S, string pattern)
@@ -61,17 +61,17 @@ function KMP(string S, string pattern)
 	return not found
 \end{lstlisting}
 
-No \autoref{kmpalgoritm} podemos observar o algorítimo de Knuth–Morris–Pratt genericamente aplicado.
+No \autoref{kmpalgoritm} podemos observar o algoritmo de Knuth–Morris–Pratt em forma de pseudo-código.
 
 % subsubsection* knuth_morris_pratt_ (end)
 % subsection algoritimos_exatos (end)
 
-\subsection{Algorítimos de \textit{string matching} inexatos} % (fold)
+\subsection{Algoritmos de \textit{string matching} inexatos} % (fold)
 
 \subsubsection*{Leveinstein} % (fold)
 \label{sec:leveinstein}
 
-Duas das abordagens propostas neste trabalho são baseadas nos trabalhos de \textit{Vladimir Levenshtein}. Atuante na área de teoria da informação, código de correção de erros e analise combinatória, Levenshtein publicou 1965 na \textit{Problemy Peredachi Informatsii} o trabalho pelo qual seria reconhecido desde então: \textit{Binary codes with correction of drooping and insertion of the symbol 1}\cite{levenshtein1965}. Republicado num resumo em 1966 com o título de \textit{Binary codes capable of correcting deletions, insertions and reversals} \cite{levenshtein1966}, a obra tratava do cálculo da distância entre duas \textit{strings}, ou seja, dada as \textit{strings} \textbf{A} e \textbf{B}, determinar a quantidade mínima de operações necessárias para que, partindo da \textit{string} \textbf{A}, seja possível obter a \textit{string} \textbf{B}. Entende-se por operações a inserção, remoção e substituição de um caractere.
+Duas das abordagens propostas neste trabalho são baseadas nos trabalhos de \textit{Vladimir Levenshtein}. Atuante na área de teoria da informação, código de correção de erros e análise combinatória, Levenshtein publicou em 1965 na \textit{Problemy Peredachi Informatsii} o trabalho pelo qual seria reconhecido desde então: \textit{Binary codes with correction of drooping and insertion of the symbol 1} \cite{levenshtein1965}. Republicado num resumo em 1966 com o título de \textit{Binary codes capable of correcting deletions, insertions and reversals} \cite{levenshtein1966}, a obra tratava do cálculo da distância entre duas \textit{strings}, ou seja, dada as \textit{strings} \textbf{A} e \textbf{B}, determinar a quantidade mínima de operações necessárias para que, partindo da \textit{string} \textbf{A}, seja possível obter a \textit{string} \textbf{B}. Entende-se por operações a inserção, remoção e substituição de um caractere.
 
 \paragraph*{Exemplo de cálculo de distância entre \textit{strings}} % (fold)
 \label{sub:exemplo_de_c_lculo_de_distancia_entre_it}
@@ -139,7 +139,7 @@ Como pode-se observar, a implementação do cálculo da distância utiliza progr
 A distância de Damerau-Levenshtein é uma variação da distância de Levenshtein \cite{levenshtein1965}, havendo ainda a adição da transposição no \textit{set} de operações básicas. Em seus estudos, Damerau apresentou que mais de $80\%$ dos erros de escrita oriundo de humanos estavam relacionados às operações de falta de caractere, excesso de caracteres, substituição de caracteres ou transposição de caracteres \cite{damerau1964technique}.
 
 
-Por  considerar  a transposição de dois caracteres adjacentes, a distância de \textit{Damerau-Levenshtein} abriu portas para um novo padrão de métricas, as biológicas, no campo de mensurar a variação entre moléculas de DNA. Esta seria a brecha necessária para que surgissem outros métodos de analise de moléculas de DNA baseadas na comparação de \textit{strings}, tais como o algoritmo de \textit{Needleman–Wunsch} \cite{needleman1970general} e  o de \textit{Smith-Waterman} \cite{smith1981identification}.
+Por  considerar  a transposição de dois caracteres adjacentes, a distância de \textit{Damerau-Levenshtein} abriu portas para um novo padrão de métricas, as biológicas, no campo de mensurar a variação entre moléculas de DNA. Esta seria a brecha necessária para que surgissem outros métodos de análise de moléculas de DNA baseadas na comparação de \textit{strings}, tais como o algoritmo de \textit{Needleman–Wunsch} \cite{needleman1970general} e  o de \textit{Smith-Waterman} \cite{smith1981identification}.
 
 \paragraph*{Implementação} % (fold)
 \label{sub:implementa_damerau_levenshtein}
@@ -183,13 +183,13 @@ A distinção do método de \textit{Damerau-Levenshtein} para o modelo tradicion
 \subsubsection*{Coeficiente de Sørensen–Dice} % (fold)
 \label{ssub:s_rensen_dice_coefficient}
 
-Também conhecido como \textit{índice de Sørensen} ou \textit{coeficiente de Dice}, o algoritmo que faz de uso de análise estatística foi independentemente desenvolvido por \citeonline{dice1945measures} e \citeonline{sorensen1948method} para analise  de estudos amostras de especies, porém, semelhante ao acontecido com o algoritmo de Smith-Waterman\cite{smith1981identification}, o modelo apontado por \textit{Lee Dice} e \textit{Thorvald Sørensen} acabou sendo abstraído para conjuntos de caracteres e fatalmente utilizado para o apontamento de semelhanças entre \textit{strings}. O modelo propõe o uso de \textit{n-grams}\cite{cavnar1994n} para calcular a proximidade entre duas \textit{strings} contando as intersecções entre elas. Tradicionalmente é utilizado \textit{bigrams}, grupos de dois caracteres, para a execução do algoritmo, porém a restrição do tamanho dos grupo implica apenas na rigorosidade com que a semelhança entre os grupos serão analisados. Com o valor das intersecções entre as \textit{strings}, o índice de coincidência é calculado de acordo com a \autoref{dice_equation}, onde $x$ e $Y$ representam os \textit{n-grams} de cada \textit{string}.
+Também conhecido como \textit{índice de Sørensen} ou \textit{coeficiente de Dice}, o algoritmo que faz de uso de análise estatística foi independentemente desenvolvido por \citeonline{dice1945measures} e \citeonline{sorensen1948method} para análise  de estudos amostras de especies. Porém, semelhante ao acontecido com o algoritmo de Smith-Waterman \cite{smith1981identification}, o modelo apontado por \textit{Lee Dice} e \textit{Thorvald Sørensen} acabou sendo abstraído para conjuntos de caracteres e fatalmente utilizado para o apontamento de semelhanças entre \textit{strings}. O modelo propõe o uso de \textit{n-grams} \cite{cavnar1994n} para calcular a proximidade entre duas \textit{strings} contando as intersecções entre elas. Tradicionalmente são utilizadosbigramas, grupos de dois caracteres, para a execução do algoritmo, porém a restrição do tamanho dos grupo implica apenas na rigorosidade com que a semelhança entre os grupos serão analisados. Com o valor das intersecções entre as \textit{strings}, o índice de coincidência é calculado de acordo com a \autoref{dice_equation}, onde $x$ e $Y$ representam os \textit{n-grams} de cada \textit{string}.
 
 \begin{equation}\label{dice_equation}
   s = \frac{2\mid X\cap Y\mid}{\mid X\mid+\mid Y\mid}
 \end{equation}
 
-Por haver uma comparação de \textit{n-grams} nas duas \textit{strings}, a ordem com que elas aparecem não influenciam no resultado final, porém  a um custo extremamente alto, visto que este algoritmo pode vir a ter ordem de complexidade $\Theta(n)$ dependendo da sua implementação, tendo assim um desempenho semelhante ao das expressões regulares. A \autoref{fig:dice_example} apresenta um comparativo entre as \textit{strings} {\code ALGORITHMS ARE FUN} e {\code LOGARITHMS ARE NOT}. Observe que o \textit{bigram} {\code AR} é selecionado em ambos.
+Por haver uma comparação de \textit{n-grams} nas duas \textit{strings}, a ordem com que elas aparecem não influenciam no resultado final, porém  há a possibilidade deste algoritmo pode vir a ter ordem de complexidade $\Theta(n)$ dependendo da sua implementação, tendo assim um desempenho semelhante ao das expressões regulares. A \autoref{fig:dice_example} apresenta um comparativo entre as \textit{strings} {\code ALGORITHMS ARE FUN} e {\code LOGARITHMS ARE NOT}. Observe que o \textit{bigram} {\code AR} é selecionado em ambos.
 
 \begin{figure}[h]
   \centering
@@ -199,15 +199,15 @@ Por haver uma comparação de \textit{n-grams} nas duas \textit{strings}, a orde
 \end{figure}
 \footnotetext{\label{note:dice_example}\textbf{Fonte:} \href{http://www.algomation.com/algorithm/sorensen-dice-string-similarity}{http://www.algomation.com/algorithm/sorensen-dice-string-similarity}}
 
-O \autoref{dice_index} apresenta uma solução simples e não otimizada para o calculo do coeficiente de Sørensen–Dice na linguagem Python com o uso de {\code sets}. Apesar de não ser uma solução ortodoxa do algoritmo e permitir falhas como apontar que as \textit{strings} {\code AA} e {\code AAAA} seriam apontadas como idênticas, a solução é interessante para apresentar de forma o funcionamento do algoritmo, visto a simplicidade que ele passa a ter quando implementado com {\code sets} e utilizando do operador lógico {\code and} para identificar as interseções entre as \textit{strings}.
+O \autoref{dice_index} apresenta uma solução simples e não otimizada para o calculo do coeficiente de Sørensen–Dice na linguagem Python com o uso de {\code sets} para o cálculo do coeficiente em unigramas. Apesar de não ser uma solução ortodoxa do algoritmo e permitir falhas como apontar que as \textit{strings} {\code AA} e {\code AAAA} como idênticas, a solução é interessante para apresentar de forma direta o funcionamento do algoritmo, visto a simplicidade que ele passa a ter quando implementado com {\code sets} e utilizando do operador lógico {\code and} para identificar as interseções entre as \textit{strings}.
 
 \begin{lstlisting}[language=Python,label=dice_index,caption={Simples implementação do coeficiente de Sørensen–Dice}]
 def dice_coefficient(a, b):
     """dice coefficient 2nt/na + nb."""
-    a_bigrams = set(a)
-    b_bigrams = set(b)
-    overlap = len(a_bigrams & b_bigrams)
-    return overlap * 2.0/(len(a_bigrams) + len(b_bigrams))
+    a_unigram = set(a)
+    b_unigram = set(b)
+    overlap = len(a_unigram & b_unigram)
+    return overlap * 2.0/(len(a_unigram) + len(b_unigram))
 \end{lstlisting}
 
 % subsubsection s_rensen_dice_coefficient (end)
