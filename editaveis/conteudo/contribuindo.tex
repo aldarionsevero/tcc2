@@ -4,56 +4,56 @@
 Um dos objetivos deste trabalho era contribuir com uma aplicação \textit{open-souce} disponível na plataforma \href{http://github.com}{GitHub}\footnote{Disponível em \url{http://github.com}.}. Na próxima seção será apresentada a forma como tais contribuições foram realizadas. Devido ao fato do repositório do {\code APT} estar armazenado no GitHub, a terminologia apresentada estará em maior conformidade com esta plataforma, porém o conceito de \textit{pull-request} ou  \textit{merge-request} é amplamente utilizado em outras plataformas, como \href{https://bitbucket.org/}{Bitbucket}\footnote{Disponível em \url{https://bitbucket.org}.}, \href{https://gitlab.com/}{GitLab}\footnote{Disponível em \url{http://gitlab.com}.} ou até mesmo \href{http://sourceforge.net/}{SourceForge}\footnote{Disponível em \url{http://sourceforge.net}.}.
 
 
-\subsection*{Mantendo uma copia} % (fold)
+\subsection*{Mantendo uma cópia} % (fold)
 \label{sub:mantendo_uma_copia_sua}
 
 
-Normalmente não temos autorização pra alterar as informações de outra pessoa sem seu consentimento. Da mesma forma  é com os repositórios {\code git}. Assim, um dos primeiros passos para começar a contribuir com uma ferramenta \textit{open-source} é fazer uma copia dela em seu repositório. Essa cópia pode ser feita de duas formas basicamente, no intuito de manter os autores das modificações anteriores:
+Normalmente não temos autorização pra alterar as informações de outra pessoa sem seu o consentimento. Da mesma forma  acontece com os repositórios {\code git}. Assim, um dos primeiros passos para começar a contribuir com uma ferramenta \textit{open-source} é fazer uma cópia dela em seu repositório. Essa cópia pode ser feita basicamente de duas formas, no intuito de preservar os autores das modificações anteriores:
 
 \begin{description}
-	\item [\textit{Fork}]: O termo é amplamente utilizado quando queremos fazer uma copia de um repositório para a nossa conta em uma mesma plataforma. Normalmente este passo é realizado via interface gráfica, ainda no navegador. Na \autoref{fig:github_fork} é possível observar o botão no canto superior direito indicado para realizar um \textit{fork} do atual repositório.
+	\item [\textit{Fork}]: O termo é amplamente utilizado quando queremos fazer uma copia de um repositório para a nossa conta em uma mesma plataforma. Normalmente este passo é realizado via interface gráfica, ainda no navegador. Na \autoref{fig:github_fork} é possível observar o botão no canto superior direito que permite realizar um \textit{fork} do repositório desejado.
 
 	\begin{figure}[h]
 	  \centering
 		\includegraphics[width=0.90\textwidth]{figuras/fork}
-	  \caption{Visão de um repositório do \textit{GitHub}}
+	  \caption{Visão de um repositório do \textit{GitHub}, com destaque no botão que permite criar um \textit{fork} do projeto}
 	  \label{fig:github_fork}
 	\end{figure}
 
-	\item [\textit{Adicionando \textit{remote}}]: Quando desejamos realizar uma copia do repositório em uma plataforma distinta da original, a forma mais simples de proceder é clonando o repositório e incluindo nele um novo \textit{remote} para a nova plataforma. Assim conseguimos trabalhar com a mesma arvore de \textit{commits} do repositório original, mantendo os créditos e alterações originais.
+	\item [\textit{Adicionando \textit{remote}}]: Quando desejamos realizar uma cópia do repositório em uma plataforma distinta da original, a forma mais simples de proceder é clonando o repositório e incluindo nele um novo \textit{remote} para a nova plataforma. O \textit{remote} é o \textit{link} do repositório utilizado para a transmissão das alterações. Ele pode oferecer uma conexão {\code hhtps} ou {\code ssh}. Assim conseguimos trabalhar com a mesma árvore de \textit{commits} do repositório original, mantendo os créditos e alterações originais.
 \end{description}
 % subsection mantendo_uma_copia_sua (end)
 
 \subsection*{Evoluindo o código} % (fold)
 \label{sub:evoluindo_o_c_digo}
 
-Nesto ponto de contribuição, o contribuinte desenvolve o código semelhante ao processo de produção de código pessoal. O código já esta em um repositório pessoal e o usuário já possui todos os direitos administrativos do repositório. Obviamente que caso a contribuição esteja sendo feita à uma aplicação grande e com muitos contribuidores, é importante se manter sincronizado com o código original, para evitar que o retorno da contribuição não seja tão trabalhoso para o revisor, além de evitar situações de conflitos.
+Nesto ponto de contribuição, o contribuinte desenvolve o código de acordo com o processo de produção escolhido. O código estará versionado em um repositório pessoal e o usuário possuirá todos os direitos administrativos deste repositório. Obviamente, caso a contribuição esteja sendo feita à uma aplicação grande e com muitos contribuidores, é importante se manter sincronizado com o código original, para evitar que o retorno da contribuição não seja tão trabalhoso para o revisor, além de evitar situações de conflito.
 % subsection evoluindo_o_c_digo (end)
 
 \subsection*{Retornando sua contribuição} % (fold)
 \label{sub:retornando_sua_contribui_o}
 
-Quando se decidido que a contribuição já esta a um ponto aceitável para encaminha-la de volta para o código original, é o momento de se realizar o \textit{pull-request}\footnote{Ou \textit{merge-request} dependendo do ambiente de desenvolvimento em que esteja-se contribuindo.}. Uma contribuição é interessante quando possui as seguintes características:
+Quando se decidido que a contribuição atinge um ponto aceitável para ser incorporada ao código original, é o momento de se realizar o \textit{pull-request}\footnote{Ou \textit{merge-request} dependendo da plataforma de desenvolvimento.}. Uma contribuição é interessante quando possui as seguintes características:
 
 
 \begin{itemize}
-	\item Evolução de código mantendo os padrões de guia de estilo definido pelo desenvolvedor original/linguagem.
-	\item Testes para a evolução de código proposto.
-	\item Documentação da \textit{feature} implementada ou atualização da documentação como reflexão das modificações sugeridas.
+	\item É uma significativa e relevante evolução de código mantendo os padrões de guia de estilo definido pelo desenvolvedor original/linguagem;
+	\item Adiciona ou atende os testes para a evolução de código proposto;
+	\item Traz a documentação da \textit{feature} implementada ou atualiza a documentação para contemplar as modificações sugeridas.
 \end{itemize}
 % subsection retornando_sua_contribui_o (end)
 
-Realizada a contribuição, é dever do mantenedor do repositório original revisar o código e decidir se deve ou não aceita-lo.
+Submetida a contribuição, é dever do mantenedor do repositório original revisar o código e decidir se deve ou não aceitá-la.
 
 
 \subsection*{Testando} % (fold)
 \label{sub:testando}
 
-É como em desenvolvimento de software haver ao menos testes unitários a cada evolução de código, a fim de validar a funcionalidade. No projeto abordado neste trabalho em especial há testes utilizado o \href{https://github.com/google/googletest}{Google C++ Testing Framework}\footnote{Disponível em \url{https://github.com/google/googletest}.} (Google Test), um \textit{framework} desenvolvido pela Google para testes. Ele tem suporte para um conjunto de assertivas pre-definidas e definidas pelo usuário, tornando-se uma das melhores ferramentas para a escrita de \textit{suite} de testes para C/C++ hoje disponíveis.
+É desejável, no desenvolvimento de software, existir um conjunto de testes unitários a cada evolução de código, a fim de validar as funcionalidades existentes ou adicionadas. No projeto abordado neste trabalho, em especial, há testes utilizado o \href{https://github.com/google/googletest}{Google C++ Testing Framework}\footnote{Disponível em \url{https://github.com/google/googletest}.} (Google Test), um \textit{framework} desenvolvido pela Google para testes. Ele tem suporte para um conjunto de assertivas pré-definidas e definidas pelo usuário, tornando-se uma das melhores ferramentas para a escrita de conjuntos de testes para C/C++ hoje disponíveis.
 
-Outra categoria de testes bastante usuais são os testes de integração. Neste trabalho em especial estará sendo utilizado um \textit{script shell} que oferece diversas funcionalidades para a criação dos testes de integração. Os testes de integração são utilizados no {\code APT} como testes caixa preta, a fim de verificar a funcionalidade de cenários de testes.
+Outra categoria de testes se refere aos testes de integração. Neste trabalho em especial estará sendo utilizado um \textit{shell script} que oferece diversas funcionalidades para a criação dos testes de integração. Os testes de integração são utilizados no {\code APT} como testes caixa preta, a fim de verificar as funcionalidades em cenários de testes.
 
-Os testes de integração são mais priorizados que os unitários no APT, e podemos observar isso pela quantidade de casos de testes em cada um deles. Nos testes unitários temos 20 casos de testes, totalizando um total de 78 testes unitários. Já na integração temos um conjunto de 199 cenários de testes com um total de 24.976 testes de integração\footnote{Dados relativos a \textit{build} \#219 do \href{https://travis-ci.org/Debian/apt/builds/}{Travis-CI}, disponível em \url{https://travis-ci.org/Debian/apt/builds/}.}.
+Os testes de integração tem maior prioridade que os unitários no APT, e podemos observar isso pela quantidade de testes em cada um deles. Nos testes unitários temos 20 casos de teste, totalizando 78 testes. Já nos testes de integração temos um conjunto de 199 cenários de testes, em um total de 24.976 testes\footnote{Dados relativos a \textit{build} \#219 do \href{https://travis-ci.org/Debian/apt/builds/}{Travis-CI}, disponível em \url{https://travis-ci.org/Debian/apt/builds/}.}.
 
 
 \begin{lstlisting}[language=C++,label=gtestexample,caption={Teste de validação de armazenamento de parâmetros}]
@@ -70,7 +70,7 @@ TEST(CommandLineTest,SaveInConfig)
 }
 \end{lstlisting}
 
-Um exemplo de teste unitário realizados é a validação do armazenamento dos parâmetros nas chamadas, como pode ser observado no \autoref{gtestexample}. Já testes de integração possuem um comparativo entre uma chamada e sua saída, como pode ser observado no \autoref{integrationtesteexample}.
+Um exemplo de teste unitário realizado é a validação do armazenamento dos parâmetros nas chamadas, como pode ser observado no \autoref{gtestexample}. Já testes de integração possuem um comparativo entre uma chamada e sua saída, como pode ser observado no \autoref{integrationtesteexample}.
 
 \begin{lstlisting}[language=Bash,label=integrationtesteexample,caption={Teste de verificação de saída para busca}]
 # without op progress
@@ -89,17 +89,17 @@ testsuccessequal "foo/unstable 1.0 all
 \subsection*{Tempo} % (fold)
 \label{sec:tempo}
 
-A coleta de tempo de performance de um software é árdua. A estimativa de tempo depende das otimizações que o compilador pode vir a fazer para a arquitetura, memoria disponível, aplicativos rodando em concorrência, temperatura do hardware, etc. No intuito de simplificar o processo de estimativa de tempo, foi utilizado a mediana de uma serie de chamadas da aplicação. Segundo \citeonline{dolan2002benchmarking}, esta solução pode vir ser a melhor para um ponto geral de $25\%$ das possíveis alternativas de coletas de dados. Assim sendo, o \autoref{scriptods} foi uma solução desenvolvida que permitisse deixar a maquina com tempo dedicado para a aquisição de dados.
+A coleta de tempo de performance de um software é uma tarefa árdua. A estimativa de tempo depende das otimizações que o compilador pode vir a fazer para a arquitetura, memória disponível, aplicativos rodando em \textit{background}, temperatura do hardware, etc. No intuito de simplificar o processo de estimativa de tempo, foi utilizado a mediana de uma série de execuções da aplicação. Segundo \citeonline{dolan2002benchmarking}, esta solução usando a mediana de uma série tem uma chance elevada de que o ponto selecionado melhor represente o comportamento padrão da sequência. Assim sendo, o \autoref{scriptods} foi uma solução desenvolvida para deixar a maquina dedicada para a aquisição de dados.
 
-Para o funcionamento do \textit{script}, as variáveis {\code MAX} e {\code \_MAX\_THREADS} devem ser definidas com a quantidade de dados que se deseja coletar e a quantidade máxima de \textit{threads} que devem ser levantadas para a chamada do processo respectivamente. Usar uma quantidade superior a quantidade de \textit{cores}  da maquina pode produzir valores com baixa confiabilidade, visto a concorrência gerada pelas \textit{threads}. Como parâmetros, foram escolhidos $150$ dados com $7$ \textit{threads}, possibilitando haver ao menos $1$ \textit{core} livre. Para maior dinamismo da coleta dos dados, o \textit{script} é responsável por realizar a troca das \textit{branchs} onde estão localizadas as possíveis soluções e a compilação e concentração dos dados em uma planilha do \textit{LibreOffice Calc}. Assim, os algoritmos nunca são executados em concorrência, porém os dados serão coletado sob a demanda da $CPU$ em que o \textit{script} é executado.
+Para o funcionamento do \textit{script}, as variáveis {\code MAX} e {\code \_MAX\_THREADS} devem ser definidas com a quantidade de dados que se deseja coletar e a quantidade máxima de \textit{threads} que devem ser criadas para a chamada do processo, respectivamente. Usar uma quantidade superior à quantidade de \textit{cores}  da máquina pode produzir valores com baixa confiabilidade, visto a concorrência gerada pelas próprias \textit{threads}. Como parâmetros, foram escolhidos $150$ dados com $7$ \textit{threads}, deixando ao menos $1$ \textit{core} livre. Para maior dinamismo na coleta dos dados, o \textit{script} é responsável por realizar a troca das \textit{branchs} onde estão localizadas as possíveis soluções e a compilação e registro dos dados em uma planilha do \textit{LibreOffice Calc}. Assim, os algoritmos nunca são executados paralelamente, porém os dados serão coletado sob a demanda da $CPU$ na qual o \textit{script} é executado.
 
-No intuito de coletar o tempo pontual do algoritmo, o \autoref{libtime} foi desenvolvido a fim de ser usado como cronometro. O algoritmo desenvolvido com o auxilio da biblioteca {\code Chrono}\footnote{A biblioteca é disponibilizada no {\code C++11} sob o \textit{namespace} {\code std::crono::}.} permite a captura do intervalo de tempo com ate $9$ casas decimais de segundos (nanosegundos), todavia foi utilizado a precisão de microssegundos apenas, visto que o intervalo de nanosegundos não iria gerar alto impacto na diferença dos valores. Os métodos {\code begin} e {\code end} da classe são utilizados para pontuar os intervalos onde o tempo deve ser contado. O resultado da contagem pode ser obtido com o retorno do método {\code end} ou com a chamada do {\code currenttime}, dedicado apenas para o retorno deste valor.
+Para coletar o tempo de execução do algoritmo, o \autoref{libtime} foi desenvolvido a fim de ser usado como cronômetro. O algoritmo desenvolvido com o auxilio da biblioteca {\code Chrono}\footnote{Disponibilizada no {\code C++11} sob o \textit{namespace} {\code std::crono}.} permite a captura do intervalo de tempo com até $9$ casas decimais (nanosegundos), todavia foi utilizado a precisão de microssegundos ($10^ 6$) apenas, visto que o intervalo de nanosegundos não implicou em diferença significativa dos valores. Os métodos {\code begin()} e {\code end()} da classe são utilizados para pontuar os intervalos onde o tempo deve ser registrado. O resultado da medição pode ser obtido com o retorno do método {\code end()} ou com a chamada do {\code currenttime()}, dedicado apenas ao retorno deste valor.
 
 \subsection*{Memória}
 
-Para a coleta de memória, foi utilizado o {\code Valgrind} com o auxilio da ferramenta {\code Massif}. Devido a haver uma criação de \textit{hash} de forma  algébrica e o método de \textit{KMP} faz uso de um autômato finito determinístico, a previa repetição das buscas com apenas $10$ ciclos confirmavam a suspeita de não haver a variação do gasto de memória para a repetição da ação.
+Para a coleta de memória, foi utilizado o {\code Valgrind}, com o auxílio da ferramenta {\code Massif}. Devido a criação da \textit{hash} ser feita de forma  algébrica e o método de \textit{KMP} utilizar um autômato finito determinístico, a repetição prévia das buscas com apenas $10$ amostras confirmavam a suspeita de não haver a variação do gasto de memória.
 
-Para a execução da aplicação com o suporte do {\code Valgrind} para analise do uso de memória, foi utilizado o seguinte comando:
+Para a execução da aplicação com o suporte ao {\code Valgrind} para análise do uso de memória, foi utilizado o comando:
 
 \begin{lstlisting}[language=Bash,label=valgrind_call, numbers=none]
    $ valgrind --tool=massif  ./apt search pacote [--regex]
@@ -132,40 +132,44 @@ Para desenvolvimento, foi utilizado uma maquina com as seguintes configurações
 
 
 \begin{description}
-	\item[]
+	\item[OS:] Mint 17.1 Rebecca
+	\item[Kernel:] x86\_64 Linux 3.13.0-37-generic
+	\item[CPU:] Intel Core i7 CPU 870 @ 2.934GHz
+	\item[GPU:] GeForce GTX 465
+	\item[RAM:] 12Gb
 \end{description}
 
 
 \section{Primeira contribuição} % (fold)
 \label{sec:primeira_contribui_o}
 
-A primeira contribuição tinha como objetivos a ambientalização com o ambiente e o time oficial de desenvolvimento. Como tarefa, foi definido a implementação minima de uma estrutura que permita um contexto de ordenação que possa ser definido pelo usuário. O intuito era oferecer as seguintes opções de ordenação na primeira contribuição:
+A primeira contribuição tinha como objetivos a familiarização com o ambiente e com o time oficial de desenvolvimento. Como tarefa, foi definido a implementação mínima de uma estrutura que permitisse um contexto de ordenação que pudesse ser definido pelo usuário. O intuito era oferecer as seguintes opções de ordenação:
 
 \begin{description}
 	\item [\textit{Alphabetic}] Ordenação padrão em ordem alfabética. Os pacotes são ordenados de acordo com seu nome.
 	\item [\textit{Reverse Alphabetic}] Semelhante a ordenação alfabética, porém em ordem decrescente, ou seja, palavras que começam com {\code Z} são apresentadas antes das iniciadas com {\code A}.
-	\item [\textit{Status}] Ordena os pacotes de acordo com as seguintes características:
+	\item [\textit{Status}] Ordena os pacotes de acordo com as seguintes características, na ordem apresentada:
 	\begin{enumerate}
-		\item Desinstalado,
-		\item Instalado e com possível atualização,
-		\item Instalado via pacote local,
-		\item Instalado e descartável (auto removível),
-		\item Instalado automaticamente,
-		\item Instalado,
-		\item Atualizável,
-		\item Com configuração residual
+		\item desinstalado,
+		\item instalado e com possível atualização,
+		\item instalado via pacote local,
+		\item instalado e descartável (auto removível),
+		\item instalado automaticamente,
+		\item instalado,
+		\item atualizável,
+		\item com configuração residual
 	\end{enumerate}
-	\item [\textit{Version}] Ordena a saída de acordo com a versão da aplicação.
+	\item [\textit{Version}] Ordena a saída de acordo com a versão do pacote.
 \end{description}
 
 \subsection*{Alteração da estrutura de dados} % (fold)
 \label{sub:altera_o_da_estrutuda_de_dados}
 
-Originalmente, os dados eram armazenados em um {\code map}, visto que essa estrutura não permite a duplicação de chaves e possui uma ordenação alfabética automática. Todavia, alterar o algoritmo de ordenação de um {\code map} ocorrem em seu tempo de declaração, o que  inviabiliza a possibilidade de alterar a ordenação através de uma \textit{flag} como parâmetro de execução. Visto essa condição, a estrutura foi alterada para a estrutura de dados {\code vector}, por ser mais flexiva quanto a sua forma de ordenação.
+Originalmente, os dados eram armazenados em um {\code std::map} padrão do {\code C++}, visto que essa estrutura não permite a duplicação de chaves e possui uma ordenação alfabética subjacente. Todavia, a alteração do algoritmo de ordenação de um {\code std::map} deve ser feita em sua declaração, o que inviabiliza a escolha da ordenação através de uma \textit{flag} passada como parâmetro de execução. Visto essa condição, a estrutura foi alterada para {\code std::vector}, por ser mais flexível quanto a sua forma de ordenação.
 
-Naturalmente, a inserção de candidatos na saída do {\code APT} ocorre  em dois níveis. O primeiro ordena de acordo com os repositórios inseridos no {\code source.list} da distribuição. Candidatos de um mesmo repositório serão naturalmente ordenados alfabeticamente. Isso implica que apenas adicionar candidatos no vetor implicaria em uma ordenação com baixa precisão, visto que a sequência de repositórios variaria de usuário para usuário. Assim, a simples troca de estrutura de dados de {\code map} para {\code vector} implica na necessidade de implementar o método de ordenação alfabética, antes nativamente implementado pela estrutura {\code map}.
+Naturalmente, a inserção de candidatos à saída do {\code APT} ocorre  em dois níveis. O primeiro nível ordena de acordo com os repositórios inseridos no {\code /etc/apt/sources.list} da distribuição. O segundo nível ordena cada bloco de pacotes recebidos de um repositório em ordem alfabética. Isso implica que apenas adicionar candidatos ao vetor resultaria em uma ordenação com baixa precisão, visto que a sequência de repositórios pode variar de usuário para usuário. Assim, a  troca de estrutura de dados de {\code std::map} para {\code std::vector} implica na necessidade de implementar o método de ordenação alfabética, nativamente implementado na estrutura {\code std::map}.
 
-Tendo um método para ordenação alfabética simplifica o processo de ordenação alfabético reverso, visto que basta enviar as referências do vetor com suas reversas, ao invez da normais. Assim, bastando ser necessário a escrita de três métodos no total para a primeira contribuição. No trecho de código a seguir é apresentado como a seleção de ordenação é tomada.
+Um método para ordenação alfabética permite também ordenação alfabética reversa, visto que basta utilizar as referências do vetor inversas, ao invés da normais. Assim, foi necessário a escrita de três métodos, no total, para a primeira contribuição. O \autoref{choose_pr1} apresenta como a seleção de ordenação é realizada.
 
 
 \begin{lstlisting}[language=C++,label=choose_pr1,caption={Tomada de decisão de ordenação}]
@@ -186,13 +190,13 @@ Tendo um método para ordenação alfabética simplifica o processo de ordenaç�
    }
 \end{lstlisting}
 
-A versão apresentada neste trabalho é o resultado de alguns \textit{feedback} sugeridos pelos mantenedores do projeto, em especial \href{https://github.com/DonKult}{David Kalnischkies}, o qual fez questão de pontuar detalhes na contribuição que poderiam ser melhorados ou questionados\footnote{David Kalnischkies não via muito sentido em uma ordenação por \textit{status}, porém não vetou a contribuição, visto que este pedido havia sido feito pelo membro \href{https://github.com/mvo5}{Michael Vogt} nos comentários da versão original do código.} no processo de aceitação da contribuição.
+A versão apresentada neste trabalho é o resultado de alguns \textit{feedback} sugeridos pelos mantenedores do projeto, em especial \href{https://github.com/DonKult}{David Kalnischkies}, o qual fez questão de pontuar detalhes na contribuição que poderiam ser melhorados ou questionados no processo de aceitação da contribuição.
 
 % subsection altera_o_da_estrutuda_de_dados (end)
 
 \subsection*{Testando alterações} % (fold)
 
-Realizar uma contribuição sem seus testes implica em oferecer um trabalho sem garantias de funcionalidade. Desta forma, as contribuições realizadas neste trabalho também estão sempre acompanhadas de seus respectivos testes. O {\code APT} utiliza uma ferramenta de testes muito comum em $C++$, a \textit{Google Test}\footnote{Mais informações sobre a ferramenta podem ser obtidas em seu repositório oficial: \url{https://github.com/google/googletest}.}. Uma \textit{suite} de testes é caracterizada pelo \textit{Google Test} como um arquivo contendo $n$ testes. Para manter o contexto, as condições da \textit{suite} de testes deve ser definida no inicio.
+Realizar uma contribuição que não ofereça testes ou atenda aos testes significa oferecer um trabalho sem garantias de funcionalidade. Desta forma, as contribuições realizadas neste trabalho também estiveram sempre acompanhadas de seus respectivos testes. O {\code APT} utiliza uma ferramenta de testes muito comum em $C++$, a \textit{Google Test}\footnote{Mais informações sobre a ferramenta podem ser obtidas em seu repositório oficial: \url{https://github.com/google/googletest}.}. Uma \textit{suíte} de testes é caracterizada pelo \textit{Google Test} como um arquivo contendo $N$ testes. Para manter o contexto, as condições da \textit{suíte} de testes devem ser definidas no início do arquivo.
 
 \begin{lstlisting}[language=Bash,label=googletest_decl,caption={Declarações de instâncias para o teste}]
 setupenvironment
@@ -213,16 +217,16 @@ insertinstalledpackage 'baz' 'all' '0.1'
 setupaptarchive
 \end{lstlisting}
 
-Como apresentado no \autoref{googletest_decl}, algumas macros foram criadas pela equipe do {\code APT} para simplificar o processo de declaração de instâncias. Com estas instâncias declaradas, o contexto do teste é estabelecido e esta pronto para a \textit{suite} de testes rodarem. Os testes são basicamente cenários do estado do sistema, como pode ser observado no \autoref{gtest_foo}.
+Como apresentado no \autoref{googletest_decl}, algumas macros foram criadas pela equipe do {\code APT} para simplificar o processo de declaração de instâncias. Com estas instâncias declaradas, o contexto do teste é estabelecido e está pronto para rodar a \textit{suite} de testes. Os testes são basicamente cenários do estado do sistema, como pode ser observado no \autoref{gtest_foo}.
 
-\begin{lstlisting}[language=Bash,label=gtest_foo,caption={Teste por busca pelo pacote \textit{foo}}]
+\begin{lstlisting}[language=Bash,label=gtest_foo,caption={Teste de busca pelo pacote \textit{foo}}]
 # search name
 testsuccessequal "foo/unstable 1.0 all
   $DESCR
 " apt search -qq foo
 \end{lstlisting}
 
-Como estamos fazendo ordenação de pacotes, é importante que se possa realizar uma busca por uma grande quantidade de pacotes. Uma das possibilidades que o {\code APT} possui hoje é a de se realizar buscas utilizando de expressões regulares. Unindo esta duas características, podemos montar uma lista maior de pacotes e realizar uma busca por um termo genérico, a fim de obter como resultado toda a lista de pacotes. O exemplo o \autoref{buscacomregex} demostra este resultado, onde a busca é feita utilizando a \textit{regex} {\code \textbackslash w}, a fim de selecionar todos os pacotes que possuam ao menos um caractere no nome.
+Como estamos ordenando pacotes, era importante que se pudesse realizar uma busca por uma grande quantidade de pacotes. Uma das possibilidades que o {\code APT} possui hoje é a de se realizar buscas utilizando de expressões regulares. Unindo esta duas características, foi possível montar uma lista maior de pacotes e realizar uma busca por um termo genérico, a fim de obter como resultado toda a lista de pacotes. O exemplo o \autoref{buscacomregex} demostra este resultado, onde a busca é feita utilizando a \textit{regex} {\code \textbackslash w}, a fim de selecionar todos os pacotes que possuam pelo menos um caractere em seu nome.
 
 \begin{lstlisting}[language=Bash,label=buscacomregex,caption={Busca com uso de expressão regular}]
 # output is sorted by status
@@ -247,7 +251,7 @@ baz/now 0.1 all [installed,local]
   \label{fig:pr1_travisnotok}
 \end{figure}
 
-A \autoref{fig:pr1_travisnotok} apresenta o resultado do \textit{merge request} e alguns dos commits enviados, sendo o ultimo deles com o resultado do \textit{Travis CI} apontando falha na \textit{build} devido à falha em um dos testes de integração que verificam concorrência de download de arquivos.
+A \autoref{fig:pr1_travisnotok} apresenta o resultado do \textit{merge request} e alguns dos \textit{commits} enviados, sendo que o ultimo deles traz o resultado do \textit{Travis CI} apontando um problema na \textit{build} devido à falha em um dos testes de integração que verificam concorrência de download de arquivos.
 
 % section primeira_contribui_o (end)
 
