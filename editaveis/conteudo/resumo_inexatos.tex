@@ -1,14 +1,16 @@
 \section{Algoritmos de \textit{string matching} inexatos} % (fold)
 \label{sec:algor_timos_de_string_matching_inexatos}
 
-Para a busca com algoritmos de \textit{string matching} inexatos, foram considerado dois métodos distintos:
+Para a busca com métodos de \textit{string matching} inexatos, foram considerado dois algoritmos distintos:
 
 \begin{description}
-	\item[Levenshtein:] Método voltado para correção de erros. Foi previamente comentado na \autoref{sec:leveinstein}.
-	\item[Coeficiente de Sørensen–Dice:] Método que faz de uso do conceito de autômatos de estados para agilizar a busca. Previamente apresentado na \autoref{ssub:s_rensen_dice_coefficient}.
+	\item[Levenshtein:] Algoritmos voltado para correção de erros. Foi previamente comentado na \autoref{sec:leveinstein}.
+	\item[Coeficiente de Sørensen–Dice:] Algoritmos que faz de uso do conceito de autômatos de estados para acelerar a busca. Previamente apresentado na \autoref{ssub:s_rensen_dice_coefficient}.
 \end{description}
 
-Para analise de desempenho, foram coletadas 150 amostras de tempo para 10 buscas por pacotes distintos das quais metade eram de pacotes que não existiam, semelhante realizado para os \lnameref{sec:algor_timos_de_string_matching_exatos}. A \autoref{tempo_rk_kmp_std_lev_dic} retrata a mediana destes tempos.
+\input{editaveis/conteudo/resultados_tcc1}
+
+Para análise de desempenho, foram coletadas 150 amostras de tempo para 10 buscas por pacotes distintos, das quais metade eram de pacotes que não existiam. A \autoref{tempo_rk_kmp_std_lev_dic} apresenta a mediana destes tempos.
 
 \begin{figure}[htbp]
   \centering
@@ -17,5 +19,5 @@ Para analise de desempenho, foram coletadas 150 amostras de tempo para 10 buscas
   \label{tempo_rk_kmp_std_lev_dic}
 \end{figure}
 
-Como apresentado na primeira etapa deste trabalho\footnote{Trabalho de conclusão de curso 1: Algoritmo para Qualificação das Saídas de Buscas em
-Gerenciadores de Repositórios de Distribuições Linux}, o algoritmo de \textit{Leveinstein} apresenta um dos melhores tempos para buscas inexatas de \textit{strings}. A \autoref{tempo_rk_kmp_std_lev_dic} reforça essa afirmação, ao mostrar que o tempo de resposta deste algoritmo é inferior ao tempo gasto para buscas com expressões regulares e ficando pouco acima do tempo necessário para realizar buscas exatas com o algoritmo de  \textit{Rabin-Karp}.
+
+Por fim, pode-se afirmar que dentro dos algoritmos selecionados para este trabalho, o algoritmo de \textit{Leveinstein} apresenta um dos melhores tempos para buscas inexatas de \textit{strings}. A \autoref{tempo_rk_kmp_std_lev_dic} reforça essa afirmação, ao mostrar que o tempo de resposta deste algoritmo é inferior ao tempo gasto para buscas com expressões regulares e ficando pouco acima do tempo necessário para realizar buscas exatas com o algoritmo de  \textit{Rabin-Karp}.

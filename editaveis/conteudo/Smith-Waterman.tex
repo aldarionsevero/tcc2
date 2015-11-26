@@ -1,0 +1,55 @@
+\subsubsection*{Smith-Waterman} % (fold)
+\label{sec:smith_waterman}
+
+
+Proposto em 1981 por \textit{Temple F. Smith} e \textit{Michael S. Waterman} \cite{smith1981identification} com o intuito de localizar sequências moleculares semelhantes, este algoritmo de programação dinâmica é hoje amplamente utilizado para a localização de regiões similares entre \textit{strings} e nas sequências de proteínas ou nucleotídeos.
+
+O algoritmo trabalha com o alinhamento de \textit{strings} no intuito de  buscar a maior semelhança entre elas. Considerando este fator, é interessante que as duas \textit{strings} contenham uma quantidade de caracteres igual ou próxima, visto que  a \textit{string} com  maior quantidade de caracteres provavelmente terá suas bordas ignoradas no final. Como resultado, podemos obter melhores resultados com comparações de \textit{strings} que os algoritmos de \textit{Leveinstein} quando tratamos de busca por radicais. Todavia uma comparação usando palavras com uma diferença significativa na quantidade de caracteres poderá resultar em uma perda de desempenho devido ao número de permutações necessárias para localizar o melhor alinhamento.
+
+% Explanação em http://en.wikipedia.org/wiki/Smith%E2%80%93Waterman_algorithm
+% TODO: Melhorar essa explanação de bosta
+\paragraph*{Algoritmo} % (fold)
+\label{sub:algoritmo}
+
+De acordo com o artigo de Smith e Waterman \cite{smith1981identification}, o algoritmo pode ser apresentado da seguinte forma: 
+Considerando as \textit{strings} $a$ e $b$ de tamanhos $n,m$ respectivamente e $s(a,b)$ a função de similaridade do universo a ser considerado\footnote{Smith considerava apenas as letras \textit{A,C,U,G} devido ao algoritmo ser voltado para identificação de similidades genéticas, todavia a generalização para as demais letras do alfabeto não invalida o algoritmo.}, é montada uma matriz $H$  para encontrar os dois pares com maior grau de similaridade sendo $W_i$ a nota de lacuna\footnote{Também conhecida como \textit{gap-scoring} ou \textit{gap-penalty}.}.
+
+% \begin{equation*}
+% 	H_{k0} = H_{0l} = 0 \text{ para } 0\leq k \leq n \text{ e } 0\leq l \leq m.
+% \end{equation*}
+
+Valores preliminares de $H$ tem a interpretação de que $H(i,j)$ tem a máxima similaridade de duas \textit{strings} que possuem final $a_i$ e $b_j$ respectivamente. Os valores de $H(i,j)$ podem ser obtidos através das Equações \ref{smith1} e \ref{smith2}:
+
+\begin{eqnarray*}\label{smith1}
+	H(i,0) &=& 0, \, \, \, \, 0 \leq i \leq m \\
+	H(0,j) &=& 0, \, \, \, \, 0 \leq j \leq n \\
+	H(i,j) &=& \text{max}\lbrace A(i,j), B(i,j), C(i,j), 0\rbrace, \, \, \, \, 1 \leq i \leq n \text{ e } 1 \leq j \leq m
+\end{eqnarray*}
+onde
+\begin{eqnarray*}\label{smith2}
+		A(i, j) &=& H(i-1,j-1) + s(a_i,b_j) \\
+		B(i, j) &=& \underset{k\geq1}{\text{max}} \left\{H(i-k,j) - W_k\right\}\\ 
+		C(i, j) &=& \underset{l\geq1}{\text{max}} \left\{H(i,j-l) - W_l\right\}
+\end{eqnarray*}
+
+Montada a matriz $H$, para obter o melhor alinhamento, o algoritmo começa com o maior valor na matriz com índice $(i,j)$, retornando em sentido a célula $(0,0)$, seguindo pelos pontos $(i - 1,j), (i, j - 1)$, ou $(i - 1, j - 1)$.
+
+A fórmula para $H(i,j)$ considera as possibilidades de fim da \textit{string} para qualquer $a_i$ ou $b_j$, tal que:
+
+\begin{enumerate}
+	\item Se $a_i$ e $b_j$ forem associados, a similaridade será dada pela Equação \ref{smith3}:
+	\begin{equation}\label{smith3}
+		H_{i-1,j-1} + s(a_i,b_j)
+	\end{equation}
+	\item Se $a_i$ está ao fim de uma remoção de largura $k$, a similaridade será dada pela Equação \ref{smith4}:
+	\begin{equation}\label{smith4}
+		H_{i-k,j} - W_k
+	\end{equation}
+	\item Se $b_i$ está ao fim de uma remoção de largura $l$, a similaridade será dada pela Equação \ref{smith5}:
+	\begin{equation}\label{smith5}
+		H_{i,j-l} - W_l
+	\end{equation}
+	\item Por fim são incluídos sentinelas a fim de evitar o cálculo de similaridades negativas.
+\end{enumerate}
+
+% subsection implementa_o_do_algoritmo (end)
