@@ -150,6 +150,9 @@ literate={_}{{\_}}1 ,
 \newcommand{\refanexo}[1]{\hyperref[#1]{Anexo~\ref{#1}}} % correção do bug do abntex2
 \newlistof{lstlistoflistings}{lol}{\lstlistlistingname}
 %% Nameref
+\addto\extrasbrazil{%
+  \renewcommand{\sectionautorefname}{Seção}%
+}
 %-------------------------------
 
 \newcommand{\lnameref}[1]{%

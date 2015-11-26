@@ -140,10 +140,17 @@ Para desenvolvimento, foi utilizado uma maquina com as seguintes configurações
 \end{description}
 
 
+\section{Planejamento de contribuições} % (fold)
+\label{sec:planejamento_de_contribui_es}
+
+Como planejamento geral, foram definidas três grandes conjuntos de contribuições com o {\code APT}. A primeira contribuição tinha como objetivos a familiarização com o ambiente e com o time oficial de desenvolvimento. Para isso ela deveria conter uma contribuição simples, porém que viesse a oferecer maiores oportunidades posteriormente. A segunda contribuição tinha como objetivo a implantação dos algoritmos de \textit{string matching} exatos estudados sem descartar o modelo original de uso de expressões regulares para busca. Para a terceira e ultima contribuição o planejamento era a implantação do algoritmo de buscas inexatas em \textit{strings} para ser executado quando a pesquisa não retornasse nenhum resultado.
+
+% section planejamento_de_contribui_es (end)
+
 \section{Primeira contribuição} % (fold)
 \label{sec:primeira_contribui_o}
 
-A primeira contribuição tinha como objetivos a familiarização com o ambiente e com o time oficial de desenvolvimento. Como tarefa, foi definido a implementação mínima de uma estrutura que permitisse um contexto de ordenação que pudesse ser definido pelo usuário. O intuito era oferecer as seguintes opções de ordenação:
+Como tarefa, foi definido a implementação mínima de uma estrutura que permitisse um contexto de ordenação que pudesse ser definido pelo usuário. O intuito era oferecer as seguintes opções de ordenação:
 
 \begin{description}
 	\item [\textit{Alphabetic}] Ordenação padrão em ordem alfabética. Os pacotes são ordenados de acordo com seu nome.
@@ -251,7 +258,7 @@ baz/now 0.1 all [installed,local]
   \label{fig:pr1_travisnotok}
 \end{figure}
 
-A \autoref{fig:pr1_travisnotok} apresenta o resultado do \textit{merge request} e alguns dos \textit{commits} enviados, sendo que o ultimo deles traz o resultado do \textit{Travis CI} apontando um problema na \textit{build} devido à falha em um dos testes de integração que verificam concorrência de download de arquivos.
+A \autoref{fig:pr1_travisnotok} apresenta o resultado do \textit{merge request} e alguns dos \textit{commits} enviados, sendo que o último deles traz o resultado do \textit{Travis CI} apontando um problema na \textit{build} devido à falha em um dos testes de integração que verificam concorrência de download de arquivos.
 
 % section primeira_contribui_o (end)
 
@@ -259,24 +266,24 @@ A \autoref{fig:pr1_travisnotok} apresenta o resultado do \textit{merge request} 
 \section{Segunda contribuição} % (fold)
 \label{sec:segunda_contribui_o}
 
-O suporte a expressões regulares amplia como a busca por pacotes pode ser efetuada, possibilitando uma maior gama de ferramentas para desenvolvedores experientes. Todavia, deixar essa opção como padrão acarretam em alguns pontos negativos que são desempenhados todas as vezes que a aplicação é executada:
+O suporte a expressões regulares amplia a forma como a busca por pacotes pode ser efetuada, possibilitando uma maior gama de opções para desenvolvedores experientes. Todavia, deixar essa opção como padrão acarretaria em alguns pontos negativos:
 
 \begin{description}
-	\item [Alto consumo de memoria:] Buscas com expressões regulares consomem cerca de $\Theta(2^n)$ para uma expressão de tamanho $n$, ou $\Theta(n^2)$ para melhores casos, com hardware dedicado \cite{sidhu2001fast}.
-	\item [Baixo desempenho:] Buscas com expressões regulares tem custo de desempenho $\Theta(n)$, sendo $n$ o tamanho da palavra a ser analisada.
+	\item [Alto consumo de memória:] Buscas com expressões regulares consomem cerca de $\Theta(2^n)$ de memória para uma expressão de tamanho $n$, ou $\Theta(n^2)$ para melhores casos, com hardware dedicado \cite{sidhu2001fast}.
+	\item [Baixo desempenho:] Buscas com expressões regulares tem complexidade de execução $\Theta(n)$, sendo $n$ o tamanho da palavra a ser analisada.
 \end{description}
 
-Mesmo a busca com expressões regulares oferecendo um grande poder de busca, questiona-se se o custo que ela requer é interessante. Lembrando que este trabalho visa ampliar a comodidade daqueles novos usuário ao mundo Linux, as funções de expressões regulares normalmente não são de conhecimento do usuário leigo. Considerando que este usuário leigo não irá fazer comumente das funções {\code less}, {\code more} ou {\code grep} para auxiliar com buscas, será de menor representatividade então o uso de expressões regulares.
+Mesmo a busca com expressões regulares oferecendo um grande poder de busca, questiona-se se o custo que ela requer é aceitável. Vale lembrar que este trabalho visa ampliar a comodidade dos novos usuário Linux e as expressões regulares normalmente não são de conhecimento do usuário principiante. Considerando que este usuário não faria uso comumente, das funções {\code less}, {\code more} ou {\code grep} para refinar as buscas,  o uso de expressões regulares não será ampliado.
 
-% Ora, se há a possibilidade de ganhar desempenho e gasto de memoria mesmo ainda com busca exatas, há de se propor algoritmos para nos auxiliar com essas buscas.
-
-
-Visando uma alternativa para a busca de pacotes que ofereça menor tempo de processamento e maior economia de memoria, foram estudados dois algoritmos de \textit{string matching} exato abordados inicialmente neste trabalho na \autoref{sec:algoritimos_de_textit}, são os modelos de \nameref{ssub:rabin_karp} e \nameref{ssub:knuth_morris_pratt_}. Para ambos os modelos foram criadas \textit{branchs} para seu desenvolvimento e testes de desempenho, fazendo de uso da rotina apresentada no \autoref{libtime} para mensurar o tempo gasto para formular a resposta da pesquisa. 
-
-Diante dos resultados de tempo obtidos com o algoritmo de \textit{Rabin-Karp}, a segunda contribuição foi planejada e executada. A \autoref{sec:segundo_pr} apresenta na integra o \textit{diff} da contribuição submetida para o repositório oficial.
+% Ora, se há a possibilidade de ganhar desempenho e gasto de memória mesmo ainda com busca exatas, há de se propor algoritmos para nos auxiliar com essas buscas.
 
 
-A fim de manter a cobertura das funcionalidades, testes foram feitos para garantir que as buscas continuavam a ser realizadas com ou sem o uso da \textit{flag} que habilitava o uso de expressões regulares, como pode ser observado no \autoref{regextestscli}, onde um trecho dos testes da segunda submissão é apresentado.
+Procurando por uma alternativa para a busca de pacotes que ofereça menor tempo de processamento e maior economia de memória, foram estudados dois algoritmos de \textit{string matching} exato apresentados na \autoref{sec:algoritimos_de_textit}; o \nameref{ssub:rabin_karp} e \nameref{ssub:knuth_morris_pratt_}. Para ambos os algoritmos foram criadas \textit{branchs} para seu desenvolvimento e testes de desempenho, fazendo de uso da rotina apresentada no \autoref{libtime} para mensurar o tempo gasto para na execução de cada um deles.
+
+Diante dos resultados de tempo de execução obtidos com o algoritmo de \textit{Rabin-Karp}, a segunda contribuição foi planejada e executada. A \autoref{sec:segundo_pr} apresenta na integra o \textit{diff} da contribuição submetida para o repositório oficial.
+
+
+A fim de manter a cobertura de teste das funcionalidades, testes foram elaborados para garantir que as buscas continuariam a ser realizadas com ou sem o uso da \textit{flag} que habilitava o uso de expressões regulares, como pode ser observado no \autoref{regextestscli}, onde um trecho dos testes da segunda submissão é apresentado.
 
 \begin{lstlisting}[language=Bash,label=regextestscli,caption={Teste com e sem o uso de expressões regulares}]
 # output is sorted by status
@@ -302,7 +309,7 @@ baz/now 0.1 all [installed,local]
 " apt search --order-by Alphabetic -qq ba
 \end{lstlisting}
 
-Garantido haver testes e documentação que validem as implementações, foi realizado a submissão de \textit{merge request} ao repositório oficial do APT, a qual pode ser observada na \autoref{fig:pr2_travisok} e acompanhada em \url{https://github.com/Debian/apt/pull/8}.
+Finalizados os testes e a documentação das novas funcionalidades implementadas, foi realizado a submissão de \textit{merge request} ao repositório oficial do APT, a qual pode ser observada na \autoref{fig:pr2_travisok} e acompanhada em \url{https://github.com/Debian/apt/pull/8}.
 
 \begin{figure}[h]
   \centering
@@ -316,14 +323,14 @@ Garantido haver testes e documentação que validem as implementações, foi rea
 \section{Terceira contribuição} % (fold)
 \label{sec:terceira_contribui_o}
 
-Por fim chegamos ao ponto desejado para este trabalho, oferecer uma ferramenta de busca de pacotes o mais transparente possível quanto ao método de busca. Para tal precisamos ainda realizar duas tarefas:
+Esta contribuição corresponde ao objetivo principal deste trabalho: oferecer uma ferramenta de busca de pacotes o mais transparente possível quanto ao método de busca. Para atingir tal meta foram realizadas duas tarefas:
 
 \begin{description}
-	\item [Escolha inteligente entre expressões regulares ou busca padrão:] Mesmo oferecendo uma \textit{flag} para selecionar a busca com suporte a expressões regulares, é importante deixar que o programa seja capaz de identificar quando uma \textit{flag} é passada para que a busca seja realizada corretamente.
-	\item [Inserir método de buscas inexatas:] Quando uma busca não obtiver nenhum resultado, a aplicação deve executar a busca novamente com o método de buscas inexatas e apontar os pacotes que poderiam se encaixar com a busca realizada.
+	\item [Escolha entre expressões regulares ou não:] Mesmo oferecendo uma \textit{flag} para selecionar a busca com suporte a expressões regulares, era importante tornar o programa capaz de identificar se o parâmetro passado para a busca envolvia ou não uma \textit{regex} de fato. Isto é, se haviam caracteres especiais ou não no parâmetro de busca.
+	\item [Inserir método de busca inexata:] Quando uma busca não obtiver nenhum resultado, a aplicação deveria executar a busca novamente utilizando um método de busca inexata e apontar os pacotes que poderiam estar relacionados ao parâmetro informado pelo usuário.
 \end{description}
 
-Para realizar a primeira tarefa devemos primeiro implementar uma função que verifique se entre os parâmetros passados na busca há um caractere especial utilizado para expressões regulares. Estes caracteres deveriam de ser {\code |\textbackslash\{\}[]():*+-\$?.\^{}}, porém os caracteres {\code .}, {\code :} e {\code -} costumam aparecer nos nomes dos pacotes e assim devem ser ignoradas como sinais que indicam uso de expressões regulares.
+Para a primeira tarefa foi implementada uma função que verificava se, entre os parâmetros passados na busca, há caracteres especiais utilizados em expressões regulares. Estes caracteres eram {\code |\textbackslash\{\}[]():*+-\$?.\^{}}, porém os caracteres {\code .}, {\code :} e {\code -} costumam aparecer nos nomes dos pacotes os mesmos deveriam ser ignorados como indicativo de uso de expressões regulares.
 
 \begin{lstlisting}[language=C++,label=regexidentify,caption={Identificação de Expressões Regulares}]
 bool identify_regex(std::vector<std::string> input)
@@ -342,21 +349,21 @@ bool identify_regex(std::vector<std::string> input)
 }
 \end{lstlisting}
 
-O \autoref{regexidentify} apresenta uma solução para a identificação de caracteres que indicam o uso de expressões regulares nas buscas, verificando cada palavra em uma lista de \textit{strings} em busca dos caracteres que identificariam uma expressão regular. Caso algum caractere especial seja localizado, a função retorna verdadeiro.
+O \autoref{regexidentify} apresenta uma solução para a identificação de caracteres que indicam o uso de expressões regulares nas buscas, verificando cada palavra em uma lista de \textit{strings} em busca dos caracteres citadas anteriormente. Caso algum caractere especial seja localizado, a função retorna verdadeiro.
 
 
-Em seguida, verificamos se é utilizado a \textit{flag} de uso de expressão regular ou caracteres reservados com a seguinte verificação:
+Em seguida, foi verificada a \textit{flag} de uso de expressão regular ou caracteres reservados com o seguinte trecho de código:
 
 \begin{lstlisting}[language=C++,basicstyle=\footnotesize\ttfamily,numbers=none]
 if ((_config->FindB("APT::Cache::UsingRegex",false)) || identify_regex(args))
 \end{lstlisting}
 
-Caso a chamada acima seja verdadeira, as rotinas que compilam as expressões regulares serão executadas, caso contrario, o método de \nameref{ssub:rabin_karp} será executado para realizar a busca, visto este método ter apresentado melhor desempenho frente ao método de \nameref{ssub:knuth_morris_pratt_}, como será melhor apresentando em \lnameref{part:resultados} na \autoref{sec:algor_timos_de_string_matching_exatos}.
+Caso a chamada acima seja verdadeira, as rotinas que compilam as expressões regulares serão executadas; caso contrário, o método de \nameref{ssub:rabin_karp} será executado para realizar a busca, visto este método ter apresentado melhor desempenho em relação ao método de \nameref{ssub:knuth_morris_pratt_}, dado que será melhor apresentando em maiores detalhes na \autoref{sec:algor_timos_de_string_matching_exatos}.
 
 
-Realizado esta etapa, o próximo, e ultimo, passo é identificar buscas onde nenhum pacote é localizado. Nestes casos, o modelo de \textit{\nameref{sec:leveinstein}} deve ser utilizado para encontrar os pacotes que contenham a menor diferença com a pesquisa realizada. Essa chamada deve ser realizada somente caso não haja o uso de caracteres que identifiquem o uso de expressões regulares, visto ser uma busca que requer um tempo maior e que será executada após uma busca já ter sido realizada.
+Finalizada esta etapa, o próximo, e último, passo foi identificar buscas onde nenhum pacote era localizado. Nestes casos, o algoritmo de \textit{\nameref{sec:leveinstein}} deveria ser utilizado para encontrar os pacotes que tivessem a menor diferença com o texto da pesquisa realizada. Essa chamada deveria ser realizada somente nos casos onde não houvesse o uso de expressões regulares.
 
-Para realizar a busca utilizando o modelo de \textit{Leveinstein} é necessário percorrer a lista de pacotes duas vezes. Na primeira vez é pontuado a distância do nome do pacote com os parâmetros de entrada da busca e na segunda vez os pacotes são ordenados de acordo com sua pontuação. O \autoref{levisearchapt} apresenta a realização desta busca, percorrendo toda a lista de pacotes, {\code bag}, disponível e em seguida ordenando a saída.
+Para realizar uma busca utilizando o modelo de \textit{Leveinstein} era necessário percorrer a lista de pacotes duas vezes. Na primeira vez eram pontuadas as distâncias dos nomes dos pacotes com os parâmetros de entrada da busca; na segunda vez os pacotes eram ordenados de acordo com sua pontuação. O \autoref{levisearchapt} apresenta a realização desta busca, percorrendo toda a lista de pacotes disponível ({\code bag}), e em seguida ordenando a saída.
 
 \begin{lstlisting}[language=C++,label=levisearchapt,caption={Busca ordenada por distância de \textit{Levenshtein}}]
 for(auto V:bag)
@@ -388,7 +395,7 @@ for(auto V:bag)
 std::sort(outputVector.begin(), outputVector.end(), OrderByDistance);
 \end{lstlisting}
 
-Devido a buscas inexatas consumirem mais recursos e necessitarem de passar por todo o vetor novamente, elas foram deixadas para executar apenas quando a busca não tivesse nenhum resultado. O \autoref{calllevisearchapt} apresenta a chamada quando esta situação correr.
+Devido ao fato das buscas inexatas consumirem mais recursos e de passarem duas vezes pela lista dos pacotes, elas foram delegadas apenas aos casos onde a busca não obtivesse nenhum resultado. O \autoref{calllevisearchapt} ilustra esta situação.
 
 \begin{lstlisting}[language=C++,label=calllevisearchapt,caption={Chamada seletiva para buscas inexatas}]
 if(outputVector.size() == 0)
@@ -401,12 +408,12 @@ if(outputVector.size() == 0)
 \end{lstlisting}
 
 
-Para a realização desta contribuição, foi aproveitada a comtribuição anterior, apenas atualizando a \textit{branch} de contribuição com os novos \textit{commits}. Na \autoref{fig:pr3_travisok} podemos observar o mesmo \textit{merge request} requisitado para a segunda contribuição agora com o acréscimo do \textit{commit} {\code aae1adc}, onde todas as contribuições do terceiro grupo de contribuições deste trabalho foram juntadas para simplificar a visualização e revisão do \textit{merge request}.
+Para o desenvolvimento desta contribuição, foi aproveitada a contribuição anterior, apenas atualizando a \textit{branch} com os novos \textit{commits}. Na \autoref{fig:pr3_travisok} podemos observar o mesmo \textit{merge request} requisitado para a segunda contribuição agora com o acréscimo do \textit{commit} {\code aae1adc}, onde todas as contribuições do terceiro grupo de contribuições deste trabalho foram agrupadas para simplificar a visualização e revisão do \textit{merge request}.
 
 \begin{figure}[h]
   \centering
 	\includegraphics[width=0.95\textwidth]{figuras/pr3}
-  \caption{Submissão do segundo \textit{merge request} atualziada com o conteudo da terceira contribuição}
+  \caption{Submissão do segundo \textit{merge request} atualizado com o conteúdo da terceira contribuição}
   \label{fig:pr3_travisok}
 \end{figure}
 % section terceira_contribui_o (end)
