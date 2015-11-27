@@ -1,4 +1,4 @@
-TARGET = Luiz_TCC.pdf
+TARGET = TCC2_Luiz_Fernando_Oliveira.pdf
 
 BIBTEX = bibtex
 LATEX = pdflatex
