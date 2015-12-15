@@ -10,14 +10,36 @@ de comandos para a realização de tarefas.
 % (FGA). São abordados os diferentes aspectos sobre a estrutura do trabalho, 
 % uso de programas de auxilio a edição, tiragem de cópias, encadernação, etc.
 
+\section*{\nmu Objetivos}
+\label{cha:objetivos}
+
+Primeiramente, este trabalho tem como objetivo a avaliação de diferentes algoritmos de \textit{string matching}, com o intuito de evidenciar o potencialde melhoria dos gerenciadores de pacotes atuais em relação à apresentação de resultados de pesquisa por pacotes. Consciente do objetivo deste trabalho, será evitado o desenvolvimento dos códigos de algoritmo de ordenação, visto que o objetivo não é a implementação dos algoritmos, mas a comparação dos resultados obtidos através dos algoritmos de \textit{string matching} e suas performances nos estados atuais de implementação. Assim, serão utilizadas bibliotecas que possuem implementações dos referidos algoritmos na fase de prototipação, citando suas respectivas referências e créditos, e a implementação que ocorrerá na etapa final do trabalho será baseada na disponibilização dos algoritmos em bibliotecas públicas e suas adaptações para o contexto do trabalho.
+
+\subsection*{Objetivo Geral}
+
+Este trabalho tem como objetivo apresentar métodos de qualificação dos resultados de busca de modo que apresentem resultados mais próximos do esperado pelos usuários, quando estes forem realizar a busca por pacotes disponíveis para instalação em suas distribuições, tendo como foco o APT como gerenciador principal.
+
+\subsection*{Objetivos Específicos}
+
+% Para o alcance de melhores resultados de busca, visa-se inicialmente apresentar alternativas de ordenação para  aplicações padrões de procura de pacotes nas distribuições. Devido ao tempo e equipe disponível para o desenvolvimento da proposta, espera-se restringir inicialmente o beneficio para a ferramenta que consiga atingir uma maior quantidade de usuários e, principalmente, usuário que estejam adentrando no universo Linux e ainda não dominam técnicas de controle de fluxo via terminal e assim são lesados quando tentam efetuar tarefas simples como a procura de um pacote por não terem conhecimento de realizar um filtro nos resultados obtidos, seja com ajuda de rotinas \textit{regex} (expressões regulares), sejam com paginações com o auxilio de comandos como {\code more} ou {\code less}.
+
+%% Há a possibilidade de inserção do código de ordenação inicialmente  em {cmdline/apt-cache.cc}, influenciando diretamente o apt-cache. Há uma brecha para um patch em {apt-private/private-search} onde há um FIXME: SORT! na busca de ordenação alfabetica, por status, etc.
+
+\begin{itemize}
+	\item Implementar ou usar bibliotecas que implementam algoritmos de \textit{string matching} que venham a qualificar a saída apresentada em uma busca por pacotes.
+	\item Implementar protótipos de qualificação da saída das buscas que torne a localização dos pacotes desejados menos dependentes de ferramentas complementares como {\code grep}, {\code more} ou {\code less}.
+	\item Implementar protótipos que possibilitem a apresentação de resultados de uma busca por pacotes, mesmo quando inserido o nome de um pacote inexistente ou com erros ortográficos.
+	\item Realizar contribuições com o APT com o intuito de implementar melhorias no código para melhorar a qualidade da saída por busca de pacotes.
+\end{itemize}
+
 \section*{O uso de gerenciadores} % (fold)
 \label{sec:o_uso_de_gerenciadores}
 
 % section o_uso_de_gerenciadores (end)
 
-Um dos processos  que novos usuários Linux tem dificuldade em se adaptar é a instalação de novas aplicações. Hoje é comum haver nas plataformas uma aplicação que centraliza a instalação das demais aplicações. Visto como uma loja em algumas plataformas, o gerenciador de aplicações tão comum nos dias atuais era, há alguns anos um diferencial dos sistemas Linux. Usuários do sistema operacional Windows que iniciavam o aprendizado do sistema Linux  tinham dificuldade para compreender que não precisavam acessar o site de um fabricante como a Adobe para instalar o leitor de PDF, ou frequentar sites como Baixaki para fazer o \textit{download} de aplicações diversas. Tudo o que precisavam era abrir o terminal e com alguns comandos o software era instalado de uma fonte confiável. 
+Um dos processos  que novos usuários Linux tem dificuldade em se adaptar é a instalação de novas aplicações. Hoje é comum haver nas plataformas uma aplicação que centraliza a instalação das demais aplicações. Visto como uma loja em algumas plataformas, o gerenciador de aplicações tão comum nos dias atuais era, há alguns anos um diferencial dos sistemas Linux. Usuários do sistema operacional Windows que iniciavam o aprendizado do sistema Linux  tinham dificuldade para compreender que não precisavam acessar o site de um fabricante para fazer o \textit{download} de aplicações diversas. Tudo o que precisavam era abrir o terminal e com alguns comandos o software era instalado de uma fonte confiável. 
 
-A compreensão deste processo abria novas fronteiras para o  usuário, que agora buscava expandir seu conhecimento e testar novas aplicações dentre as milhares que estavam à sua disposição. Obviamente que o processo de instalação e remoção de pacotes eventualmente torna-se dependente de uma ferramenta que possibilite realizar buscas por aplicações e filtragem das aplicações retornadas. E este é o ponto onde os novos usuários encontravam maiores dificuldades. 
+A compreensão deste processo abria novas fronteiras para o  usuário, que agora buscava expandir seu conhecimento e testar novas aplicações dentre as milhares que estavam à sua disposição. Obviamente que o processo de instalação e remoção de pacotes eventualmente torna-se dependente de uma ferramenta que possibilite realizar buscas por aplicações e filtragem das aplicações retornadas. E este é um ponto onde os novos usuários encontravam dificuldades. 
 
 \subsection*{As primeiras dificuldades} % (fold)
 \label{sub:as_primeiras_dificuldades}
@@ -33,7 +55,7 @@ Quando realizadas em linha de comando, as buscas por pacotes podem ser complexas
   \label{fig:figuras_search_pdf}
 \end{figure}
 
-Alem disso, aplicações que não tem relação com leitores de \textit{pdf}, tais como o antivírus {\code clamav} ou o produtor de documentação {\code doxygen}, aparecem antes do {\code evince} devido às regras de ordenação do APT. O primeiro parâmetro de ordenação do {\code APT} é o repositório em que o pacote esta localizado. Essa ordem é definida de acordo com os dados inseridos no {\code /etc/apt/sources.list} e {\code /etc/apt/sources.list.d}.  ordenação alfabética dos repositórios e por terem, seja em seu nome, descrição ou \textit{tags}, a sequência \textit{``pdf''}. Por fim, os pacotes selecionados em um mesmo repositório serão ordenados alfabeticamente.
+Alem disso, aplicações que não tem relação com leitores de \textit{pdf}, tais como o antivírus {\code clamav} ou o produtor de documentação {\code doxygen}, aparecem antes do {\code evince} devido às regras de ordenação do APT. O primeiro parâmetro de ordenação do {\code APT} é o repositório em que o pacote esta localizado. Essa ordem é definida de acordo com os dados inseridos no {\code /etc/apt/sources.list} e {\code /etc/apt/sources.list.d}, sendo esta etapa sensível à ordem da listagem dos repositórios nos arquivos. O segundo parâmetro de ordenação do pacotes é a ordenação alfabética dos pacotes selecionados em um mesmo repositório serão ordenados alfabeticamente. Os pacotes são selecionados por terem, seja em seu nome, descrição ou \textit{tags}, a sequência \textit{``pdf''}.
 
 \begin{figure}[h]
   \centering

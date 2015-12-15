@@ -1,7 +1,7 @@
 \section{Procedimentos} % (fold)
 \label{sec:planejamento_de_contribui_es}
 
-Como planejamento geral após a fase de prototipação em Python, foram definidos três grandes conjuntos de contribuições com o {\code APT}. A primeira contribuição tinha como objetivos a familiarização com o ambiente e com o time oficial de desenvolvimento. Para isso ela deveria conter uma contribuição simples, porém que viesse a oferecer maiores oportunidades posteriormente. A segunda contribuição tinha como objetivo a implantação dos algoritmos de \textit{string matching} exatos estudados sem descartar o modelo original de uso de expressões regulares para busca. Para a terceira e ultima contribuição o planejamento era a implantação do algoritmo de buscas inexatas em \textit{strings} para ser executado quando a pesquisa não retornasse nenhum resultado.
+Como planejamento geral após a fase de prototipação em Python, foram definidos três grandes conjuntos de contribuições com o {\code APT}. A primeira contribuição tinha como objetivos a familiarização com o ambiente e com o time oficial de desenvolvimento. Para isso ela deveria conter uma contribuição simples, porém que viesse a oferecer maiores oportunidades posteriormente. A segunda contribuição tinha como objetivo a implantação dos algoritmos de \textit{string matching} exatos estudados sem descartar o modelo original de uso de expressões regulares para busca, visto que este modelo esta implementado utilizando funções nativas de $C++$ e assim tendo ótima peformace visto o custo do algoritmo. Para a terceira e ultima contribuição o planejamento era a implantação do algoritmo de buscas inexatas em \textit{strings} para ser executado quando a pesquisa não retornasse nenhum resultado.
 
 % section planejamento_de_contribui_es (end)
 
@@ -192,7 +192,7 @@ Esta contribuição corresponde ao objetivo principal deste trabalho: oferecer u
 	\item [Inserir método de busca inexata:] Quando uma busca não obtiver nenhum resultado, a aplicação deveria executar a busca novamente utilizando um método de busca inexata e apontar os pacotes que poderiam estar relacionados ao parâmetro informado pelo usuário.
 \end{description}
 
-Para a primeira tarefa foi implementada uma função que verificava se, entre os parâmetros passados na busca, há caracteres especiais utilizados em expressões regulares. Estes caracteres eram {\code |\textbackslash\{\}[]():*+-\$?.\^{}}, porém os caracteres {\code .}, {\code :} e {\code -} costumam aparecer nos nomes dos pacotes os mesmos deveriam ser ignorados como indicativo de uso de expressões regulares.
+Para a primeira tarefa foi implementada uma função que verificava se, entre os parâmetros passados na busca, há caracteres especiais utilizados em expressões regulares. Estes caracteres são {\code |\textbackslash\{\}[]():*+-\$?.\^{}}, porém os caracteres {\code .}, {\code :} e {\code -} costumam aparecer nos nomes dos pacotes os mesmos deveriam ser ignorados como indicativo de uso de expressões regulares.
 
 \begin{lstlisting}[language=C++,label=regexidentify,caption={Identificação de Expressões Regulares}]
 bool identify_regex(std::vector<std::string> input)
