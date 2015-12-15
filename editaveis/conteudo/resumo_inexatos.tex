@@ -19,5 +19,22 @@ Para análise de desempenho, foram coletadas 150 amostras de tempo para 10 busca
   \label{tempo_rk_kmp_std_lev_dic}
 \end{figure}
 
+\begin{longtable}{lccccc}
+\caption{Tempo estimado para busca por pacote com cada algoritmo.}\\
+\toprule
+\textbf{Pacote/Tempo [s]} & \textbf{Rabin-Karp} & \textbf{KMP} & \textbf{Original} & \textbf{Levenshtein} & \textbf{Dice} \\ \midrule \rowcolor[gray]{0.9}
+\textbf{Firefox} & 0.220749 & 0.252704 & 0.795402 & 0.296975 & 0.756102 \\ 
+\textbf{Firefoxy} & 0.216384 & 0.232433 & 0.781483 & 0.304191 & 0.808109 \\ \rowcolor[gray]{0.9}
+\textbf{Goo} & 0.234158 & 0.232317 & 0.882526 & 0.272290 & 0.641333 \\
+\textbf{Gyt} & 0.230002 & 0.236883 & 0.850554 & 0.252317 & 0.611070 \\ \rowcolor[gray]{0.9}
+\textbf{Texlive} & 0.225326 & 0.281123 & 0.979610 & 0.323858 & 0.784428 \\
+\textbf{Latexy} & 0.238537 & 0.246641 & 0.837671 & 0.280488 & 0.708014 \\ \rowcolor[gray]{0.9}
+\textbf{Libreoffice} & 0.229116 & 0.260430 & 0.860675 & 0.352967 & 0.918178 \\
+\textbf{Libreoice} & 0.219333 & 0.240316 & 0.834481 & 0.315241 & 0.821371 \\ \rowcolor[gray]{0.9}
+\textbf{Qtdeclarative} & 0.218691 & 0.236788 & 0.678371 & 0.330715 & 0.973538 \\
+\textbf{Qwerty} & 0.233489 & 0.238262 & 0.720777 & 0.292980 & 0.713505 \\ \bottomrule
+\label{}
+\end{longtable}
+
 
 Por fim, pode-se afirmar que dentro dos algoritmos selecionados para este trabalho, o algoritmo de \textit{Leveinstein} apresenta um dos melhores tempos para buscas inexatas de \textit{strings}. A \autoref{tempo_rk_kmp_std_lev_dic} reforça essa afirmação, ao mostrar que o tempo de resposta deste algoritmo é inferior ao tempo gasto para buscas com expressões regulares e ficando pouco acima do tempo necessário para realizar buscas exatas com o algoritmo de  \textit{Rabin-Karp}.
