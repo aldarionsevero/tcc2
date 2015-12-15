@@ -14,18 +14,26 @@ Há inúmeros exemplos possíveis de algoritmos voltados para \textit{string mat
 
 Criado  em 1987  por  Richard M. Karp e Michael O. Rabin, o algoritmo faz de uso de uma \textit{hash} com o intuito de agilizar a busca por um padrão em um texto. Para busca em um texto de tamanho $n$ por um padrão de tamanho $p$, o algoritmo de Rabin-Karp pode ter em melhor caso ordem de complexidade $\Theta(n-m+1)$ \cite{paulo2015algoritmos}\footnote{Onde $m=n+p$}. Em pior caso, a ordem de complexidade chega a $\Theta((n-m+1)m)$, mesma ordem de complexidade que uma busca comum/força bruta \cite{paulo2015algoritmos}. Todavia, a situação de pior caso só ocorre quando a \textit{hash} não é propriamente calculada. No \autoref{rkalgoritm} apresentamos de forma simples como implementar o algoritmo de Rabin–Karp.
 
-\begin{lstlisting}[language=Bash,label=rkalgoritm,caption={Algoritmo de Rabin–Karp}]
-function RabinKarp(string s[1..n], string pattern[1..m])
-	hpattern := hash(pattern[1..m]);  hs := hash(s[1..m])
-	for i from 1 to n-m+1
-		if hs = hpattern then
-			if s[i..i+m-1] = pattern[1..m] then
-				return i
-		hs := hash(s[i+1..i+m])
-	return not found
+\begin{lstlisting}[language=Python,label=rkalgoritm,caption={Algoritmo de Rabin–Karp}]
+def string_matching_rabin_karp(text='', pattern='', hash_base=256):
+    n = len(text)
+    m = len(pattern)
+    offsets = []
+    htext = hash_value(text[:m], hash_base)
+    hpattern = hash_value(pattern, hash_base)
+    for i in range(n-m+1):
+        if htext == hpattern:
+            if text[i:i+m] == pattern:
+                offsets.append(i)
+        if i < n-m:
+            htext = (hash_base *
+                     (htext -
+                      (ord(text[i]) *
+                       (hash_base ** (m-1))))) + ord(text[i+m])
+    return offsets
 \end{lstlisting}
 
-Observe que na linha $7$ do \autoref{rkalgoritm} temos o cálculo de uma nova \textit{hash}, porém a variável {\code hs} já possui a \textit{hash} para {\code [i+1..i+m]-1}. Se aplicarmos o conceito de \textit{rolling hash}, poderemos obter este valor, nos poupando tempo no cálculo da \textit{hash} e evitando que a linha $5$ seja executada em casos de chances nulas. Este é o ponto onde o algoritmo de Rabin–Karp se mostra com alto desempenho. Normalmente, o algoritmo é utilizado com uma \textit{rolling hash} simples que faz de uso  de multiplicações e somas apenas, conforme apresentada na \autoref{eq:rolling_hash},
+Observe que na linha $5$ do \autoref{rkalgoritm} temos o cálculo de uma \textit{hash} para o texto, \textit{hash} esta que será aproveitada para o calculo de uma nova \textit{hash} na linha $15$ do código. Este é o conceito de \textit{rolling hash}, possibilitando obter um novo valor da \textit{hash} com seu valor antigo, nos poupando tempo de iterações e evitando que a linha $5$ seja executada em casos de chances nulas. Este é o ponto onde o algoritmo de Rabin–Karp se mostra com alto desempenho. Normalmente, o algoritmo é utilizado com uma \textit{rolling hash} simples que faz de uso  de multiplicações e somas apenas, conforme apresentada na \autoref{eq:rolling_hash},
 %
 \begin{equation}\label{eq:rolling_hash}
 	H=c_1a^{k-1}+ c_2a^{k-2} + c_3a^{k-3} + ... + c_ka^{0}
@@ -45,26 +53,30 @@ O algoritmo publicado em 1977 tem autoria de  Donald Knuth, Vaughan Pratt e Jame
 	\item Seguir a comparação de {\code txt[i+1..]} com {\code pat[k..]}.
 \end{enumerate}
 
-Por considerar sempre um fluxo continuo do texto, a ordem de complexidade do algoritmo de Knuth–Morris–Pratt é previsível: $\Theta(n)$, porém requer um pré-processamento com ordem $\Theta(m)$ \cite{hume1991fast}.
+Por considerar sempre um fluxo continuo do texto, a ordem de complexidade do algoritmo de Knuth–Morris–Pratt é previsível: $\Theta(n)$, porém requer um pré-processamento com ordem $\Theta(m)$ \cite{hume1991fast}, tornando o algoritmo com complexidade $\Theta(mn)$.
+No \autoref{kmpalgoritm} podemos observar o algoritmo de Knuth–Morris–Pratt implementado em linguagem Python.
 
-\begin{lstlisting}[language=Bash,label=kmpalgoritm,caption={Knuth–Morris–Pratt (KMP)}]
-function KMP(string S, string pattern)
-	while m + i < length(S) do
-	    if pattern[i] = S[m + i] then
-	        if i = length(pattern) - 1 then
-	            return m
-	        i:= i + 1
-	    else
-	        if T[i] > -1 then
-	            m := m + i - T[i]
-	            i := T[i]
-	        else
-	            i := 0
-	            m := m + 1
-	return not found
+\begin{lstlisting}[language=Python,label=kmpalgoritm,caption={Knuth–Morris–Pratt (KMP)}]
+def kmp(pattern):
+    if len(pattern) == 0:
+        return None
+    T = [0] * len(pattern)
+    T[0] = -1
+    pos = 2
+    cnd = 0
+    while pos < len(pattern):
+        if pattern[pos - 1] == pattern[cnd]:
+            cnd += 1
+            T[pos] = cnd
+            pos += 1
+        elif cnd > 0:
+            cnd = T[cnd]
+        else:
+            T[pos] = 0
+            pos += 1
+    return T
 \end{lstlisting}
 
-No \autoref{kmpalgoritm} podemos observar o algoritmo de Knuth–Morris–Pratt em forma de pseudo-código.
 
 % subsubsection* knuth_morris_pratt_ (end)
 % subsection algoritimos_exatos (end)
