@@ -1,0 +1,35 @@
+\section{\textit{Cookbook} Chef}
+\label{sec:lev-rec}
+
+Como descrito ne Seção~\ref{sec:chef}, o Chef é disposto em vários
+componentes. O foco principal do Cupper é a criação de \textit{cookbooks},
+sendo assim os recursos levantados são referentes à composição interna
+dos \textit{cookbooks}.
+
+Os \textit{cookbooks} contém os seguintes componentes: \textit{attributes, recipes, definitions,
+files, libraries, custom resourses, metadata, resources e providers, templates
+cookbook versions}~\cite{chefdoc:2016}.
+
+Para o funcionamento de um \textit{cookbook}, com uma estrutura mínima, é necessário que tenha
+ao menos um \textit{recipe default} definido. O Código~\ref{code:tree} mostra essa
+estrutura mínima necessária para realizar a configuração do \textit{cookbook app} e o Código~\ref{code:fulltree} mostra uma estrutura completa.
+
+\noindent\begin{minipage}{.45\textwidth}
+  \lstinputlisting[language=Bash, frame=single, label=code:tree, caption="Estrutura mínima de um \textit{cookbook}"]{editaveis/code/minimal_tree}
+\end{minipage}\hfill
+\noindent\begin{minipage}{.45\textwidth}
+  \lstinputlisting[language=Bash, frame=single, label=code:fulltree, caption="Estrutura completa de um \textit{cookbook}"]{editaveis/code/full_tree}
+\end{minipage}
+
+As Seções seguintes explicam os componentes dos \textit{cookbooks} e quais serão gerados
+pelo Cupper.
+
+%\input{editaveis/levantamento_escopo/attributes}
+\input{editaveis/levantamento_escopo/recipes}
+%\input{editaveis/levantamento_escopo/definitions}
+\input{editaveis/levantamento_escopo/files}
+%\input{editaveis/levantamento_escopo/libraries}
+%\input{editaveis/levantamento_escopo/custom}
+%\input{editaveis/levantamento_escopo/metadata}
+\input{editaveis/levantamento_escopo/resources}
+%\input{editaveis/levantamento_escopo/templates}

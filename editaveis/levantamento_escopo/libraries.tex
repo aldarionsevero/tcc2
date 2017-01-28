@@ -1,0 +1,25 @@
+\subsection{\textit{Libraries}}
+
+As \textit{libraries} são formas de inserir código Ruby para estender ou definir
+uma nova funcionalidade. Semelhante ao que ocorre em \textit{definitions}, entretanto a
+capacidade de extensão é maior, sendo possível estender recursos já
+existentes~\cite{chefdoc:2016}. Por ser construída em Ruby, todos os
+recursos provídos pela linguagem podem ser utilizadas dentro das
+\textit{libraries}.
+
+O Código \ref{code:library} mostra a definição para estender um
+\textit{recipe} adicionando um método \textit{client} que pode ser utilizado
+para facilitar a inserção de dados referente a \textit{ip} e \textit{hostname} de um
+\textit{node}
+
+\begin{minipage}{.90\textwidth}
+  \lstset{style=shell}
+  \lstinputlisting[language=Bash, label=code:library, caption="Exemplo de \textit{libraries}."]{editaveis/code/librarie_example.rb}
+\end{minipage}
+
+Em geral, as \textit{libraries} são usadas para definir novas funções que
+auxiliam na descrição de rotinas que são mais frequentes durante a
+construção de um \textit{recipe} como verificação de arquivos ou serviços.
+
+Esse atributo não será incluido no escopo, pois não é possível definir as \textit{libraries}
+necessárias para um contexto desconhecido pelo Cupper.

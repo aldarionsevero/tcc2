@@ -1,0 +1,25 @@
+
+\subsection{\textit{Resources e Providers}}
+\label{sec:cbresource}
+
+Um \textit{resource} é a definição do passo que deve ser seguido durante o processo
+de configuração. Cada \textit{resource} diz ao \textit{chef-client} qual a tarefa a ser executada
+como instalar um pacote, criar um arquivo, reiniciar um serviço, etc.
+Enquanto o \textit{resource} diz o que deve ser feito, o \textit{provider} diz como deve ser
+feito. Por exemplo, o \textit{resource} define \lq\lq instale o pacote A\rq\rq e o \textit{provider} decide
+se deve utilizar pacotes deb ou rpm.
+
+Esse atributo será incluso no escopo de implementação. Os \textit{resources} padrão
+providos pelo Chef serão utilizados para definir os passos nos arquivos de
+\textit{recipes}. Os principais são:
+
+\begin{itemize}
+  \item \textit{\textbf{cookbook\_file}}: transfere o arquivo definido em \textit{COOKBOOK\_NAME/files/} para
+    uma localização definida (já descrito na Seção \ref{sec:cbfiles});
+  \item \textit{\textbf{link}}: usado para criar \textit{links} simbólicos ou real;
+  \item \textit{\textbf{package}}: usado para gerenciar pacotes sem a necessidade de especificar a plataforma,
+    ou seja, o \textit{provider} irá determinar qual gerenciador de pacote a plataforma utiliza;
+  \item \textit{\textbf{service}}: usado para gerenciar serviços da plataforma;
+  \item \textit{\textbf{user}}: usado para criar, atualizar, remover e bloquear/desbloquear um usuário do ambiente.
+  \item \textit{\textbf{group}}: usado para criar, atualizar, remover um groupo do ambiente.
+\end{itemize}

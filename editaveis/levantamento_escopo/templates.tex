@@ -1,0 +1,15 @@
+
+\subsection{\textit{Templates}}
+
+Os \textit{templates} são arquivos no formato Embedded Ruby (ERB) e permitem gerar
+dinamicamente textos de arquivos estáticos. São muito utilizados em arquivos
+de configuração que devem ser modificados de acordo com o ambiente. Os
+\textit{templates} são inseridos em \textit{COOKBOOK\_NAME/templates} e deve-se declarar o recurso
+\textit{template} nos arquivos de \textit{recipes}.
+
+Esse atributo será incluso no escopo de implementação. A leitura de um arquivo de
+configuração ou de implantação de uma aplicação será replicado para a
+pasta \textit{cookbook/COOKBOOK\_NAME/templates/} de mesmo nome. Os \textit{templates} serão
+gerados apartir da coleta de arquivos considerados din{\^a}mico, ou seja,
+o conteúdo contem variáveis que estão relacionado ao atributo do ambiente,
+por exemplo o IP do ambiente.

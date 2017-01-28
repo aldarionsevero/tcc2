@@ -1,0 +1,57 @@
+\section{Extração de Configuração}
+
+No processo de automação de uma infraestrutura tem-se a extração das
+informações referentes ao sistema. Algumas ferramentas realizam esse
+processo como o Ohai~\cite{ohaidoc:2016} e Facter~\cite{facterdoc:2016},
+direcionados para o Chef e Puppet, respectivamente. Essas informações
+são utilizadas para monitoramento do ambiente controlados pelas ferramentas
+de automação.
+
+O método de extração consiste na utilização de outras ferramentas de sistema,
+ou seja, a saída da execução de uma ferramenta contém as informações necessárias
+a serem extraídas, podendo estar filtradas ou não~\cite{ohaidoc:2016}. O Ohai,
+por exemplo, utiliza \textit{plugins} que definem o método de coleta das informações,
+a ferramenta de sistema a ser utilizada e o método de filtragem.
+
+Como será visto no Capítulo~\ref{chap:lev_es}, este é o primeiro passo da proposta.
+As informações extraídas referem-se às configurações do ambiente. O passo
+seguinte é a criação dos \textit{scripts}. Nas pesquisas realizadas, apenas uma ferramenta,
+nomeada Blueprint, realiza estes passos.
+
+\subsection{Blueprint}
+
+O Blueprint é uma ferramenta de gerência de configuração que realiza a
+engenharia reversa do sistema para extrair, em conjunto a outras ferramentas,
+as informações de pacotes, serviços e fontes de instalação de aplicativos
+~\cite{blueprint:2016}. O Blueprint foi descontinuado em 2014.
+
+A aplicação é utilizada para criar \textit{scripts} que realizam
+a instalação dos pacotes e configurações dos serviços que foram extraídos. Há
+também a opção de realizar a conversão desses \textit{scripts} para receitas Chef e módulos
+Puppet\footnote{Os módulos Puppet funcionam como receitas Chef, mas são específicos para a ferramenta Puppet.}.
+Por esse motivo, o Blueprint é considerado como uma ferramenta concorrente ao Cupper,
+pois a sua funcionalidade é semelhante.
+
+A Tabela~\ref{tab:cupper-blueprint} mostra uma comparação entre o Cupper e Blueprint.
+
+\begin{table}[H]
+  \centering
+  \caption{Comparativo entre as ferramentas Cupper e Blueprint}
+  \label{tab:cupper-blueprint}
+  \begin{tabular}{l|l|l}
+    \hline
+                                                                       & Cupper                                                                                                   & Blueprint                                                                                     \\ \hline
+  \begin{tabular}[c]{@{}l@{}}Informações\\ Extraídas\end{tabular}    & \begin{tabular}[c]{@{}l@{}}Pacotes, serviços,\\ configurações, rede,\\ plataforma, hardware\end{tabular} & \begin{tabular}[c]{@{}l@{}}Pacotes, serviços,\\ configurações\end{tabular}                    \\ \hline
+  Saídas                                                             & \textit{Cookbook Chef}                                                                                   & \textit{\begin{tabular}[c]{@{}l@{}}Script Shell, Cookbook\\ Chef, Module Puppet\end{tabular}} \\ \hline
+  \begin{tabular}[c]{@{}l@{}}Linguagem de\\ Programação\end{tabular} & \textit{Ruby}                                                                                            & \textit{Python}                                                                               \\ \hline
+  \begin{tabular}[c]{@{}l@{}}Gerenciador de\\ Pacotes\end{tabular}   & \begin{tabular}[c]{@{}l@{}}APT/dpkg, Pacman,\\ RubyGem e PIP\end{tabular}                                & \begin{tabular}[c]{@{}l@{}}APT, Yum, RubyGems, easy\_install,\\ PIP, PECL e NPM.\end{tabular} \\ \hline
+  \end{tabular}
+\end{table}
+
+É considerado como vantagem do Cupper em relação ao seu concorrente:
+
+\begin{itemize}
+  \item O Cupper é focado na ferramenta Chef;
+  \item O Cupper segue os padrões adotados pelas outras ferramentas do
+    Chef;
+\end{itemize}

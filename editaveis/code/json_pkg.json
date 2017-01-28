@@ -1,0 +1,13 @@
+{
+  //...
+  "apt-file" => {
+    "version"=>"2.5.4"
+  },
+  "apt-listchanges" => {
+    "version"=>"2.85.13+nmu1"
+  },
+  "apt-transport-https" => {
+    "version"=>"1.0.9.8.3"
+  },
+  //...
+}

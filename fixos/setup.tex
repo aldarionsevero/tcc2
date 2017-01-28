@@ -1,5 +1,32 @@
 \definecolor{blue}{RGB}{41,5,195}
 \makeatletter
+
+\definecolor{blue}{RGB}{41,5,195}
+\definecolor{codegreen}{RGB}{76,153,0}
+\definecolor{codeblue}{RGB}{0,153,153}
+\definecolor{codered}{RGB}{153,0,0}
+\definecolor{codegray}{RGB}{32,32,32}
+\definecolor{codelightgray}{RGB}{128,128,128}
+
+
+% Setting up code style
+\lstdefinestyle{shell}{
+    basicstyle=\tiny,
+    breakatwhitespace=true,
+    breaklines=true,
+    commentstyle=\color{codegreen},
+    frame=single,
+    keywordstyle=\color{codered},
+    keepspaces=true,
+    numberstyle=\tiny\color{codegray},
+    numbers=left,
+    stringstyle=\color{codegray},
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2
+}
+
 \hypersetup{
      	%pagebackref=true,
 		pdftitle={\@title}, 

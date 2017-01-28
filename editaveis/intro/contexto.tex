@@ -1,0 +1,51 @@
+\section{Contexto}
+\label{sec:contexto}
+
+O mercado de desenvolvimento de software, atualmente, pressiona as organizações
+a buscarem modelos que ofereçam uma constante entrega de produto com
+um intervalo cada vez menor de tempo. Como parte deste cenário, tem-se o
+tradicional problema entre a equipe de desenvolvimento e a equipe de operação
+~\cite{hummer:2013}.
+
+Enquanto a equipe de desenvolvimento tende a disponibilizar novas alterações,
+solicitadas pelo cliente ou providas pela empresa para a validação do cliente o
+mais depressa possível, a equipe de operação tende a manter o sistema estável,
+o que significa minimizar a implantação de grandes mudanças. A lacuna desse
+processo é agravada pelos diferentes objetivos de cada equipe
+~\cite{huttermann:2012}.
+
+A adoção de DevOps \textit{(Development and Operating)} vem sendo feita
+para amenizar esse problema. DevOps consiste em uma série de práticas,
+ferramentas ou mesmo cultura organizacional com o objetivo de diminuir o tempo
+de entrega e implantação de um software. Juntamente a esse modelo,
+tem-se os conceitos de automação e infraestrutura
+como código. Ambos estão fortemente ligados, sendo facilitadores para o
+desenvolvedor conhecer as regras de implantação de sua aplicação
+e para o operador documentar e configurar um ambiente para um estado específico
+definido pelo código de implantação~\cite{hummer:2013}.
+
+Neste contexto, surgiram ferramentas de automação, como Chef~\cite{chef:2016} e
+Puppet~\cite{puppet:2016}, que abstraem os passos de execução de configuração
+e implantação tranformando-os em códigos simples. A chave dessas propostas está em torno
+da capacidade de \textit{convergence} do ambiente, ou seja, a execução de uma
+sequência de passos pré-definidos sempre leva a um estado previsível do objeto
+~\cite{hummer:2013}. Pode-se citar alguns dos principais benefícios
+~\cite{vasiliev:2014}:
+
+\begin{itemize}
+  \item \textbf{Escalabilidade}: aumenta a quantidade de serviços em uma infraestrutura
+    utilizando \textit{environments} (variáveis do ambientes),\textit{roles}
+    (conjunto de configurações que representa o papel do sistema) e \textit{nodes}
+    (máquina física, virtual, container, etc);
+  \item \textbf{Reuso e Replicação}: possibilita configurar a mesma aplicação em um novo \textit{node}, ou seja,
+    conseguir replicar as mesmas configurações pela infraestrutura em pouco tempo;
+  \item \textbf{Documetação}: um \textit{script}(ou receita) em Chef contém todas as instruções necessárias
+    para configuração do ambiente em formato simples de leitura;
+\end{itemize}
+
+Neste cenário, este trabalho visa uma oportunidade de melhoria com relação
+a criação dos \textit{scripts} nos padrões da ferramenta de automação Chef, criando uma
+ferramenta, denominada Cupper, que realiza a engenharia reversa das configurações
+de um ambiente para a criação de \textit{scripts} Chef a fim de facilitar na replicação,
+documentação e migração da infraestrutura.
+

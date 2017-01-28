@@ -1,0 +1,37 @@
+\section{Escopo de Implementação}
+\label{sec:escopo}
+
+
+O Cupper se encaixa na categoria de ferramentas \textit{CLI} (\textit{Command-line Interface})
+e como descrito na Seção~\ref{sec:supdev:rubygems}, será construída nos padrões de
+RubyGems que permite criar os comandos por meio de arquivos de \textit{script bash}
+que serão instalados, por padrão do gerenciado de pacote, no diretório de binários do sistema.
+Os comandos serão chamados pelo prefixo \textit{cupper} seguido da funcionalidade e as opções.
+
+%TODO: colocar a estrutura de init do Cupper e mostrar como será a distribuição dos arquivos e diretórios.
+
+Em resumo da Seção~\ref{sec:lev-rec}, os recursos Chef com relação aos \textit{coookbooks} que serão utilizados.
+
+\subsection{Funcionalidades}
+
+\begin{enumerate}
+  \item \textbf{Mostrar Ajuda}: imprime no terminal os principais comandos e as opções válidas de
+    cada uma;
+
+  \item \textbf{Gerar Cookbook}: extrai as configurações do ambiente e cria o \textit{cookbook} correspondente.
+    Esse \textit{cookbook} será inserido no diretório \textit{cookbooks} na raiz do projeto Cupper.
+    A Figura~\ref{fig:cupper_geral} mostra o fluxo básico dessa funcionalidade;
+
+  \item \textbf{Mostrar Extrações}: mostra as extrações realizadas pelo Cupper em conjunto com o Ohai,
+    ou seja, é a forma intermediária à criação dos \textit{cookbooks} onde serão mostrados os outputs do
+    sistema e o reflexo deles no \textit{cookbook} antes da criação em sí;
+
+  \item \textbf{Gerar Projeto Cupper}: gera a estrutura de diretório padrão para o projeto Cupper.
+    Um projeto Cupper contém o conjunto de \textit{plugins} do Ohai e Cupper, arquivos de configurações
+    específicos do projeto e um conjunto de diretórios onde serão dispostos as configurações
+    extraídas e os \textit{cookbooks} gerados do ambiente;
+
+  \item \textbf{Listar \textit{Plugins}}: lista os plugins disponíveis do Ohai, tanto os padrões, já inclusos
+    na instalação do Ohai, quanto os customizados pelo Cupper;
+
+\end{enumerate}

@@ -1,0 +1,14 @@
+//...
+
+  {
+  "/etc/os-release" => {
+    "type"=>"symbolic link to ../usr/lib/os-release",
+    "mode"=>"lrwxrwxrwx",
+    "owner"=>"root",
+    "group"=>"root",
+    "related"=>"base-files",
+    "content"=> "# Content of the real file"
+  }
+}
+
+//...

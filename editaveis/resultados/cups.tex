@@ -1,0 +1,51 @@
+\subsection{Serviço Cups}
+O ambiente controlado que foi montado para testes iniciais do Cupper foi planejado
+para ser simples e conter um serviço com poucas dependências para validar um caso
+sem complicações. Diferentemente dos testes tratados a seguir nas próximas Seções,
+esse ambiente não se trata de um ambiente real de uso, e foi criado somente para
+esse fim.
+
+A máquina virtual utilizada para esse teste foi montada com a distro Debian 8.
+O CUPS, que é um serviço de gerenciamento de impressões criado pela Apple foi
+instalado nesse ambiente base, juntamente com suas dependências e nginx. A instalação
+do CUPS já levanta o seu serviço web que fica ativo no host local na porta 631.
+Além de instalar o CUPS, um arquivo de configuração para o CUPS foi criado
+para verificar se essa configuração seria passada para o novo ambiente. O
+conteúdo desse arquivo pode ser visto no Código~\ref{code:cupsconfig}. Outro 
+arquivo de configuração para o Nginx foi definido para efetuar o 
+\textit{proxypass} da porta 631 para a porta 80 (Código~\ref{code:nginxconfig}), fazendo assim pelo menos duas
+aplicações se relacionarem.
+
+O novo ambiente foi montado com a mesma imagem usada ná máquina virtual já citada.
+Os pacotes já instalados e serviços ativos, antes de executar a receita, foram somente 
+os que já vem por padrão na distribuição.
+
+O Cupper foi executado com as opções padrão do Cupperfile, e a Tabela~\ref{tab:result_cups}
+mostra os resultados alcançados após gerar a receita no ambiente base e executá-la
+no ambiente novo.
+
+
+\begin{table}[H]
+  \centering
+  \caption{Resultados da máquina virtual com o serviço Moodle}
+  \label{tab:result_cups}
+  \begin{tabular}{c|c|c|c}
+    \hline
+    \rowcolor[HTML]{EFEFEF} 
+    {\color[HTML]{000000} \textbf{Camada}} & {\color[HTML]{000000} \textbf{Ambiente}}                                       & {\color[HTML]{000000} \textbf{Ambiente Replicado}}                             & {\color[HTML]{000000} \textbf{Replicado}} \\ \hline
+                                           & \begin{tabular}[c]{@{}c@{}}Dependências do CUPS\\ Instaladas\end{tabular}        & \begin{tabular}[c]{@{}c@{}}Dependências do CUPS\\ Instaladas\end{tabular}        & X                                         \\ \cline{2-4} 
+                                           & \begin{tabular}[c]{@{}c@{}}Dependências do Nginx\\ Instaladas\end{tabular}                & \begin{tabular}[c]{@{}c@{}}Dependências do Nginx\\ Instaladas\end{tabular}                & X                                         \\ \cline{2-4} 
+                                           & \begin{tabular}[c]{@{}c@{}}Pacote CUPS\\ Instalado\end{tabular} & \begin{tabular}[c]{@{}c@{}}Pacote CUPS\\ Instalado\end{tabular} & X                                         \\ \cline{2-4} 
+  \multirow{-6}{*}{Aplicação}            & \begin{tabular}[c]{@{}c@{}}Pacote Nginx\\ Instalado\end{tabular}           & \begin{tabular}[c]{@{}c@{}}Pacote Nginx\\ Instalado\end{tabular}       &                                          X \\ \hline
+                                           & \begin{tabular}[c]{@{}c@{}}Serviço Apache\\ Executando\end{tabular}            & \begin{tabular}[c]{@{}c@{}}Serviço Apache\\ Executando\end{tabular}            & X                                         \\ \cline{2-4} 
+  \multirow{-2}{*}{Serviços}             & \begin{tabular}[c]{@{}c@{}}Serviço CUPS\\ Executando\end{tabular}             & \begin{tabular}[c]{@{}c@{}}Serviço CUPS\\ Executando\end{tabular}             & X                                         \\ \hline
+                                           & \begin{tabular}[c]{@{}c@{}}Configurações CUPS\\ Carregadas\end{tabular}            & \begin{tabular}[c]{@{}c@{}}Configurações CUPS\\ Carregadas\end{tabular}            & X                                         \\ \cline{2-4} 
+  \multirow{-2}{*}{Configurações}             & \begin{tabular}[c]{@{}c@{}}Configurações Nginx\\ Carregadas\end{tabular}             & \begin{tabular}[c]{@{}c@{}}Configurações Nginx\\ Carregadas\end{tabular}             & X                                         \\ \hline
+  \end{tabular}
+\end{table}
+
+No ambiente base em que o CUPS e o Nginx foram instalados manualmente, o CUPS
+podia ser acessado na porta 631 do \textit{host} local e o Nginx estava fazendo
+com que também fosse possível acessar o CUPS na porta 80. Após a execução da
+receita gerada, o novo ambiente passou a ter o mesmo comportamento, e dessa
+forma o ambiente foi replicado com sucesso.

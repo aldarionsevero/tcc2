@@ -1,0 +1,61 @@
+\section{Análise do Ambiente}
+
+Neste trabalho, é considerado como ambiente uma máquina composta
+de hardware e sistema operacional. São consideradas máquinas físicas
+e virtuais. Essa Seção irá descrever como será a análise e extração
+de informações do ambiente.
+
+\subsection{Definição de Camadas}
+
+Para decidir até que ponto a aplicação irá analisar as configurações
+do ambiente é preciso definir os tipos de configuração, as características para
+cada, e separar esses tipos em camadas onde a aplicação pode atuar.
+Com essas camadas definidas, identifica-se quais camadas são relevantes e viáveis
+para o escopo do trabalho.
+
+%TODO: adicionar como foi feita a definição das camadas
+
+\subsection{Definição de Critérios para a Seleção}
+\label{sec:defcritcamada}
+Após levantar as camadas de configuração do ambiente, é necessário definir em
+quais camadas e em quais dos seus atributos o Cupper realmente vai atuar. 
+Os critérios vão estar relacionados a dois aspectos importantes: a \textbf{relevância} 
+para o projeto e a quantidade de \textbf{esforço} e \textbf{tempo} para a implementação durante
+o Trabalho de Conclusão de Curso.
+
+Para classificar um atributo como relevante para análise, ele deve seguir os
+seguintes critérios:
+
+\begin{enumerate}
+\item Um atributo é relevante quando ele é necessário para a geração de uma
+receita Chef que atenda aos nossos requisitos. 
+
+Na Seção~\ref{sec:lev-rec} e~\ref{sec:escopo} definimos os recursos Chef
+que iremos utilizar nas criações de \textit{cookbooks} e até que ponto 
+avançaremos nas funcionalidades do Cupper, e dessa forma, os atributos
+são relevantes se eles se enquadram nesse patamar, para alcançar esses objetivos.
+
+Um exemplo básico disso é a arquitetura da CPU, que pode alterar a instalação
+e qual a versão de pacotes a serem instalados.
+
+\item Um atributo também é relevante se é necessário para criação de \textit{logs} 
+e \textit{debugs}, tanto para uso da ferramenta durante o processo de gerar 
+\textit{cookbooks} quanto para algum retorno para o usuário, para ajudar 
+a entender possíveis erros ao executar
+o Cupper.
+\end{enumerate}
+
+Com relação à dificuldade de implementação e de integração ao Cupper o
+atributo deve seguir os seguinte critérios em ordem de prioridade:
+
+\begin{enumerate}
+\item O atributo tem maior prioridade de ser selecionado se é um dos dados 
+que o Ohai lança por padrão e sem extensões.
+\item O atributo tem média prioridade se, não é um dos dados que o Ohai
+lança por padrão e sem extensões, mas existe um comando do sistema que facilita 
+sua extração, e dessa forma facilitando a criação de \textit{plugins} pro 
+Ohai.
+\item O atributo tem menor prioridade se não é lançado pelo Ohai e nem tem 
+comandos do sistema para recuperá-lo.
+\end{enumerate}
+

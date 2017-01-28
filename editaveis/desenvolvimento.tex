@@ -1,0 +1,50 @@
+\chapter{Desenvolvimento}
+\label{chap:dev}
+
+Esse capítulo irá descrever o desenvolvimento e evolução de cada uma das funcionalidades
+previstas para o Cupper. Além disso, problemas encontrados durante o processo
+de desenvolvimento serão relatados, e mudanças explicadas.
+
+A maior e mais importante funcionalidade é a de gerar a receita Chef propriamente dita.
+Dessa forma quebramos essa grande funcionalidade em funcionalidades menores que refletem cada
+um dos tipos de extração e reprodução de recursos Chef.
+
+As funcionalidades previstas para o Cupper são as seguintes:
+
+\begin{enumerate}
+  \item \textbf{Extract Packages}: Extrair atributos referentes aos pacotes
+instalados e gerar receita Chef que instale os mesmos pacotes em um novo ambiente;
+  \item \textbf{Extract Links}: Extrair atributos referentes a links simbólicos
+de arquivos e gerar receita Chef que reproduza os mesmos links em um ambiente novo;
+  \item \textbf{Extract Users}: Extrair atributos referentes a usuários presentes
+no ambiente sendo extraído e gerar receita que crie os mesmos usuários em um
+ambiente novo.
+  \item \textbf{Extract Cookbook Files}: Extrair atributos referentes aos arquivos
+de configuração padrão e gerar receita Chef que copie esses mesmos arquivos para o ambiente novo;
+  \item \textbf{Extract Groups}: Extrair atributos referentes aos grupos de usuários
+e gerar receita Chef que crie e associe os usuários certos a esses grupos em um
+ambiente novo;
+  \item \textbf{Extract Services}: Extrair atributos referentes aos serviços carregados
+e ativos e gerar uma receita Chef que suba os mesmos serviços;
+  \item \textbf{Gerar Projeto Cupper}: Gerar a estrutura de diretório padrão 
+para o projeto Cupper.
+  \item \textbf{Listar Plugins}: Listar os plugins disponíveis do Ohai, tanto 
+os padrões, já inclusos na instalação do Ohai, quanto os customizados pelo Cupper;
+  \item \textbf{Help}: Imprime no terminal os principais comandos e as opções
+válidas de cada uma;
+  \item \textbf{Relatório Intermediário}: Gerar relatório intermediário antes
+da receita Chef em si, para diagnóstico do sistema sendo extraído e para debug
+do Cupper. \textbf{Essa funcionalidade não foi implementada.}
+
+\end{enumerate}
+
+\input{editaveis/desenvolvimento/pacotes}
+\input{editaveis/desenvolvimento/arquivos}
+\input{editaveis/desenvolvimento/links}
+\input{editaveis/desenvolvimento/usuarios}
+\input{editaveis/desenvolvimento/grupos}
+\input{editaveis/desenvolvimento/servicos}
+\input{editaveis/desenvolvimento/proj}
+\input{editaveis/desenvolvimento/listar}
+\input{editaveis/desenvolvimento/ajuda}
+\input{editaveis/desenvolvimento/rel}

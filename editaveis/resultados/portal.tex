@@ -1,0 +1,74 @@
+\subsection{Serviço Portal}
+
+A máquina que contem o Portal FGA foi montada com a distro Debian 8 Jessie
+e está em operação desde Novembro de 2016. O principal serviço, o site Portal FGA,
+é provido pela plataforma Noosfero. A extração com o Cupper foi completa,
+sem erros de sintaxe.
+
+O novo ambiente foi montado com a mesma imagem que foi utilizada na máquina
+Portal em homologação. Com isso, a distribuição, versão de Kernel e repositórios
+de pacotes são as mesmas do ambiente de homologação. Esse novo ambiente, não
+continha nenhum serviço ou pacotes instalados que não fossem os padrões
+disponível na distribuição.
+
+A Tabela~\ref{tab:result_portal} mostra os principais serviços e pacotes instalados
+na máquina em homologação do Portal.
+
+\begin{table}[H]
+  \centering
+  \caption{Resultados da máquina virtual com o serviço Portal FGA}
+  \label{tab:result_portal}
+  \begin{tabular}{c|c|c|c}
+    \hline
+    \rowcolor[HTML]{EFEFEF} 
+    {\color[HTML]{000000} \textbf{Camada}}               & {\color[HTML]{000000} \textbf{Ambiente}}                                    & {\color[HTML]{000000} \textbf{Ambiente Replicado}}                                    & {\color[HTML]{000000} \textbf{Replicado}} \\ \hline
+                                                         & \begin{tabular}[c]{@{}c@{}}Pacote noosfero\\ Instalado\end{tabular}         & \begin{tabular}[c]{@{}c@{}}Pacote noosfero\\ Instalado\end{tabular}                   & X                                         \\ \cline{2-4} 
+                                                         & \begin{tabular}[c]{@{}c@{}}Pacote postgresql\\ Instalado\end{tabular}       & \begin{tabular}[c]{@{}c@{}}Pacote postgresql\\ Instalado\end{tabular}                 & X                                         \\ \cline{2-4} 
+                                                         & \begin{tabular}[c]{@{}c@{}}Pacote portal-unb-theme\\ Instalado\end{tabular} & \begin{tabular}[c]{@{}c@{}}Pacote portal-unb-theme\\ Instalado\end{tabular}           & X                                         \\ \cline{2-4} 
+  \multirow{-4}{*}{Aplicação}                          & \begin{tabular}[c]{@{}c@{}}Pacote nginx\\ Instalado\end{tabular}            & \begin{tabular}[c]{@{}c@{}}Pacote nginx\\ Instalado\end{tabular}                      & X                                         \\ \hline
+                                                         & \begin{tabular}[c]{@{}c@{}}Serviço Nginx\\ Executando\end{tabular}          & \begin{tabular}[c]{@{}c@{}}Serviço Nginx\\ Executando\end{tabular}                    & X                                         \\ \cline{2-4} 
+  \multirow{-2}{*}{Serviços}                           & \begin{tabular}[c]{@{}c@{}}Serviço Noosfero\\ Não Executado\end{tabular}       & \begin{tabular}[c]{@{}c@{}}Serviço Noosfero\\ Executando\end{tabular}                 &                                          \\ \hline
+  \multicolumn{1}{l|}{}                                & \begin{tabular}[c]{@{}c@{}}Configurações Noosfero\\ Carregadas\end{tabular} & \begin{tabular}[c]{@{}c@{}}Configurações Noosfero\\ Carregadas Parcialmente\end{tabular}           & X                                         \\ \cline{2-4} 
+  \multicolumn{1}{l|}{\multirow{-2}{*}{Configurações}} & \begin{tabular}[c]{@{}c@{}}Configurações Nginx\\ Carregadas\end{tabular}    & \begin{tabular}[c]{@{}c@{}}Configurações Nginx\\ Carregadas Parcialmente\end{tabular} & \multicolumn{1}{l}{}                      \\ \hline
+  \end{tabular}
+\end{table}
+
+O Cupper foi executado com a opção de versionamento de pacotes desativada. O motivo para
+a abordagem é a indisponibilidade dos pacotes nas versões instaladas no ambiente
+Portal em homologação. Entretanto o problema persistiu durante a configuração
+do novo ambiente, por conta de alguns pacotes não seguirem o padrão de versionamento.
+Em geral, os pacotes são instalados especificando a versão: pacote A, versão 1, mas os
+pacotes instalados seguia outro padrão: pacote A1, versão 1. Neste caso,
+para fazer o \textit{upgrade} do pacote A, é necessário instalar outro pacote: pacote A2,
+versão 2. Sendo assim, a receita tentava instalar alguns pacotes em duas versões
+diferentes, uma disponível no repositório (atualizada), e outra que não estava mais
+no repositório.
+
+Ainda com relação aos pacotes, outro problema foi encontrado. Para instalar pacotes
+de um repositório, é necessário uma chave de autenticação para garantir que o repositório
+é seguro. O novo ambiente não tem tais chaves, o que causa erro na instalação desses
+pacotes.
+
+A ordem dos pacotes também causou erro na execução da receita. Por padrão, a lista de
+pacotes extraída está em ordem alfabética, assim colocando o pacote do Noosfero antes
+do pacote PostgreSQL. É necessário que o banco de dados esteja em operação para a
+configuração do Noosfero.
+
+Tendo em vista esses três problemas, alterações na receita foram necessárias:
+remoção dos pacotes sem repositório associado, adição da flag \texttt{allow-unauthenticated}
+na instalação dos pacotes não autenticados e modificar a posição do pacote Noosfero
+para executar após o pacote PostgreSQL.
+
+A configurações do serviço Nginx foram parcialmente replicadas. Arquivos de configurações
+não estavam vinculados ao pacotes. Para esse caso, esses arquivos estavam corretamente
+inseridos no diretório \texttt{/etc/nginx/conf.d} destinado a configurações específicas
+vinculadas a um escopo. Com isso, é necessário que o Cupper reconheça esses tipos
+de arquivos de configuração, não apenas aqueles vinculados aos pacotes.
+
+O serviço do Noosfero na máquina em homologação não estava em execução. Isso poderia
+comprometer a configuração do novo ambiente, entretanto não houve problemas, devido
+ao erro da aplicação em homologação está referente ao banco de dados. O Cupper não
+prevê recuperação do banco de dados, o que não reproduziu o erro no novo ambiente.
+
+
+

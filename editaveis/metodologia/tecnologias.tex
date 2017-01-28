@@ -1,0 +1,98 @@
+\section{Escolha de Tecnologias}
+\label{sec:tec}
+
+O Cupper, aplicação proposta por este trabalho, tem a intenção de entrar
+na família de ferramentas relacionadas ao Chef. Portanto é interessante que
+as tecnologias, linguagem e padrões sejam adotados. % TODO: ficou um pouco estranho a ultima frase.
+
+O motivo da decisão do Cupper ser direcionado para o Chef vem da experiência do
+grupo com a utilização da ferramenta que por consequência resultou na identificação
+da oportunidade de melhoria.
+
+O Chef está relacionado ao desenvolvimento do Cupper, mas ele não é uma
+dependência para a execução do mesmo, e sim a ferramenta que usa a saída do Cupper,
+que será explicado no Capítulo \ref{chap:lev_es}, de Levantamento.
+
+\subsection{Ferramentas e Serviços de Suporte ao Desenvolvimento}
+\label{sec:supdev}
+
+Para o desenvolvimento do trabalho, foram escolhidas as ferramentas e serviços de suporte que serão
+utilizadas para gerência e controle das atividades do projeto, automação, coleta de dados e teste
+de desenvolvimento do Cupper. A escolha foi feita considerando a experiência do
+grupo em relação a utilização da ferramenta no decorrer do curso e a identificação dos
+padrões utilizados pelas outras ferramentas providas pelo Chef.
+
+\subsubsection{Git}
+\label{sec:supdev:git}
+
+Git é uma ferramenta de controle de versão gratuita e de código aberto criada
+em 2005 por Linus Torvalds~\cite{chacon:2014}. O Git foi utilizado para o controle das versões
+dos códigos para a produção deste documento e para a produção da ferramenta proposta Cupper.
+
+\subsubsection{Github}
+\label{sec:supdev:github}
+
+O Github é um serviço que provê a utilização dos comando Git em um \textit{browser}, além de
+disponibilizar um repositório remoto para colaboração de projetos e registro e rastreamento de
+\textit{issues}~\cite{github:2016}.  O Github foi utilizado para armazenamento remoto do repositório
+deste documento e da ferramenta proposta Cupper, e para o registro e controle de \textit{issues} que são
+considerados os itens do \textit{Backlog}, descrito na Seção~\ref{sec:praticas_tecnicas}.
+
+\subsubsection{Travis}
+\label{sec:supdev:travis}
+
+O Travis é um serviço de integração contínua integrada com o serviço Github que automatiza
+a \textit{build} do código e verifica os testes~\cite{travis:2016}. O Travis será utilizado para
+realizar a \textit{build} automatica da ferramenta Cupper, determinando se a funcionalidade ou \textit{bugfix}
+será integrada ao código.
+
+\subsubsection{RubyGems}
+\label{sec:supdev:rubygems}
+
+O RubyGems é um \textit{framework} de empacotamento e instalação de bibliotecas e aplicações
+construidas com Ruby. As vantagens de se utilizar RubyGem~\cite{thomas:2001}:
+
+\begin{itemize}
+ \item Padronizar formatos de pacotes;
+ \item Centralizar o repositório para distribuição dos pacotes Gem;
+ \item Facilitar a instalação, gerenciamento e manipulação dos pacotes Gem.
+\end{itemize}
+
+A ferramenta Cupper, por ser construída em Ruby, seguirá os padrões adotados
+pelo RubyGems.
+
+\subsubsection{RSpec}
+\label{sec:supdev:rspec}
+
+O RSpec é um \textit{framework} de \textit{Behaviour-Driven Development} (BDD)
+criado por Steven Baker em 2005~\cite{chelimsky:2010}. Com o RSpec
+são criados testes que descrevem um comportamento esperado do sistema
+em contexto controlados. O RSpec facilita a escrita de testes simplificando
+a sintaxe para descrever os cenários e comportamentos.
+
+\subsection{Ferramentas Dependentes}
+\label{sec:deps}
+
+Foram identificadas as ferramentas dependentes para a construção do Cupper.
+São ferramentas que estão dentro da família de ferramentas do Chef e são
+de código aberto disponíveis no repositório oficial do Chef.
+
+\subsubsection{Ohai}
+\label{sec:deps:ohai}
+
+O Ohai é uma ferramenta para detecção de atributos de um \textit{node}. Os atributos são
+informações que podem ser: detalhe de plataforma, dados de CPU, dados de redes, etc.
+O Ohai é uma dependência do \textit{chef-client} e é extensível através de \textit{plugins}
+para incluir mais tipos de dados a serem coletados~\cite{ohaidoc:2016}.
+
+Para o desenvolvimento do Cupper, a ferramenta Ohai será utilizada para realizar a
+interface de coleta de dados. Como será apresentado na Seção~\ref{sec:cam-amb}, o
+Ohai, sem extensões, pode coletar uma certa quantidade de atributos do ambiente, sendo
+necessário a criação de \textit{plugins} de acordo com a necessidade de implementação do Cupper.
+
+\subsubsection{Thor}
+\label{sec:deps:thor}
+
+Diversas gems são dependências para o desenvolvimento do Cupper, mas o Thor
+é o que possibilita que o Cupper seja uma ferramenta CLI\@. Ele facilita o
+parseamento de entradas e a criação de comandos auto documentáveis.

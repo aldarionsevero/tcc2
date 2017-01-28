@@ -1,0 +1,26 @@
+
+\subsection{\textit{Custom Resource}}
+\label{sec:lev-rec-cust}
+
+Adicionado recentemente ao Chef, o \textit{custom resource} é uma forma de criar
+novos recursos para os \textit{recipes}. É semelhante as \textit{libraries} e as \textit{definitions},
+entretanto é direcionado especificamente para a criação de novos recursos~\cite{chefdoc:2016}.
+É uma forma simples de estender o Chef e é implementado dentro de um
+\textit{cookbook}.
+
+No Código \ref{code:custom} tem-se a definição de um recurso criado em \textit{cookbooks/app/resources}
+com o nome \textit{httpd} e uma propriedade \textit{homepage} com um valor padrão vazio.
+Esse recurso é distribuido por todo o \textit{cookbooks} como uma simples chamada
+de um recurso Chef como demonstra o Código \ref{code:custom-user}.
+
+\noindent\begin{minipage}{.45\textwidth}
+  \lstset{style=shell}
+  \lstinputlisting[language=Bash, label=code:custom, caption="Exemplo de declaração de um \textit{custom resource}."]{editaveis/code/custom_example.rb}
+\end{minipage}\hfill
+\begin{minipage}{.45\textwidth}
+  \lstset{style=shell}
+  \lstinputlisting[language=Bash, label=code:custom-user, caption="Exemplo de utilização de um \textit{custom resource}."]{editaveis/code/custom_user.rb}
+\end{minipage}
+
+Esse atributo não será incluido no escopo, pois a definição dos \textit{custom resource} dependem
+da necessidade de cada organização não sendo possível prevê-las.

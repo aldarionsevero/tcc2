@@ -1,0 +1,23 @@
+
+\subsection{\textit{Definitions}}
+\label{sec:lev-rec-def}
+
+As \textit{definitions} são um novo tipo de recurso disponível apartir da versão
+12.5 do Chef e é recomentado utilizar o \textit{Custom Resource}(Seção \ref{sec:lev-rec-cust})
+no lugar de \textit{definitions}~\cite{chefdoc:2016}.
+
+Os \textit{definitions} são comportamento que podem ser reutilizados por outros \textit{recipes}.
+São utilizado como recursos padrões de uma receita. No Código \ref{code:definition}
+é definido o recurso \textit{host\_porter} com os parametros \textit{port} (valor padrão 4000)
+e \textit{hostname} (valor padrão \textit{nil}) que pode ser utilizado em outro
+\textit{recipe} com a simples chamada \textit{host\_porter}.
+
+\begin{minipage}{.90\textwidth}
+  \lstset{style=shell}
+  \lstinputlisting[language=Bash, label=code:definition, caption="Exemplo de \textit{definition}. Adiciona um recurso \textit{host\_porter}."]{editaveis/code/definition_example.rb}
+\end{minipage}
+
+Esse atributo não será incluso no escopo de implementação. As \textit{definitions} são
+construídas de acordo com as necessidades de cada organização, não sendo
+possível prevê-las ou fazer uma \textit{definition} genérica.
+

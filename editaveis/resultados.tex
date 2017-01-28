@@ -1,0 +1,52 @@
+\chapter{Resultados}
+\label{chap:result}
+
+Neste capítulo serão abordados os resultados dos testes realizados
+para validar a capacidade do Cupper de reproduzir um ambiente.
+
+Os testes foram realizados em dois tipos de ambientes ao longo do
+desenvolvimento do projeto. Os ambientes controlados são máquinas
+virtuais locais. Foi utilizado a ferramenta Vagrant e VirtualBox
+como virtualizadores e as distros disponíveis no repositório Hashicorp
+\footnote{Site oficial que contem todos os tipos de distros em formato \textit{box} para o Vagrant. Disponível em https://atlas.hashicorp.com/boxes/search.}.
+
+Os ambientes reais são máquinas virtuais disponíveis na infraestrutura
+do LAPPIS (Laboratório Avançado de Produção Pesquisa e Inovação em Software).
+Tais máquinas contem aplicações, serviços e configurações em modo produção.
+
+As próximas sessões irão mostrar o resultado de cada ambiente testado,
+a quantidade de pacotes, configurações e serviços que foram replicados
+e relatos de problemas ou abordagens.
+
+\section{Premissas e Pré-requisitos}
+
+Os testes podem ser divididos em dois momentos: execução do Cupper no
+ambiente alvo e execução da receita gerada pelo Cupper. Portanto,
+para os testes, e utilização correta do Cupper, algumas premissas
+e pré-requisitos devem ser alcançados.
+
+No primeiro momento, para a execução do Cupper, o ambiente alvo deve
+ser uma distribuição Debian \textit{based}, deve conter Ruby na versão
+2.1.0 ou superior, deve ter as depencências para instalação
+de Ruby \textit{gems} e o usuário deve ter permissão de execução do Cupper, assim como
+permissão de criar pastas e arquivos.
+
+No segundo momento, para execução da receita gerada pelo Cupper, o novo
+ambiente deve ser uma distribuição Debian \textit{based} na mesma versão do ambiente
+alvo, deve ter acesso aos mesmos repositórios de pacotes que
+o ambiente alvo, deve ter acesso a Internet, deve estar configurado com o Chef Client e
+o usuário deve ter permissão de instalação de pacotes, criação e alteração de arquivos no
+diretório \texttt{/etc}.
+
+Utilizou-se a ferramenta Chake para os testes no segundo momento. O Chake
+permite a execução do Chef em um ambiente remoto sem a necessidade de um
+Chef Server. O \textit{cookbook} gerado pelo Cupper pode ser utilizado em qualquer
+ambiente que utilize o Chef, seja Chef Solo, Chef Zero ou Chef Server.
+
+\section{Ambientes Controlados}
+\input{editaveis/resultados/cups}
+
+\section{Ambientes Reais}
+\input{editaveis/resultados/mysql}
+\input{editaveis/resultados/moodle}
+\input{editaveis/resultados/portal}

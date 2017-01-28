@@ -1,0 +1,58 @@
+\section{Funcionalidade de Extrair Grupos}
+\label{sec:groups}
+
+\subsection{Atributos}
+
+Para a ter a funcionalidade mínima esperada desse recurso, definimos que iríamos precisar
+extrair os seguintes atributos:
+
+\begin{itemize}
+    {\itshape\item gid}: Identificador do grupo;
+    {\itshape\item name}: Nome do grupo;
+    {\itshape\item members}: Identificar membros do grupo;
+\end{itemize}
+
+
+\begin{itemize}
+    {\itshape\item append}: Definir que os membros podem ser adicionados e removidos;
+    {\itshape\item action}: Definir ação de criar o grupo;
+\end{itemize}
+
+\subsection{\textit{Plugin} de Extração}
+Não foi necessário criar um \textit{plugin} para o Ohai que extraísse esses atributos
+referentes à grupos já que o Ohai já possui um. O nome \textit{plugin} usado é 
+\textit{passwd} e ele provê informações de grupos, usuários, permissões entre outras.
+
+\subsection{Bloco de Receita Gerado}
+
+Para a criação da receita que cria os grupos em um novo ambiente, foi definido
+como seria o template dos blocos de recurso de grupo na sintaxe das receitas Chef.
+Um exemplo pode ser visto no Código~\ref{code:groupresource}.
+
+\noindent\begin{minipage}{\textwidth}
+  \lstset{style=shell}
+  \lstinputlisting[language=Ruby, frame=single, label=code:groupresource, caption="Bloco de recurso de grupo Chef"]{editaveis/code/groupresource.rb}
+\end{minipage}\hfill
+
+Se uma receita com esse recurso for executada em um ambiente, o grupo \textit{www-data}
+irá ser modificado com um novo membro \textit{maintenance}.
+
+Para gerar então diversos desses blocos na receita final o template do Código~\ref{code:grouptemplate} foi definido.
+
+\noindent\begin{minipage}{\textwidth}
+  \lstset{style=shell}
+  \lstinputlisting[language=Ruby, frame=single, label=code:grouptemplate, caption="Template para os blocos de recursos de grupo Chef"]{editaveis/code/grouptemplate.rb}
+\end{minipage}\hfill
+
+Dessa forma, como visto acima, para criar um bloco de receita de recursos Chef é
+necessário saber qual vai ser o template da escrita desse bloco e qual \textit{plugin}
+o coletor vai utilizar para a extração.
+
+\subsection{Problemas Encontrados}
+
+Essa funcionalidade de extração de grupos não tinha sido prevista inicialmente.
+Como citado na Seção~\ref{sec:users}, ela nasceu de um problema com a criação de usuários
+de outra funcionalidade. Sem a organização desses usuários em grupos, o Chef não conseguia
+executar a receita.
+
+% mapear quais problemas bota aqui e quais bota em users mesmo

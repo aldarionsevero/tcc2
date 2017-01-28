@@ -1,0 +1,16 @@
+.
+|-- cookbooks
+  |-- app
+    |-- README.md
+    |-- attributes
+    |-- definitions
+    |-- files
+      |-- default
+    |-- libraries
+    |-- metadata.rb
+    |-- recipes
+      |-- default.rb
+    |-- resource
+    |-- templates
+      |-- default
+

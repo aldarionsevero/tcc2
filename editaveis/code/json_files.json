@@ -1,0 +1,14 @@
+{
+  //...
+
+  "/etc/bash.bashrc" => {
+    "type" => "ASCII text",
+    "mode" => "-r--r--r--",
+    "owner" => "root",
+    "group" => "root",
+    "related" => "bash",
+    "content" => "# Text content of the file"
+  }
+
+  //...
+}

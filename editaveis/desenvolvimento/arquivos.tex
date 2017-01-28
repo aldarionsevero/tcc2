@@ -1,0 +1,96 @@
+\section{Funcionalidade de Extrair Arquivos de Configuração}
+\label{sec:files}
+
+\subsection{Atributos}
+
+Para a funcionalidade mínima desse recurso, é necessário os seguintes
+atributos:
+
+\begin{itemize}
+  \item \textit{source}: fonte com o conteúdo do arquivo;
+  \item \textit{owner}: dono do arquivo, referente ao usuário no ambiente;
+  \item \textit{group}: define o grupo ao qual o arquivo pertence;
+  \item \textit{mode}: permissões do arquivo;
+\end{itemize}
+
+\subsection{\textit{Plugin} de Extração}
+
+A ferramenta Ohai não tem nenhum plugin nativo para a extração de arquivos, portanto
+foi criado um plugin específico de extração de arquivos de configuração. Os arquivos
+são aqueles alocados no diretório \texttt{/etc/}. Por padrão das distribuições Linux,
+o \texttt{/etc/} armazena os arquivos de configuração específicos do sistema.
+Com isso, a extração desses arquivos conterão as configurações de cada pacote e do
+sistema. Outras configurações podem estar armazenadas em outros diretórios,
+mas o Cupper ainda não provê funcionalidade para recupera-los. % TODO: Adicionar isso aos trabalhos futuros
+
+Nem todos os arquivos disponíveis no \texttt{/etc/} estão relacionados a um pacote.
+Arquivos postos nesse diretório de forma manual, ou seja, sem a utilização de pacotes,
+podem estar presentes. Para evitar a coleta desnecessárias desses tipos de arquivos,
+o Cupper não extraí arquivos que não estejam relacionados a um pacote.
+
+Nas plataformas Debian \textit{based}, o plugin utiliza a ferramenta \texttt{dpkg}
+para identificar os arquivos que estão relacionados com um pacote. Nas plataformas
+Archlinux \textit{based}, o plugin utiliza a ferramenta \texttt{pacman} com o mesmo propósito.
+O que difere a extração de uma plataforma para a outra é a interpretação da saída
+de cada ferramenta.
+
+As informações de \textit{owner},\textit{group} e \textit{mode} são extraídas com a ferramenta \texttt{ls},
+o conteúdo com a ferramenta \texttt{cat} e o tipo com a ferramenta \texttt{file}
+que estão presentes em todas as distribuições Linux.
+O Código~\ref{code:files_json} mostra um exemplo do JSON gerado pelo plugin.
+
+\noindent\begin{minipage}{\textwidth}
+  \lstset{style=shell}
+  \lstinputlisting[
+    label=code:files_json,
+    caption="Saída JSON do plugin Ohai \textit{files}"]{editaveis/code/json_files.json}
+\end{minipage}\hfill
+
+Os arquivos considerados sensíveis, ou seja, com conteúdo sigiloso, como
+senhas, chaves ou certificados, podem ser especificados no arquivo de
+configuração \texttt{.sensibles} no diretório raiz do projeto Cupper. Com isso,
+esses arquivos não serão extraídos, sendo decisão do usuário a melhor forma
+de recuperar esses arquivos.
+
+\subsection{Bloco de Receita Gerado}
+
+É utilizado o recurso Chef \textit{cookbook\_file} para cada arquivo extraído.
+Os atributos usados na receita gerada são \textit{source}, \textit{owner},
+\textit{group} e \textit{mode} como mostra o Código~\ref{code:files_recipe}.
+
+\noindent\begin{minipage}{\textwidth}
+  \lstset{style=shell}
+  \lstinputlisting[
+    label=code:files_recipe,
+    caption="Exemplo de receita gerada pela extração de arquivos de configuração"]{editaveis/code/files_recipe.rb}
+\end{minipage}\hfill
+
+O conteúdo do arquivo coletado é salvo no diretório \texttt{files} do projeto Cupper
+com o caminho descrito no atributo \textit{source}.
+
+\subsection{Problemas Encontrados}
+
+A primeira abordagem da extração dos arquivos de configuração foi a coleta de todos
+os arquivos do diretório \texttt{etc}. Era evidente a necessidade de filtragem dos
+arquivos, então definimos alguns critérios para eliminar aqueles arquivos que não são
+necessários ou deixa-lo como opcional.
+
+Como dito antes, os arquivos sensíveis são aqueles que contem
+informações sigilosas ou que pode causar perda de alguma funcionalidade importante.
+Durante os testes, o arquivo \textit{sudoers} continha falhas de sintaxe o que causou
+quebra completa no sistema. Sendo que este e outros arquivos fazerem parte das
+configurações do sistema, decidimos manter a extração deles, mas deixando uma opção
+para o usuário em copia-los ou não para a receita. Esta opção foi adicionada como
+atributo no Cupperfile (Código~\ref{code:sensiblefiles})
+
+\noindent\begin{minipage}{\textwidth}
+  \lstset{style=shell}
+  \lstinputlisting[
+    language=Ruby,
+    label=code:sensiblefiles,
+    caption="Definição do atributo de \textit{sensible files}"]{editaveis/code/sensiblefiles.rb}
+\end{minipage}\hfill
+
+Arquivos que não são vinculados a um pacote são descartados. Essa abordagem força
+a padronização de ambientes que seguem a instalação e configuração por pacote.
+

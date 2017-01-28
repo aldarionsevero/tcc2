@@ -1,0 +1,37 @@
+\subsection{Serviço \textit{MySQL}}
+
+A máquina que contém o banco MySQL, que é usado por diversas outras máquinas da
+infraestrutura do Lappis, foi montada com a distro Debian 8 e está em operação 
+desde Janeiro de 2016.
+
+A extração com o Cupper foi completa, com todos os serviços e pacotes extraídos
+e replicados no ambiente novo. Todavia, é importante frisar que o conteúdo dos bancos
+da máquina não é replicado, sendo de responsabilidade do usuário fazer o \textit{backup}
+dos bancos para passar para o ambiente novo.
+
+O novo ambiente foi montado com a mesma imagem da máquina MySQL em produção.
+Dessa forma, a distribuição, versão de Kernel e repositórios de pacotes são as
+mesmas.
+
+O Cupper foi executado com a opção de versionamento de pacotes desativada, ou seja,
+os pacotes instalados no novo ambiente seriam as mais recentes disponíveis. 
+O motivo para a abordagem é a indisponibilidade dos pacotes nas versões 
+instaladas no ambiente MySQL em produção. Os resultados da extração e replicação
+podem ser vistos na Tabela~\ref{tab:result_mysql}.
+
+
+\begin{table}[H]
+  \centering
+  \caption{Resultados da máquina virtual com o serviço Moodle}
+  \label{tab:result_mysql}
+  \begin{tabular}{c|c|c|c}
+    \hline
+    \rowcolor[HTML]{EFEFEF} 
+    {\color[HTML]{000000} \textbf{Camada}} & {\color[HTML]{000000} \textbf{Ambiente}}                                       & {\color[HTML]{000000} \textbf{Ambiente Replicado}}                             & {\color[HTML]{000000} \textbf{Replicado}} \\ \hline
+                                           & \begin{tabular}[c]{@{}c@{}}Dependências do MySQL\\ Instaladas\end{tabular} & \begin{tabular}[c]{@{}c@{}}Dependências do MySQL\\ Instaladas\end{tabular} & X                                         \\ \cline{2-4} 
+                                           & \begin{tabular}[c]{@{}c@{}}Pacote mysql-client\\ Instalado\end{tabular}        & \begin{tabular}[c]{@{}c@{}}Pacote mysql-client\\ Instalado\end{tabular}        & X                                         \\ \cline{2-4} 
+  \multirow{-6}{*}{Aplicação}            & \begin{tabular}[c]{@{}c@{}}Pacote mysql-server\\ Instalado\end{tabular}           & \begin{tabular}[c]{@{}c@{}}Pacote mysql-server\\ Instalado\end{tabular}       & X                                          \\ \hline
+  \multirow{-2}{*}{Serviços}             & \begin{tabular}[c]{@{}c@{}}Serviço Mysql\\ Executando\end{tabular}             & \begin{tabular}[c]{@{}c@{}}Serviço Mysql\\ Executando\end{tabular}             & X                                         \\ \hline
+  \end{tabular}
+\end{table}
+

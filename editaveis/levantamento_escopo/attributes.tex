@@ -1,0 +1,19 @@
+\subsection{\textit{Attributes}}
+\label{sec:lev-rec-att}
+
+Os \textit{attributes} são os detalhes das especificações do \textit{node}. Definem~\cite{chefdoc:2016}:
+
+\begin{itemize}
+  \item o estado atual do \textit{node};
+  \item em qual estado o \textit{node} estava após a última execução do \textit{chef-client};
+  \item em qual estado o \textit{node} deve alcançar ao final na execução do \textit{chef-client} atual.
+\end{itemize}
+
+Os \textit{attributes} são definidos no próprio ambiente através do Ohai, nos \textit{cookbooks},
+nos \textit{roles} e \textit{environments}.
+
+Esse atributo será incluido no escopo de implementação. Os \textit{attributes} serão dispostos
+de acordo com a coleta dos atributos do ambiente definidos na Seção~\ref{sec:cam-amb}.
+Apenas alguns atributos serão inserido como informativo sobre o ambiente, ou seja,
+não serão utilizados diretamente no \textit{recipe} do \textit{cookbook}.
+

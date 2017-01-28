@@ -1,0 +1,117 @@
+\section{Funcionalidade de Extrair Pacotes}
+\label{sec:pacotes}
+
+\subsection{Atributos}
+Para ter a funcionalidade mínima esperada desse recurso, definimos que iríamos
+precisar extrair os seguintes atributos:
+
+\begin{itemize}
+  \item \textit{version}: especifica a versão do pacote;
+  \item \textit{action}: define a ação que deve ser tomada
+    (instalar, remover, reconfigurar, etc);
+\end{itemize}
+
+\subsection{\textit{Plugin} de Extração}
+
+O Ohai provê um plugin nativo que coleta todos os pacotes instalados. O suporte
+das plataformas são: Debian, Redhat, Fedora e OpenSUSE\@. Os dados coletados pelo
+plugin de cada pacote são: nome do pacote e versão.
+
+Para a plataforma Debian, o plugin utiliza a ferramenta \texttt{dpkg-query} disponível
+por padrão nas distro Debian \textit{based}. O \texttt{dpkg-query} retorna uma lista de todos os pacotes
+instalados no ambiente que é interpretada pelo plugin e transformada em um JSON
+construído com a estrutura \texttt{``package\_name'' => \{ ``version'' => ``version\_number'' \}}
+como mostrada no Código~\ref{code:json_pkg}.
+
+\noindent\begin{minipage}{\textwidth}
+  \lstset{style=shell}
+  \lstinputlisting[frame=single,
+    label=code:json_pkg,
+    caption="Saída JSON do plugin Ohai \textit{packages}"]{editaveis/code/json_pkg.json}
+\end{minipage}\hfill
+
+Para as plataformas Redhat, Fedora e OpenSUSE, o plugin utiliza a ferramenta \texttt{rpm}
+disponível por padrão nas distros Redhat \textit{based}. O Cupper ainda não oferece suporte
+para distros Redhat \textit{based}, portanto não foram feitos testes para esse tipo de ambiente.
+
+Não há suporte para a plataforma Archlinux, portanto um plugin foi desenvolvido
+para extrair as mesmas informações. A extração utiliza a ferramenta \texttt{pacman} disponível
+nas distros Archlinux. O \texttt{pacman} retorna uma lista de pacotes instalados no ambiente
+que é interpretada pelo plugin e transformada em um JSON construído com a estrutura
+\texttt{"package\_name" => \{ "version" => "version\_number" \}} como mostrada no
+Código~\ref{code:json_pkg_pacman}.
+
+\noindent\begin{minipage}{\textwidth}
+  \lstset{style=shell}
+  \lstinputlisting[frame=single,
+    label=code:json_pkg_pacman,
+    caption="Saída JSON do plugin Ohai \textit(pacman)"]{editaveis/code/json_pkg_pacman.json}
+\end{minipage}\hfill
+
+\subsection{Bloco de Receita Gerado}
+
+O JSON gerado pela extração é utilizado para construir a receita responsável pela instalação dos
+pacotes. É utilizado o recurso Chef \textit{package} para instalação de cada pacote com os dois atributos
+\textit{version} e \textit{action} (Código~\ref{code:pkg_recipe}). \textit{Action} é colocado \textit{\textit{:install}}
+como padrão para todos os pacotes.
+
+\noindent\begin{minipage}{\textwidth}
+  \lstset{style=shell}
+  \lstinputlisting[
+    language=Ruby,
+    frame=single,
+    label=code:pkg_recipe,
+    caption="Exemplo de receita gerada pela extração de pacotes."]{editaveis/code/pkg_recipe.rb}
+\end{minipage}\hfill
+
+Considera-se que o pacote irá cuidar da suas próprias dependências quanto à instalação.
+Sendo assim, os pacotes que são dependências de outros não são inclusos na receita. Exemplo, se o pacote
+\textbf{A} contém as dependências \textbf{B} e \textbf{C} elas não serão inclusas na receita, pois o pacote \textbf{A} irá realizar a instalação.
+
+\subsection{Problemas Encontrados}
+
+O método de extração dos pacotes instalados não realiza nenhuma checagem para
+saber se o pacote continua disponível no repositório de pacotes remotos ou
+se ao menos tem um repositório remoto associado. Isso causou falha na realização
+dos testes. Tanto os pacotes instalados manualmente, por meio de download do
+\textit{source}, quanto os pacotes que não estão mais disponíveis no repositório remoto ou
+mesmo repositórios inseridos manualmente, não eram identificados durante a
+configuração do novo ambiente.
+
+Esse comportamento não é esperado, portanto algumas medidas foram tomadas para
+que o problema fosse parcialmente corrigido. Para o caso de repositórios que
+tenha outro \textit{source} além do padrão Debian, a receita de package gerada adiciona
+o atributo \textit{cookbook\_file} contendo o arquivo \texttt{source.list} e outros disponíveis
+no diretório \texttt{/etc/apt/source.list.d/} extraído do ambiente. Isso permite
+que todos os repositórios não oficiais do ambiente alvo sejam aplicados ao novo ambiente.
+
+Uma possível forma de contornar problema de pacotes sem repositório é
+a criação de um atributo para que o usuário defina no Cupperfile se
+será extraído pacotes que tem fonte em repositórios fora do \textit{source list} padrão ou
+nenhum repositório vinculado.
+
+Outro problema encontrado está relacionado a versão dos pacotes.
+A receita especifica para todos os pacotes a versão que foi extraída do ambiente.
+Ao realizar a configuração do novo ambiente, é possível que o pacote já esteja instalado,
+mas a sua versão esteja à frente da definida na receita. Quando isso ocorre, dois comportamentos
+podem ocorrer: não há erro e é feito o \textit{downgrade} do pacote ou ocorre erro no \textit{downgrade} das
+dependências do pacote. Isso ocorre porque o gerenciador de pacotes não realiza o \textit{downgrade}
+das dependências, e as versões antigas dos pacotes podem exigir as versões antigas das suas
+dependências.
+
+Foi criado o Cupperfile, que é um arquivo de configuração de extração que define atributos
+que são usados para restringir ou permitir mais atributos ou recursos na receita gerada.
+Então para a resolução do problema acima, é colocar um atributo de configuração de extração no
+Cupperfile que possibilita o usuário definir se a receita gerada force a intalação de uma
+versão antiga. A forma de realizar esse \textit{downgrade} é eliminando o pacote e suas dependências
+e instalando a versão mais antiga.
+
+Ainda com relação a versão do pacote, outro caso de erro foi encontrado.
+Por conta do sistema estar desatualizado, ou seja, não houve atualização dos pacotes
+instalados, a versão instalada pode não estar mais disponível no repositório principal.
+Neste caso o gerenciado de pacotes não encontrará a fonte e acusará erro.
+
+Uma solução parcial usada para o problema de versão foi a criação de atributo no
+Cupperfile que define se será extraído as informações de versão ou não do pacote.
+Com esse atributo definido como falso, a receita gerada não especifica a versão
+do pacote, instalando a última versão disponível no repositório.

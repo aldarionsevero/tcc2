@@ -1,0 +1,79 @@
+\section{Funcionalidade de Extrair Serviços}
+\label{sec:services}
+
+\subsection{Atributos}
+
+Para a ter a funcionalidade mínima esperada desse recurso, definimos que iríamos precisar
+extrair os seguintes atributos:
+
+
+\begin{itemize}
+    {\itshape\item provider}: Identificar qual \textit{Init System} está gerenciando
+esse serviço;
+    {\itshape\item service\_name}: Identificar o nome do serviço a
+ser levantado;
+    {\itshape\item action}: Identificar ação, padrão é restart;
+\end{itemize}
+
+\subsection{\textit{Plugin} de Extração}
+Para a extração desses atributos referentes aos serviços, foi criado um \textit{plugin} do
+Ohai que, a partir do comando \textit{systemctl} lista todos os serviços do ambiente
+e extrai os atributos de \textit{service\_name}, \textit{provider}
+e \textit{action}.
+
+Esses atributos são coletados e para cada serviços extraído um objeto de serviço
+é criado para ser iterado no template posteriormente.
+
+\subsection{Bloco de Receita Gerado}
+Para a criação da receita que cria e executa esses serviços em outro ambiente, foi 
+definido como seria o template dos blocos de recurso de serviço na sintaxe das 
+receitas Chef. Um exemplo pode ser visto no Código~\ref{code:serviceresource}.
+
+\noindent\begin{minipage}{\textwidth}
+  \lstset{style=shell}
+  \lstinputlisting[language=Ruby, frame=single, label=code:serviceresource, caption="Bloco de recurso de serviço Chef"]{editaveis/code/serviceresource.rb}
+\end{minipage}\hfill
+
+Esse exemplo, se executado em um ambiente, diz para o
+gerenciador de serviços (\textit{Init System}) dar um start no serviço do tomcat.
+
+Dessa forma, para gerar diversos desses blocos na receita final, temos o template
+do Código~\ref{code:servicetemplate}.
+
+\noindent\begin{minipage}{\textwidth}
+  \lstset{style=shell}
+  \lstinputlisting[language=Ruby, frame=single, label=code:servicetemplate, caption="Template para os blocos de recursos de serviço Chef"]{editaveis/code/servicetemplate.rb}
+\end{minipage}\hfill
+
+Então para gerar um bloco de receita de recursos de serviço Chef é necessário
+saber como vai ser o template da escrita desse bloco e qual \textit{plugin} o
+coletor vai utilizar para a extração.
+
+\subsection{Problemas Encontrados}
+
+A primeira abordagem utilizada para a extração dos atributos referentes a esse
+recurso não previa a distinção entre serviços instalados e serviços que estão
+ativos ou estão rodando. A extração ocorria sem nenhum problema, e todos os serviços
+instalados eram extraídos. Mas ao executar a receita em um novo ambiente, diversos
+serviços falhavam ao tentar se inicializar.
+
+Serviços que já estavam falhando ou já estavam inativos no ambiente sendo extraído
+também iriam falhar no ambiente novo a ser gerado, e isso teve que ser tratado.
+
+
+Para solucionar esse problema só serviços que tem status \textit{loaded, active e running}
+passaram a ser extraídos.\
+
+Outro problema similar foi o de não verificar qual Init System gerenciava cada
+serviço. Já que o recurso de serviço do Chef considera por padrão que os serviços
+são \textit{systemd}, quando algum serviço não era, falhas aconteciam.
+
+A extração passou então a extrair o atributo \textit{provider} que ao ser passado
+para o recurso de serviço do Chef, solucionava esse problema.
+
+O comando utilizado para que o \textit{plugin} do Ohai extraia os serviços não
+lista somente serviços em si, já que ele lista todo tipo de \textit{systemd units}
+como \textit{mounts, devices, targets, paths}. Esse comportamento não é ideal
+tanto por gerar falhas quanto por não fazer parte do escopo interagir com esses
+outros tipos de \textit{systemd units}. O \textit{plugin} passou a filtrar as
+unidades e só pegar os que são serviços.

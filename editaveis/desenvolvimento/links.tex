@@ -1,0 +1,55 @@
+\section{Funcionalidade de Extrair Links}
+\label{sec:links}
+
+\subsection{Atributos}
+Para o recurso Chef de \texttt{link} foi definido os seguintes
+atributos para a extração:
+
+\begin{itemize}
+  \item \textit{group}: define o grupo que pertence o link;
+  \item \textit{owner}: dono do link, referente ao usuário no ambiente;
+  \item \textit{mode}: permissões do link;
+  \item \textit{to}: caminho para o arquivo real;
+\end{itemize}
+
+\subsection{\textit{Plugin} de Extração}
+
+O mesmo plugin utilizado para recuperar arquivos de configuração descritos
+na Seção~\ref{sec:files} também é usado para extrair \textit{links}. Isso é possível
+pelo atributo \textit{type} coletado pelo plugin. Nele está contido, além do tipo do arquivo,
+o caminho para o arquivo real. Os outros atributos são comuns entre arquivos e
+\textit{links}, que são coletados e tratados da mesma forma. O JSON gerado segue a
+mesma estrutura dos arquivos como mostra o Código~\ref{code:json_links}.
+
+\noindent\begin{minipage}{\textwidth}
+  \lstset{style=shell}
+  \lstinputlisting[
+    label=code:json_links,
+    caption="Saída JSON do plugin Ohai \textit{files} com exemplo de link."]{editaveis/code/json_links.json}
+\end{minipage}\hfill
+
+\subsection{Bloco de Receita Gerado}
+
+A receita gerada usa o recurso \texttt{links} (Código~\ref{code:links_recipe}) com os
+atributos para cada \textit{link} gerado.
+
+\noindent\begin{minipage}{\textwidth}
+  \lstset{style=shell}
+  \lstinputlisting[
+    label=code:links_recipe,
+    caption="Exemplo de receita gerada pela extração de links."]{editaveis/code/links_recipe.rb}
+\end{minipage}\hfill
+
+O atributo \textit{mode} é irrelevante neste caso. Todos os \textit{links} gerados tem a mesma permissão
+777, pois o que determina a leitura, escrita ou execução do \textit{link} é o arquivo para o qual ele
+direciona. Sendo assim, esse atributo é irrelevante e será removido em atualizações futuras.
+
+\subsection{Problemas Encontrados}
+
+Durante os testes de configuração dos novos ambientes, os \textit{links} continham caracteres
+especias que não eram reconhecidos pelo \textit{encode} padrão do Ruby causando erro.
+Esse tipo de texto requer um tratamento especial dentro do código, mas as tentativas
+de correção desse problema não tiveram resultados positivos. A alternativa que encontramos
+para contornar temporariamente esse problema é a remoção de qualquer link ou arquivo que
+não estão nos formatos de \textit{encode} padrão suportados pela ferramenta.
+

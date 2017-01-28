@@ -2,12 +2,242 @@
 
 \partapendices
 
-\chapter{Primeiro Apêndice}
+\chapter[Tabelas de cada camada]{Tabelas representando atributos de cada camada do ambiente}
+\label{apc:tabelas}
 
-Texto do primeiro apêndice.
+\begin{table}[H]
+\centering
+\caption{Atributos Relacionados a CPU, Memória e \textit{Motherboard}}
+\label{tab:atrhard}
+\begin{tabular}{c|c|c|c|c|c}
+\hline
+\rowcolor[HTML]{C0C0C0} 
+Atributo                                                        & Origem    & Relevante? & Ohai & Viável? & Selecionado? \\ \hline
+Modelo CPU                                                      & lscpu     & não        & sim  & sim     & não          \\ \hline
+\begin{tabular}[c]{@{}c@{}}Modo de \\ Operação CPU\end{tabular} & lscpu     & sim        & sim  & sim     & sim          \\ \hline
+Arquitetura CPU                                                 & lscpu     & sim        & sim  & sim     & sim          \\ \hline
+Cores                                                           & lscpu     & sim        & sim  & sim     & sim          \\ \hline
+Stepping CPU                                                    & lscpu     & não        & sim  & sim     & não          \\ \hline
+Frequência CPU                                                  & lscpu     & sim        & sim  & sim     & sim          \\ \hline
+Cache CPU                                                       & lscpu     & sim        & sim  & sim     & sim          \\ \hline
+Flags CPU                                                       & lscpu     & sim        & sim  & sim     & sim          \\ \hline
+\begin{tabular}[c]{@{}c@{}}Modelo \\ Motherboard\end{tabular}   & dmidecode & não        & não  & não     & não          \\ \hline
+Versão BIOS                                                     & dmidecode & não        & não  & não     & não          \\ \hline
+Flags BIOS                                                      & dmidecode & não        & não  & não     & não          \\ \hline
+Slots Memória                                                   & dmidecode & não        & sim  & sim     & não          \\ \hline
+Marca Memória                                                   & dmidecode & não        & não  & não     & não          \\ \hline
+Tamanho Memória                                                 & free      & sim        & sim  & sim     & sim          \\ \hline
+Clock Memória                                                   & dmidecode & não        & não  & não     & não          \\ \hline
+Total Swap                                                      & free      & sim        & sim  & sim     & sim          \\ \hline
+Livre Swap                                                      & free      & sim        & sim  & sim     & sim          \\ \hline
+Total Memória                                                   & free      & sim        & sim  & sim     & sim          \\ \hline
+Livre Memória                                                   & free      & sim        & sim  & sim     & sim          \\ \hline
+Buffers Memóra                                                  & free      & sim        & sim  & sim     & sim          \\ \hline
+Cached Memória                                                  & free      & não        & sim  & sim     & não          \\ \hline
+Ativo Memória                                                   & free      & sim        & sim  & sim     & sim          \\ \hline
+Inativo Memória                                                 & free      & sim        & sim  & sim     & sim          \\ \hline
+Sujo Memória                                                    & pmap      & sim        & sim  & sim     & sim          \\ \hline
+\begin{tabular}[c]{@{}c@{}}Pag. Anon\\ Memória\end{tabular}     & pmap      & não        & sim  & sim     & não          \\ \hline
+\end{tabular}
+\end{table}
 
-\chapter{Segundo Apêndice}
-
-Texto do segundo apêndice.
-
+\begin{table}[H]
+\centering
+\caption{Atributos relacionados a Partições, Armazenamento, USB, PCI, e Rede}
+\label{tab:hdmount}
+\begin{tabular}{c|c|c|c|c|l}
+\hline
+\rowcolor[HTML]{C0C0C0} 
+Atributo                                                                 & Origem                                                                & Relevante? & Ohai    & Viável & Selecionado? \\ \hline
+\begin{tabular}[c]{@{}c@{}}Nome\\ dos\\ Dispositivos\end{tabular}        & lsblk                                                                 & sim        & sim     & sim    & sim         \\ \hline
+\begin{tabular}[c]{@{}c@{}}Major/Minor\\ Dispositivos\end{tabular}       & lsblk                                                                 & sim        & não     & sim    & sim         \\ \hline
+Removíveis                                                               & lsblk                                                                 & não        & não     & não    & não         \\ \hline
+\begin{tabular}[c]{@{}c@{}}Somente\\ Leitura\end{tabular}                & lsblk                                                                 & não        & não     & não    & não         \\ \hline
+Partições                                                                & lsblk                                                                 & sim        & sim     & sim    & sim         \\ \hline
+\begin{tabular}[c]{@{}c@{}}Tamanho\\ Partições/\\ Discos\end{tabular}    & \begin{tabular}[c]{@{}c@{}}lsblk/\\ df\end{tabular}                   & sim        & sim     & sim    & sim         \\ \hline
+\begin{tabular}[c]{@{}c@{}}Tipo\\ Filesystem\\ Dispositivos\end{tabular} & lsblk                                                                 & sim        & sim     & sim    & sim         \\ \hline
+\begin{tabular}[c]{@{}c@{}}UUID\\ Dispositivos\end{tabular}              & lsblk                                                                 & sim        & sim     & sim    & sim         \\ \hline
+Mountpoints                                                              & mount                                                                 & sim        & sim     & sim    & sim         \\ \hline
+\begin{tabular}[c]{@{}c@{}}Dsipositivos\\ USB\end{tabular}               & lsusb                                                                 & não        & não     & não    & não         \\ \hline
+\begin{tabular}[c]{@{}c@{}}Dsipositivos\\ PCI\end{tabular}               & lspci                                                                 & sim        & não     & sim    & sim         \\ \hline
+\begin{tabular}[c]{@{}c@{}}Dispositivos \\ de Rede\end{tabular}          & \begin{tabular}[c]{@{}c@{}}lspci/\\ ifconfig/\\ dmidecode\end{tabular} & sim        & sim     & sim    & não         \\ \hline
+\end{tabular}
+\end{table}
+%\input{artefatos/visao}
 \end{apendicesenv}
+
+\begin{table}[H]
+\centering
+\caption[Atributos do Sistema]{Atributos relacionados ao Sistema Operacional, Kernel e configs gerais do sistema}
+\label{tab:so}
+\begin{tabular}{c|c|c|c|l|c}
+\hline
+\rowcolor[HTML]{C0C0C0} 
+Atributo                                                       & Origem               & Relevante? & Ohai & Viável? & Selecionado? \\ \hline
+OS                                                             & /etc/distro-release  & sim        & sim  & sim     & sim         \\ \hline
+Kernel                                                         & uname                & sim        & sim  & sim     & sim         \\ \hline
+\begin{tabular}[c]{@{}c@{}}Versão\\ Kernel\end{tabular}        & uname                & sim        & sim  & sim     & sim         \\ \hline
+\begin{tabular}[c]{@{}c@{}}Machine\\ Kernel\end{tabular}       & uname                & sim        & sim  & sim     & sim         \\ \hline
+\begin{tabular}[c]{@{}c@{}}Módulos\\ Kernel\end{tabular}       & lsmod                & sim        & sim  & sim     & sim         \\ \hline
+Distribuição                                                   & lsb\_release         & sim        & sim  & sim     & sim         \\ \hline
+\begin{tabular}[c]{@{}c@{}}Release\\ Distribuição\end{tabular} & lsb\_release         & sim        & sim  & sim     & sim         \\ \hline
+\begin{tabular}[c]{@{}c@{}}Família\\ Distribuição\end{tabular} & lsb\_release         & sim        & sim  & sim     & sim         \\ \hline
+\begin{tabular}[c]{@{}c@{}}Geren.\\ de Pacotes\end{tabular}    & N/A                  & sim        & não  & sim     & sim         \\ \hline
+\begin{tabular}[c]{@{}c@{}}Init \\ System\end{tabular}         & N/A                  & sim        & não  & sim     & sim         \\ \hline
+\begin{tabular}[c]{@{}c@{}}Módulo \\ de Segurança\end{tabular} & N/A                  & sim        & não  & sim     & sim         \\ \hline
+Hostname                                                       & hostname             & sim        & sim  & sim     & sim         \\ \hline
+\begin{tabular}[c]{@{}c@{}}Interfaces\\ de Rede\end{tabular}   & ip                   & sim        & sim  & sim     & sim         \\ \hline
+\begin{tabular}[c]{@{}c@{}}Endereços\\ de Rede\end{tabular}    & ip                   & sim        & sim  & sim     & sim         \\ \hline
+\begin{tabular}[c]{@{}c@{}}Endereços\\ MAC\end{tabular}        & ip                   & sim        & sim  & sim     & sim         \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Atributos relacionados às Aplicações}
+\label{tab:app}
+\begin{tabular}{c|c|c|c|c|c}
+    \hline
+    \rowcolor[HTML]{C0C0C0} 
+    Atributo                                                         & Origem                                                 & Relevante? & Ohai & Viável & Selecionado? \\ \hline
+Pacotes                                                              & \begin{tabular}[c]{@{}c@{}}pacman/\\ dpkg\end{tabular} & sim        & não  & sim    & sim          \\ \hline
+\begin{tabular}[c]{@{}c@{}}Versões\\ Pacotes\end{tabular}            & \begin{tabular}[c]{@{}c@{}}pacman/\\ dpkg\end{tabular} & sim        & não  & sim    & sim          \\ \hline
+Dependências                                                         & \begin{tabular}[c]{@{}c@{}}pacman/\\ dpkg\end{tabular} & sim        & não  & sim    & sim          \\ \hline
+Arch                                                                 & \begin{tabular}[c]{@{}c@{}}pacman/\\ dpkg\end{tabular} & sim        & não  & sim    & sim          \\ \hline
+    Pacotes Pip                                                      & pip                                                    & sim        & não  & sim    & sim          \\ \hline
+\begin{tabular}[c]{@{}c@{}}Versões\\ Pacotes Pip\end{tabular}        & pip                                                    & sim        & não  & sim    & sim          \\ \hline
+    Pacotes Ruby                                                     & gem                                                    & sim        & não  & sim    & sim          \\ \hline
+\begin{tabular}[c]{@{}c@{}}Versões\\ Pacotes Ruby\end{tabular}       & gem                                                    & sim        & não  & sim    & sim          \\ \hline
+\begin{tabular}[c]{@{}c@{}}Pacotes por\\ outro Ger.\end{tabular}     & N/A                                                    & não        & não  & não    & não          \\ \hline
+\begin{tabular}[c]{@{}c@{}}Instalação\\ Manual\end{tabular}          & N/A                                                    & não        & não  & não    & não          \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[]
+\centering
+\caption{Atributos relacionados às Configurações de Aplicações}
+\label{tab:config}
+\begin{tabular}{c|c|c|c|c|c}
+\hline
+\rowcolor[HTML]{C0C0C0} 
+Atributo                                                & Origem                                                          & Relevante? & Ohai & Viável & Selecionado? \\ \hline
+\begin{tabular}[c]{@{}c@{}}Host\\ Config\end{tabular}   & /etc                                                            & sim        & não  & sim    & sim          \\ \hline
+\begin{tabular}[c]{@{}c@{}}Add-on\\ Config\end{tabular} & /etc/opt                                                        & sim        & não  & sim    & sim          \\ \hline
+\begin{tabular}[c]{@{}c@{}}Sgml\\ Config\end{tabular}   & /etc/sgml                                                       & sim        & não  & sim    & sim          \\ \hline
+\begin{tabular}[c]{@{}c@{}}X11\\ Config\end{tabular}    & /etc/X11                                                        & sim        & não  & sim    & sim          \\ \hline
+\begin{tabular}[c]{@{}c@{}}Xml\\ Config\end{tabular}    & /etc/xml                                                        & sim        & não  & sim    & sim          \\ \hline
+\begin{tabular}[c]{@{}c@{}}User\\ Config\end{tabular}   & \begin{tabular}[c]{@{}c@{}}/home/user/\\ .config\end{tabular}   & sim        & não  & sim    & sim          \\ \hline
+\begin{tabular}[c]{@{}c@{}}User\\ Custom\end{tabular}   & \begin{tabular}[c]{@{}c@{}}/home/user/\\ .some-app\end{tabular} & não        & não  & não    & não          \\ \hline
+\begin{tabular}[c]{@{}c@{}}Root\\ config\end{tabular}   & /root/*                                                         & não        & não  & não    & não          \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Relação entre Distribuições e \textit{Init Systems}}
+\label{tab:inits-distro}
+\begin{tabular}{|c|cccccl}
+\hline
+\rowcolor[HTML]{C0C0C0} 
+Upstart & \multicolumn{1}{c|}{\cellcolor[HTML]{C0C0C0}Systemd} & \multicolumn{1}{c|}{\cellcolor[HTML]{C0C0C0}SMF} & \multicolumn{1}{c|}{\cellcolor[HTML]{C0C0C0}SysV} & \multicolumn{1}{c|}{\cellcolor[HTML]{C0C0C0}OpenRC} & \multicolumn{1}{c|}{\cellcolor[HTML]{C0C0C0}RC} & \multicolumn{1}{l|}{\cellcolor[HTML]{C0C0C0}Launchd} \\ \hline
+Ubuntu  & \multicolumn{1}{c|}{Fedora15}                        & \multicolumn{1}{c|}{Solaris}                     & \multicolumn{1}{c|}{RHEL5}                        & \multicolumn{1}{c|}{Gentoo}                         & \multicolumn{1}{c|}{BSDs}                       & \multicolumn{1}{l|}{OSX}                             \\ \hline
+Fedora9 & \multicolumn{1}{c|}{Archlinux}                       & \multicolumn{1}{c|}{OpenSolaris}                 & \multicolumn{1}{c|}{Debian}                       &                                                     &                                                 &                                                      \\ \cline{1-4}
+RHEL6   & \multicolumn{1}{c|}{RHEL7}                           & \multicolumn{1}{c|}{illuminos}                   & \multicolumn{1}{c|}{Suse}                         &                                                     &                                                 &                                                      \\ \cline{1-4}
+Centos  & \multicolumn{1}{c|}{openSUSE12}                      & \multicolumn{1}{c|}{smartos}                     &                                                   &                                                     &                                                 &                                                      \\ \cline{1-3}
+Debian  &                                                      &                                                  &                                                   &                                                     &                                                 &                                                      \\ \cline{1-1}
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Atributos relacionados a Serviços e daemon}
+\label{tab:service}
+\begin{tabular}{c|c|c|c|c|c|}
+\hline
+\rowcolor[HTML]{C0C0C0} 
+Atributo                                                           & Origem                                                       & Relevante? & Ohai & Viável & Selecionado? \\ \hline
+Status                                                             & \begin{tabular}[c]{@{}c@{}}systemctl/\\ service\end{tabular} & sim        & sim  & sim    & sim          \\ \hline
+\begin{tabular}[c]{@{}c@{}}Unidades\\ Rodando\end{tabular}         & \begin{tabular}[c]{@{}c@{}}systemctl/\\ service\end{tabular} & sim        & sim  & sim    & sim          \\ \hline
+Falhas                                                             & \begin{tabular}[c]{@{}c@{}}systemctl/\\ service\end{tabular} & sim        & sim  & sim    & sim          \\ \hline
+\begin{tabular}[c]{@{}c@{}}Unidades\\ Instaladas\end{tabular}      & \begin{tabular}[c]{@{}c@{}}systemctl/\\ service\end{tabular} & sim        & sim  & sim    & sim          \\ \hline
+\begin{tabular}[c]{@{}c@{}}Unidades\\ Status\end{tabular}          & \begin{tabular}[c]{@{}c@{}}systemctl/\\ service\end{tabular} & sim        & sim  & sim    & sim          \\ \hline
+\begin{tabular}[c]{@{}c@{}}Relação\\ Unidade\\ Pacote\end{tabular} & \begin{tabular}[c]{@{}c@{}}pacman/\\ dpkg/\\ apt-file/\\ pkgfile\end{tabular} & sim        & não  & sim    & sim          \\ \hline
+\end{tabular}
+\end{table}
+
+\chapter[Configuração Ruby]{Manipulação de arquivos de configuração em Ruby}
+\label{apc:conf-file}
+
+\section{Abordagem do Vagrant}
+O Vagrant e o Cupper possuem diversas similaridades, como por exemplo serem ambos
+ferramentas de contexto DevOps, possuírem o conceito de ambiente em que estão operando
+e dependerem de configurações definidas em um arquivo. Todavia, o Vagrant tem
+outro propósito, e prevê configurações de vários ambientes e múltiplas definições e sobrescritas
+de configurações para um mesmo ambiente.
+
+A classe mais importante com relação a carregamento de configurações do Vagrantfile
+é a classe \textit{Loader} do vagrant.
+(\url{https://github.com/mitchellh/vagrant/blob/master/lib/vagrant/config/loader.rb})
+Ela possui dois métodos que fazem toda a definição e carregamento das configurações, 
+o método \textit{set} e o método \textit{load}. 
+
+Com o método set é possível definir nomes e diversas fontes para o 
+carregamento de configurações, sendo que uma instancia de \textit{Loader} 
+pode ter configurações já carregadas, e suas fontes cacheadas.
+
+O método \textit{load} carrega as configurações em si, para os diversos ambientes,
+e trata da mesclagem de configurações já existentes para ambiente que já foram
+configurados. O Vagrant faz uso de \textit{procs} que são objetos que guardam
+blocos de código em variáveis locais para fazer o tratamento do código carregado
+do Vagrantfile e dos que já foram cacheados.
+
+Uma instancia da classe \textit{Environment} 
+(\url{https://github.com/mitchellh/vagrant/blob/master/lib/vagrant/environment.rb})
+define os diretórios, acha e instancia o Vagrantfile
+(\url{https://github.com/mitchellh/vagrant/blob/master/lib/vagrant/vagrantfile.rb})
+, define o \textit{Loader} e passa esses diretórios juntamente com a instancia de \textit{Loader} para o construtor do Cupperfile.
+
+Outra diferença do Cupper e do Vagrant é a de que o vagrant possui a necessidade
+de separar as configurações entre as máquinas que ele controla (por ser uma
+ferramenta de de gerenciar virtualizações). O Cupper, nas versões recentes, só precisa de
+configurações globais referentes a como será a sua extração. Dessa forma para
+acessar configurações do ambiente, usando a abordagem do vagrant, é necessário
+usar uma instancia de \textit{Environment}, checar pelos Vagrantfiles desse ambiente
+e carregar configuração de uma máquina específica definida por esse Vagrantfile.
+
+\section{Abordagem utilizando a Gem \textit{configuration}}
+A gem \textit{configuration} possibilita a criação e leitura de arquivos de 
+configuração. Sua documentação, e casos de uso podem ser encontrados no link
+\url{https://github.com/ahoward/configuration/blob/master/README.rdoc}.
+
+\section{Abordagem mais simples utilizando Ruby puro}
+Para desenvolver essa abordagem o artigo \cite{config-file:2011} foi utilizado. Ele
+explica tanto como desenvolver com Ruby puro quanto com YAML.
+
+Foi criado um módulo \textit{Config} que segue a abordagem de preparação de
+parâmetros explicada no artigo, e o Cupperfile segue a abordagem de atribuição
+também explicada no artigo. O módulo \textit{Config} e um exmplo de Cupperfile
+podem ser vistos nos Códigos~\ref{code:config} e~\ref{code:cuperfile}
+
+
+\noindent\begin{minipage}{\textwidth}
+  \lstset{style=shell}
+  \lstinputlisting[language=Ruby, frame=single, label=code:config, caption="Módulo que carrega as configurações"]{editaveis/code/config.rb}
+\end{minipage}\hfill
+
+\noindent\begin{minipage}{\textwidth}
+  \lstset{style=shell}
+  \lstinputlisting[language=Ruby, frame=single, label=code:cuperfile, caption="Exemplo de Cupperfile"]{editaveis/code/cupperfile.rb}
+\end{minipage}\hfill
+
+\section{Arquivos de configuração}
+
+\noindent\begin{minipage}{\textwidth}
+  \lstset{style=shell}
+  \lstinputlisting[language=Ruby, frame=single, label=code:cupsconfig, caption="Arquivo de configuração para o CUPS"]{editaveis/code/cupsconfig}
+\end{minipage}\hfill
+
+\noindent\begin{minipage}{\textwidth}
+  \lstset{style=shell}
+  \lstinputlisting[language=Ruby, frame=single, label=code:nginxconfig, caption="Arquivo de configuração para o \textit{nginx}"]{editaveis/code/nginxconfig}
+\end{minipage}\hfill

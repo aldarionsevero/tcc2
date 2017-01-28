@@ -1,0 +1,39 @@
+\chapter{Conclusão}
+\label{chap:conclusao}
+
+A proposta deste trabalho é desenvolver uma ferramenta que extraia, de maneira
+automatizada, as informações de uma máquina e construa \textit{script} em padrão
+de receita Chef. Baseando-se nos experimentos realizados nos ambientes de teste propostos,
+concluímos que o Cupper tem sua funcionalidade mínima esperada, conseguindo
+extrair os principais atributos de cada camada para reproduzir isso em um novo ambiente.
+
+Algumas limitações estão presentes na versão atual. Correções manuais podem ser necessárias
+a depender das configurações extraídas, como pacotes fora de ordem ou sem repositório fonte.
+É necessário adotar algumas premissas para o ambiente a ser replicado: ser possível executar
+o Chef, repositórios de pacotes devem estar de acordo com o antigo ambiente e a distro atual
+suportada e testada deve ser o Debian.
+
+\section{Escopo Final do Projeto}
+
+O projeto seguiu realizando replanejamentos e priorizações para alcançar o seu estado atual.
+A realease referente ao trabalho aqui escrito abrangeu as funcionalidades de gerar 
+\textit{cookbook} que engloba extração de pacotes instalados; de arquivos de configuração 
+localizados no diretório \textit{/etc}; de \textit{links} localizados nesse mesmo diretório; 
+de usuários e grupos e de serviços executados e ativos. Além disso, abrangeu as 
+funcionalidades de CLI de criação do direorio padrão do Cupper com um Cupperfile, de listagem
+de \textit{plugins} e de impressão de texto de ajuda.
+
+\section{Trabalhos Futuros}
+
+Além das funcionalidades que ainda precisam ser implementadas descritas na Seção~\ref{sec:rel},
+há também a possibilidade de evolução da ferramenta para extrair e reproduzir
+infraestruturas mais complexas. Um exemplo seria funcionalidades que
+prevejam mais customização por parte do usuário, com mais atributos previstos no Cupperfile.
+Outro exemplo seria a possibilidade de extrair configurações de vários ambientes simultaneamente
+por meio da rede, e gerar receitas que possam reproduzir esse
+conjunto de ambientes em uma nova rede, por exemplo com a utilização da ferramente Chake (\url{https://gitlab.com/terceiro/chake}).
+
+Os trabalhos futuros estão listados em \textit{issues} no repositório oficial do Cupper.
+Ao receber mais contribuições de novos desenvolvedores, e ir a cada \textit{release} se tornando
+uma ferramente que segue tendências DevOps, o Cupper pode se tornar parte da \textit{stack} de ferramentas
+que equipes utilizam, e futuramente entrar na família de ferramentas Chef.

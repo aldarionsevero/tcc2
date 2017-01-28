@@ -1,0 +1,60 @@
+\section{Funcionalidade de Extrair Usuários}
+\label{sec:users}
+
+\subsection{Atributos}
+
+Para a ter a funcionalidade mínima esperada desse recurso, definimos que iríamos precisar
+extrair os seguintes atributos:
+
+
+\begin{itemize}
+    {\itshape\item name}: Identifica nome do usuário;
+    {\itshape\item uid}: Identificador do usuário;
+    {\itshape\item home}: Identificar diretório \textit{home} desse usuário;
+    {\itshape\item shell}: Identificar qual \textit{shell} o usuário usa ;
+    {\itshape\item manage\_home}: Identificar se a \textit{home} deve ser criada;
+\end{itemize}
+
+\subsection{\textit{Plugin} de Extração}
+Não foi necessário desenvolver um \textit{plugin} para extrair usuários pois o Ohai
+já possui um \textit{plugin} nativo para isso. Ele provê atributos referentes
+a informações de usuários, grupos, permissões entre outras.
+
+Esse \textit{plugin} utiliza o módulo Ruby \textit{etc} que provê acesso a informações
+do sistema operacional, diferentemente de alguns outros \textit{plugins} do Ohai
+que executam comandos \textit{shell} diretamente na máquina. A saída é interpretada
+pelo \textit{plugin} e transformada em um JSON construído com a estrutura
+\texttt{``etc''=> \{ ``passwd''=> \{ ``root''=> \{ ``dir''=> ``/root'', ``gid''=> 0, ``uid''=> 0, ``shell''=> ``/bin/bash'', ``gecos''=> ``root'' \}} 
+como mostrada no Código~\ref{code:json_user}
+
+\noindent\begin{minipage}{\textwidth}
+  \lstset{style=shell}
+  \lstinputlisting[frame=single,
+    label=code:json_user,
+    caption="Saída JSON do plugin Ohai \textit{passwd} para usuários"]{editaveis/code/json_user.json}
+\end{minipage}\hfill
+
+\subsection{Bloco de Receita Gerado}
+
+O JSON do Código~\ref{code:json_user} é usado para construir a receita responsável pela
+criação dos usuários. O recurso Chef \textit{user} é usado para essa criação com
+os atributos \textit{name}, \textit{uid}, \textit{home}, \textit{shell} e 
+\textit{manage\_home}, como pode ser observado no Código~\ref{code:user_recipe}.
+
+\noindent\begin{minipage}{\textwidth}
+  \lstset{style=shell}
+  \lstinputlisting[
+    language=Ruby,
+    frame=single,
+    label=code:user_recipe,
+    caption="Exemplo de receita gerada pela extração de usuários."]{editaveis/code/user_recipe.rb}
+\end{minipage}\hfill
+
+\subsection{Problemas Encontrados}
+A receita não conseguia ser executada em um novo ambiente, ou quando conseguia
+ser executada, perdia as referências entre os grupos e os usuários. Isso fazia
+com que alguns usuários perdessem privilégios de super usuário, ou que não
+conseguissem executar nenhum comando.
+
+Para solucionar esse problema uma funcionalidade de extração de grupos, não prevista
+no escopo inicial, teve que ser implementada. Sua descrição está na Seção~\ref{sec:groups}.

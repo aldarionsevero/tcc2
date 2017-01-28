@@ -1,0 +1,154 @@
+\section{Camadas de Ambiente}
+\label{sec:cam-amb}
+
+As camadas apresentam um conjunto de aspectos do sistema e contém as
+informações necessárias que definem o comportamento específico para o
+estado desejado daquele ambiente. Os atributos de cada camada são variantes
+que são consideradas para o implantação de uma aplicação. Sendo assim, as
+camadas são dependentes para o nível de compatibilidade da configuração.
+
+As seguintes camadas foram definidas para representar o estado de configuração do
+sistema:
+\begin{itemize}
+  \item \textit{\textbf{Hardware}}: definições físicas onde o sistema foi implantado.
+    (Arquitetura, memória, espaço em disco, etc);
+  \item \textit{\textbf{Operating System}}: definições do sistema operacional
+    implantado. Distribuição, arquitetura, versão, etc;
+  \item \textit{\textbf{Application}}: definições das aplicações instaladas.
+    (Aplicações instaladas, dependências, etc);
+  \item \textit{\textbf{Configuration}}: definições das configurações das
+    aplicações. (Especificações de implantação de aplicação, arquivos
+    de configuração);
+\item \textit{\textbf{Service}}: definições dos serviços \textit{daemon} que estão em
+    funcionamento no sistema.
+  \item \textit{\textbf{Custom}}: definições criadas especificamente para o
+    sistema sem uma forma padrão conhecida.
+\end{itemize}
+
+As Tabelas referentes aos atributos relacionados a cada uma dessas camadas se
+encontram na Seção~\ref{apc:tabelas} dos apêndices.
+
+\subsection{\textit{Hardware}}
+\label{sec:cam-hard}
+
+A camada de \textit{Hardware} contém as definições físicas do sistema.
+As informações são referentes as configurações físicas da máquina, como
+CPU, arquitetura, memória, espaço em disco, particionamento, etc. O informe desses atributos
+são utilizados para a definição da base do ambiente, ou seja, o sistema
+operacional e as aplicações podem ter diferentes desempenhos a partir das
+configurações de hardware e/ou apresentar comportamentos inesperados no sistema.
+Além das aplicações terem seus requisitos mínimos, algumas são desenhadas
+para um tipo específico de arquitetura.
+
+A Tabela~\ref{tab:atrhard} mostra diversas informações de hardware possíveis de serem extraídas
+do sistema a partir de comandos do sistema operacional e também da ferramenta Ohai, 
+dependência prevista para a implementação do Cupper (como descrito na 
+Seção~\ref{sec:tec}). Nem todas essas informações serão úteis para a 
+implementação, mas nessa Seção fazemos um levantamento geral antes de fazer uma
+seleção.
+A primeira coluna das Tabelas mostra o atributo em questão; a segunda mostra
+a origem do atributo, podendo ser um comando do sistema, ou caminho de um arquivo;
+a terceira coluna mostra se o atributo é relevante para a aplicação; a quarta mostra se
+esse atributo pode ser conseguido por meio do \textit{Ohai}; a quinta coluna 
+diz se é viável implementar o acesso a esse atributo e a ultima coluna
+diz se o atributo foi selecionado para ser usado pelo Cupper. 
+
+A camada de hardware será uma das camadas a serem analisadas, e a seleção de 
+seus atributos irão seguir os critérios descritos na Seção~\ref{sec:defcritcamada}.
+
+A Tabela~\ref{tab:atrhard} mostra atributos relacionados a CPU, Memória e 
+\textit{Moterboard}, e a Tabela~\ref{tab:hdmount} mostra atributos relacionados
+a partições, armazenamento, dispositivos PCI, USB e dispositivos de rede.
+
+
+\subsection{\textit{Operating System}}
+\label{sec:cam-os}
+
+A segunda camada de extração de dados é a do Sistema Operacional. 
+Cada sistema tem a sua particularidade com relação aos gerenciamento dos 
+recursos de hardware e administração de processos. Portanto é necessário a 
+construção de uma arquitetura flexível, que contenha os aspectos em comum aos
+sistemas operacionais, e modular para que seja possível escalar a utilização 
+da ferramenta para mais Sistemas Operacionais.
+
+Inicialmente a ferramenta Cupper irá abordar dois sistemas operacionais, 
+ambos baseados em GNU/Linux: Archlinux e Debian.
+
+A Tabela~\ref{tab:so} mostra informações a respeito do Kernel e da distribuição
+analisada. Também mostra algumas configurações gerais do sistema, como
+configurações de rede.
+
+Por ser específico de cada distribuição linux, não é possível determinar com um
+comando qual o gerenciador de pacotes o sistema utiliza. O mesmo acontece para
+o sistema de inicialização de serviços e para o módulo de segurança utilizados.
+Dessa forma é necessário implementar a captura dessas informações em um plugin 
+para o \textit{Ohai}.
+
+\subsection{\textit{Application}}
+
+Essa camada trata das aplicações instaladas no sistema. Aplicações podem ter 
+sido instaladas por gerenciadores de pacotes oficiais da distribuição, por
+gerenciadores não oficiais, por gerenciadores específicos de módulos para
+linguagens e por fim podem ser instalados manualmente. Nessa camada iremos 
+suportar somente pacotes instalados por gerenciadores oficiais e por 
+gerenciadores específicos de linguagem python e ruby (Pip e RubyGem). Na camada
+\textit{Custom} a aplicação irá tentar suportar aplicações instaladas de outras
+maneiras.
+
+
+Nenhum dos atributos dessa camada pode ser extraído pelo \textit{Ohai} por
+padrão. Dessa maneira toda a extração desses atributos deverá ser implementada
+num plugin para o \textit{Ohai}.
+
+\subsection{\textit{Configuration}}
+
+A análise dessa camada está relacionada às configurações específicas de cada 
+aplicação, e do sistema. Dados como especificações de implantação das
+aplicações e arquivos de configuração são analisados nessa camada.
+
+Para os arquivos de configuração iremos considerar  o sistema de hierarquia de
+sistema de arquivos do linux. Alguns arquivos que não seguem o padrão FHS 
+(\textit{Filesystem Hierarchy Standard}, Hierarquia de sistema de arquivos) irão
+ser tratados na Seção~\ref{sec:camada-custom} de configurações e instalações \textit{Custom}.
+
+O padrão FHS já prevê alguns sub diretórios para configurações padrão abaixo de
+\textit{/etc/} como \textit{/etc/opt, /etc/X11} por exemplo, mas outros diretórios
+de arquivos de configuração são importantes, e seguem praticamente o mesmo padrão.
+Não serão analisados todos os subdiretórios, só serão analisados os que estiverem
+sobre padrão similar ao FHS.
+
+\subsection{\textit{Service}}
+
+Essa camada está relacionada ao gerenciamento de serviços do ambiente.
+O gerenciamento de Serviços depende de qual \textit{Init System} é usado pela
+distribuição, e em alguns casos, mais de uma abordagem é utilizada por algumas
+distribuições.
+
+Existe a maneira de implementar a checagem da presença de um \textit{Init System}
+procurando por presença de diretórios e arquivos, mas essa abordagem não é
+eficiente. Um exemplo de situação em que isso não funcionaria é a de uma máquina
+com Archlinux, ou alguma outra distribuição que siga \textit{rolling release}, e que 
+tenha atualizado seu \textit{Init System} por seguir novos padrões da distribuição.
+Por não precisar formatar pra atualizar essa nova abordagem, resquícios da abordagem
+anterior continuariam presentes na máquina. Isso é comum em distribuições \textit{rolling
+release} justamente por sua cultura de não formatar e somente atualizar.
+
+Dessa forma, iremos relacionar os \textit{Init Systems} às distribuições
+diretamente levando em conta o \textit{Init System} padrão da distribuição.
+A Tabela~\ref{tab:inits-distro} mostra a relação de \textit{Init System} padrão de cada 
+distribuição. De qualquer maneira o escopo inicial do projeto prevê
+implementação somente para Archlinux e Debian.
+
+\subsection{\textit{Custom}}
+\label{sec:camada-custom}
+
+O trabalho referente a essa camada permeia algumas das camadas anteriores, mas
+nos pontos em que podem ter procedimentos que não estejam no padrão estabelecido.
+Com relação à camada de \textit{Application}, pacotes podem ser instalados por
+meio de Makefiles ou scripts customizados que não atualizam o histórico de
+pacotes do gerenciador de pacotes. Da mesma maneira, as configurações desses
+pacotes podem ser geradas por esses scripts, e colocadas em lugares fora do padrão.
+Mesmo considerando aplicações instaladas por gerenciadores de pacotes, vários
+arquivos de configuração podem ser instalados em diretórios fora  do padrão FHS.
+Dessa maneira, além de \textit{plugins} para o \textit{Ohai}, \textit{plugins}
+para o Cupper também devem ser feitos para tratar esses casos especiais.

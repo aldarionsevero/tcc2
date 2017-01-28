@@ -1,0 +1,50 @@
+\subsection{Serviço Moodle}
+
+A máquina que contem o Moodle foi montada com a distro Ubuntu 14.04 e
+está em operação desde Setembro de 2016. O principal serviço, o Moodle,
+é usado nas disciplinas de Computação Básica.
+A extração com o Cupper foi parcialmente completa, sendo a receita de \textit{links}
+gerada continha erro de sintaxe. Ao replicar em um novo ambiente, essa receita
+foi descartada.
+
+O novo ambiente foi montado com a mesma imagem que foi utilizada na máquina
+Moodle em produção. Com isso, a distribuição, versão de Kernel e repositórios
+de pacotes são as mesmas do ambiente de produção. Esse novo ambiente, não
+continha nenhum serviço ou pacotes instalados que não fossem os padrões
+disponível na distribuição.
+
+A Tabela~\ref{tab:result_moodle} mostra os principais serviços e pacotes instalados
+na máquina em produção e os resultados dos mesmos no ambiente replicado.
+
+\begin{table}[H]
+  \centering
+  \caption{Resultados da máquina virtual com o serviço Moodle}
+  \label{tab:result_moodle}
+  \begin{tabular}{c|c|c|c}
+    \hline
+    \rowcolor[HTML]{EFEFEF} 
+    {\color[HTML]{000000} \textbf{Camada}} & {\color[HTML]{000000} \textbf{Ambiente}}                                       & {\color[HTML]{000000} \textbf{Ambiente Replicado}}                             & {\color[HTML]{000000} \textbf{Replicado}} \\ \hline
+                                           & \begin{tabular}[c]{@{}c@{}}Pacote apache2\\ Instalado\end{tabular}             & \begin{tabular}[c]{@{}c@{}}Pacote apache2\\ Instalado\end{tabular}             & X                                         \\ \cline{2-4} 
+                                           & \begin{tabular}[c]{@{}c@{}}Pacote mysql-client\\ Instalado\end{tabular}        & \begin{tabular}[c]{@{}c@{}}Pacote mysql-client\\ Instalado\end{tabular}        & X                                         \\ \cline{2-4} 
+                                           & \begin{tabular}[c]{@{}c@{}}Pacote mysql-server\\ Instalado\end{tabular}        & \begin{tabular}[c]{@{}c@{}}Pacote mysql-server\\ Instalado\end{tabular}        & X                                         \\ \cline{2-4} 
+                                           & \begin{tabular}[c]{@{}c@{}}Pacote php5\\ Instalado\end{tabular}                & \begin{tabular}[c]{@{}c@{}}Pacote php5\\ Instalado\end{tabular}                & X                                         \\ \cline{2-4} 
+                                           & \begin{tabular}[c]{@{}c@{}}Pacote libapache2-mod-php5\\ Instalado\end{tabular} & \begin{tabular}[c]{@{}c@{}}Pacote libapache2-mod-php5\\ Instalado\end{tabular} & X                                         \\ \cline{2-4} 
+  \multirow{-6}{*}{Aplicação}            & \begin{tabular}[c]{@{}c@{}}Aplicação Moodle\\ Instalada\end{tabular}           & \begin{tabular}[c]{@{}c@{}}Aplicação Moodle\\ Não Instalada\end{tabular}       &                                           \\ \hline
+                                           & \begin{tabular}[c]{@{}c@{}}Serviço Apache\\ Executando\end{tabular}            & \begin{tabular}[c]{@{}c@{}}Serviço Apache\\ Executando\end{tabular}            & X                                         \\ \cline{2-4} 
+  \multirow{-2}{*}{Serviços}             & \begin{tabular}[c]{@{}c@{}}Serviço Mysql\\ Executando\end{tabular}             & \begin{tabular}[c]{@{}c@{}}Serviço Mysql\\ Executando\end{tabular}             & X                                         \\ \hline
+  \end{tabular}
+\end{table}
+
+O Cupper foi executado com a opção de versionamento de pacotes desativada,
+ou seja, os pacotes que iriam ser instalados no novo ambiente seriam os
+mais recentes disponíveis. O motivo para a abordagem é a indisponibilidade
+dos pacotes nas versões instaladas no ambiente Moodle em produção.
+
+A aplicação Moodle não foi replicada no novo ambiente, isso ocorreu porque,
+no ambiente de produção, a instalação foi manual, ou seja, foi feito o download dos
+arquivos fontes da aplicação e as configurações manualmente inseridas comando por
+comando no ambiente.
+
+É importante ressaltar que, os dados presentes no banco da aplicação não são
+extraídos, sendo isso uma responsabilidade do usuário em realizar o \textit{backup} dos
+dados da forma que considerar mais apropriada.

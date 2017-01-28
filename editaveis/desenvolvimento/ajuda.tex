@@ -1,0 +1,40 @@
+\section{Funcionalidade de Ajuda}
+\label{sec:help}
+
+A funcionalidade de ajuda trata basicamente do comando que imprime na tela um resumo
+dos outros comandos e suas opções. Já que o Cupper segue os padrões de ferramentas
+CLI (\textit{Command Line Interface}), ter um comando de ajuda se faz necessário
+e útil.
+
+Para montar a estrutura de comandos foi utilizado o Thor, uma Gem para criação
+de CLIs. Ele facilita o parseamento de entradas e a documentação de cada comando criado.
+O próprio Thor facilita a criação dos comandos de ajuda pra cada um dos comandos
+criados. Basta documentar cada método que será um comando com templates de cada
+comando e suas descrições como na primeira linha do exemplo do Código~\ref{code:thor}
+
+\noindent\begin{minipage}{\textwidth}
+  \lstset{style=shell}
+  \lstinputlisting[language=Ruby, frame=single, label=code:thor, caption="Exemplo de descrição para documentação e ajuda"]{editaveis/code/thor.rb}
+\end{minipage}\hfill
+
+\subsection{Ajuda Geral}
+Utilizando das funcionalidades do Thor, a ajuda geral imprime a lista de todos
+os comandos base, como utilizálos e suas descrições. O que o Thor faz é basicamente
+imprimir todos os \textit{desc}`s presentes nós métodos de comando.
+
+Um exemplo de saída pode ser visto no Código~\ref{code:thorsaida}.
+
+\noindent\begin{minipage}{\textwidth}
+  \lstset{style=shell}
+  \lstinputlisting[language=Bash, frame=single, label=code:thorsaida, caption="Exemplo de saída de ajuda geral do Thor"]{editaveis/code/thorsaida.sh}
+\end{minipage}\hfill
+
+
+\subsection{Ajuda Específica}
+Semelhante a ajuda geral, mas para um comando específico. O Thor somente imprime
+na tela o \textit{desc} de um comando específico como pode ser visto no Código~\ref{code:thorsaida2}.
+
+\noindent\begin{minipage}{\textwidth}
+  \lstset{style=shell}
+  \lstinputlisting[language=Bash, frame=single, label=code:thorsaida2, caption="Exemplo de saída de ajuda específica do Thor"]{editaveis/code/thorsaida2.sh}
+\end{minipage}\hfill

@@ -1,0 +1,42 @@
+\newpage\null\thispagestyle{empty}\newpage
+\chapter{Levantamento e Escopo}
+\label{chap:lev_es}
+
+No contexto de DevOps, automação e infraestrutura como código, a ferramenta
+proposta por este trabalho, Cupper, propõe auxiliar na extração de configuração
+de um ambiente incluso em uma infraestrutura. As configurações extraídas são
+transformadas em código em padrões da receita Chef como 
+no diagrama da Figura~\ref{fig:cupper_geral}. A
+receita gerada é utilizada para qualquer infraestrutura que suporta a
+utilização do Chef, como descrito na Seção~\ref{sec:chef}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{figuras/cupper_geral.eps}
+  \label{fig:cupper_geral}
+  \caption{Cupper - Visão geral.}
+\end{figure}
+
+Além das dependências de desenvolvimento e de \textit{runtime} por ser uma Gem,
+o Cupper tem uma dependência muito
+importante que é o Ohai. É requisito desse projeto também implementar
+\textit{plugins} para que o Ohai lance informações que por padrão 
+não lança.
+
+Nas seções seguinte é mostrado o levantamento dos itens necessários para
+a implementação do Cupper, estando organizados em camadas e seus atributos:
+
+\begin{enumerate}
+  \item \textbf{Camadas de Ambiente}: levantamento e seleção das camadas de ambiente
+    e seus atributos necessários a serem coletados;
+  \item \textbf{\textit{Cookbook} Chef}: levantamento dos recursos providos pelo \textit{Cookbook} Chef e quais os
+    itens necessários para a criação de uma receita mínima;
+  \item \textbf{Escopo de Implementação}: especificação dos itens a serem implementados
+    da ferramenta, abordando até qual ponto a ferramenta Cupper pretende alcançar
+    até a release desse trabalho.
+\end{enumerate}
+
+\input{editaveis/levantamento_escopo/camadas}
+\input{editaveis/levantamento_escopo/cookbooks}
+\input{editaveis/levantamento_escopo/escopo}
+

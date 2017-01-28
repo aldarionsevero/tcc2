@@ -1,0 +1,52 @@
+\section{Levantamento dos Recursos Chef}
+\label{sec:rec-chef}
+
+A ferramenta Chef provê recursos para total automação da infraestrutura.
+Sendo possível preparar, configurar e integrar a infraestrutura com a
+flexibilidade de manutenção de scripts \cite{sharma:2015}. Para isso, o
+Chef tem um estrutura complexa envolvendo diversos componentes para
+o completo funcionamento e utilização de todos os recursos.
+
+De modo análogo ao levantamento de camadas de ambiente, os recursos
+de \textit{cookbooks} e do Chef necessários para implementação precisam
+ser levantados e então selecionados para o escopo do projeto.
+
+O principal objeto utilizado para a pesquisa do levantamento dos recursos
+é a documentação oficial do Chef. A documentação é extensa e completa e
+com base nela será feito um levantamento para avaliar quais recursos
+serão necessários para a implementação deste projeto. Além disso, existem
+referências não oficiais de publicações sobre a ferramenta abordando os
+mesmos recursos.
+
+A organização da documentação oficial é dividida nos principais componentes
+da arquitetura do Chef além de outros items para conhecimento gerais sobre a
+ferramenta \cite{chefdoc:2016}. As seções da documentação oficial são:
+
+\begin{itemize}
+  \item \textit{Getting Started}: visão geral de toda a estrutura do Chef
+    como componentes, recursos, ferramentas auxiliares, etc;
+  \item \textit{The Workstation}: todos os recursos envolvidos na máquina de \textit{workstation}
+    como estrutura, linhas de comando, \textit{kit} de desenvolvimento, etc;
+  \item \textit{The Node}: todos os recursos envolvidos nas máquinas \textit{node}
+    como atributos do \textit{node}, componentes, etc;
+  \item \textit{Cookbook}: explicação de toda a estrutura de um \textit{cookbook}
+    como módulos \textit{recipes, templates, files}, etc;
+  \item \textit{The Chef Server}: todos os recursos envolvidos na máquina \textit{server}
+    como gerenciamento de \textit{nodes}, análise de recursos, \textit{logs}, etc;
+  \item \textit{Chef Compliance}: todos os recursos envolvidos na máquina \textit{compliance}
+    como informações sobre a infraestrutura, auditoria de configurações, etc.
+\end{itemize}
+
+Para o projeto Cupper, os foco principal de estudo dos recursos Chef estão
+concentrados em duas seções principais na documentação oficial: \textit{The Node} e
+\textit{Cookbook}. As outras seções são complementares para o entendimento de toda
+a estrutura e, a princípio, não serão consultadas.
+
+\subsection{Definição de Critérios de Seleção de Recursos}
+\label{sec:defcritrecurso}
+
+De maneira geral, se um recurso cabe em uma das funcionalidades do escopo da
+implementação, ele será selecionado para esse escopo. O escopo, e as
+funcionalidades podem ser encontrados na Seção~\ref{sec:escopo}. É possível
+generalizar e considerar que recursos que não se enquadram na categoria de
+\textit{Custom} serão selecionados.

@@ -1,0 +1,32 @@
+"etc"=> {
+  "passwd"=> {
+    "root"=> {
+    "dir"=> "/root",
+    "gid"=> 0,
+    "uid"=> 0,
+    "shell"=> "/bin/bash",
+    "gecos"=> "root"
+    },
+    "nobody"=> {
+    "dir"=> "/",
+    "gid"=> 99,
+    "uid"=> 99,
+    "shell"=> "/usr/bin/nologin",
+    "gecos"=> "nobody"
+    },
+    "lucas"=> {
+    "dir"=> "/home/lucas",
+    "gid"=> 100,
+    "uid"=> 1000,
+    "shell"=> "/bin/bash",
+    "gecos"=> ""
+    },
+    "postgres"=> {
+    "dir"=> "/var/lib/postgres",
+    "gid"=> 88,
+    "uid"=> 88,
+    "shell"=> "/bin/bash",
+    "gecos"=> "PostgreSQL user"
+    }
+  }
+}
