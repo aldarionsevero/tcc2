@@ -7,7 +7,7 @@ todas as informações necessárias para configurar o sistema e seguem algumas r
 ~\cite{chefdoc:2016}:
 
 \begin{itemize}
-  \item Deve ser incluido em um \textit{cookbook};
+  \item Deve ser incluído em um \textit{cookbook};
   \item Deve ser posto em um \textit{run-list} antes de ser usado pelo \textit{chef-client};
   \item É executado na mesma ordem disposta na \textit{run-list};
   \item Pode ser incluído em outro \textit{recipe};
@@ -25,7 +25,7 @@ três recursos: \textit{package, service} e \textit{template}.
   \lstinputlisting[language=Bash, label=code:recipe, caption="Exemplo de \textit{recipe}. Define a instala{\c{c}}{\~a}o e configura{\c{c}}{\~a}o do \textit{app} Nginx"]{editaveis/code/recipe_example.rb}
 \end{minipage}
 
-Esse atributo será incluido no escopo de implementação. As \textit{recipes} são os componente chave a
+Esse atributo será incluído no escopo de implementação. As \textit{recipes} são os componente chave a
 ser gerado pelo Cupper. Nele serão descritos os passos, em sequência lógica de execução,
 de todas as configurações. Para cada \textit{cookbook}, será gerado um arquivo de 
 \textit{recipe 'default.rb'} contendo todas as informações necessárias para a execução.
