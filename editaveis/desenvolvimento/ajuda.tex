@@ -7,9 +7,9 @@ CLI (\textit{Command Line Interface}), ter um comando de ajuda se faz necessári
 e útil.
 
 Para montar a estrutura de comandos foi utilizado o Thor, uma Gem para criação
-de CLIs. Ele facilita o parseamento de entradas e a documentação de cada comando criado.
+de CLIs. Ele facilita o \textit{parser} de entradas e a documentação de cada comando criado.
 O próprio Thor facilita a criação dos comandos de ajuda pra cada um dos comandos
-criados. Basta documentar cada método que será um comando com templates de cada
+criados. Basta documentar cada método que será um comando com \textit{templates} de cada
 comando e suas descrições como na primeira linha do exemplo do Código~\ref{code:thor}
 
 \noindent\begin{minipage}{\textwidth}
@@ -19,7 +19,7 @@ comando e suas descrições como na primeira linha do exemplo do Código~\ref{co
 
 \subsection{Ajuda Geral}
 Utilizando das funcionalidades do Thor, a ajuda geral imprime a lista de todos
-os comandos base, como utilizálos e suas descrições. O que o Thor faz é basicamente
+os comandos base, como utilizá-los e suas descrições. O que o Thor faz é basicamente
 imprimir todos os \textit{desc}`s presentes nós métodos de comando.
 
 Um exemplo de saída pode ser visto no Código~\ref{code:thorsaida}.

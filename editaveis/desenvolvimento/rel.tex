@@ -4,8 +4,8 @@
 \subsection{Funcionalidade de Gerar \textit{Templates}}
 
 \subsection{Funcionalidade Gerar Relatório Intermediário}
-Essa funcionalidade trata da geração de um relatório intermediário antes da 
-receita em si, para diagnóstico do sistema sendo extraído e para debug do 
+Essa funcionalidade trata da geração de um relatório intermediário antes da
+receita em si, para diagnóstico do sistema sendo extraído e para \textit{debug} do
 Cupper. Ela prevê extrair informações adicionais de hardware, de sistema, e de
 diversos aspectos como descrito na Seção~\ref{sec:cam-amb}. Essa funcionalidade
 não foi implementada pois não houve tempo hábil para tal.
@@ -15,14 +15,14 @@ Para a extração dos atributos de cada camada descrita na Seção~\ref{sec:cam-
 diversos \textit{plugins} devem ser implementados, e vários \textit{plugins} já prontos do Ohai
 devem ser utilizados.
 
-A necessidade ou não da implementação, e quais comandos acessam a informação 
+A necessidade ou não da implementação, e quais comandos acessam a informação
 que se deseja podem ser vistos nas Tabelas~\ref{tab:atrhard},~\ref{tab:hdmount},~\ref{tab:so},~\ref{tab:app},~\ref{tab:config} e~\ref{tab:service}.
 
 \subsection{Geração do Relatório}
 A saída do relatório será em um formato JSON (\textit{JavaScript Object Notation}),
-assim como a saída oficial da gem do Ohai quando se executa em um ambiente. Será,
-muito semelhante a execução da gem do Ohai, mas além de utilizar os \textit{plugins} nativos
-do Ohai, também utilizará todos os \textit{plugins} custom do cupper e do Ohai.
+assim como a saída oficial da Gem do Ohai quando se executa em um ambiente. Será,
+muito semelhante a execução da Gem do Ohai, mas além de utilizar os \textit{plugins} nativos
+do Ohai, também utilizará todos os \textit{plugins} custom do Cupper e do Ohai.
 
 \subsection{Mudanças e Justificativas}
 Essa funcionalidade não foi implementada devido a priorização realizada e andamento

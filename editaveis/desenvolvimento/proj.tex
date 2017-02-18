@@ -11,7 +11,7 @@ Cupperfile para as definições que o usuário define para a extração.
 
 \subsection{Definição de Ambiente}
 Existem algumas classes importantes no código do Cupper que são relacionadas a
-definição do ambiente de execução. Umas deas é a classe do \textit{Cupperfile} e outra
+definição do ambiente de execução. Umas delas é a classe do \textit{Cupperfile} e outra
 é o \textit{Environment}.
 
 A classe de \textit{Environment} é responsável por checar se o ambiente é um
@@ -20,7 +20,7 @@ ambiente válido com a presença de um Cupperfile, definir o diretório do ambie
 
 \subsection{Problemas encontrados}
 Devido a priorização realizada, e com o andamento do projeto, o carregamento de
-configurações adicionais vindas do Cupperfile tinha sido tirado do backlog do
+configurações adicionais vindas do Cupperfile tinha sido tirado do \textit{backlog} do
 trabalho.
 
 Essa decisão seguiu por algum tempo até que algumas falhas fizeram o Cupperfile
@@ -41,7 +41,7 @@ no Vagrant), e isso se mostrou desnecessário e muito complexo para o Cupper.
 A segunda abordagem para o carregamento das configurações do Cupperfile foi a de
 utilizar uma Gem externa (\textit{onfiguration}) que define um padrão de escrita de 
 arquivos de configuração (semelhante a um JSON), e permite o carregamento 
-simples deles. Essa também foi abandonada por adicionar mais dependencias para o Cupper.
+simples deles. Essa também foi abandonada por adicionar mais dependências para o Cupper.
 
 A terceira e quarta abordagens voltaram a tentar utilizar Ruby puro para resolver
 esse processo de carregamento de arquivos de configuração, dessa vez tentando 

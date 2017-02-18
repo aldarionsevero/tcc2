@@ -12,7 +12,7 @@ extrair os seguintes atributos:
 esse serviço;
     {\itshape\item service\_name}: Identificar o nome do serviço a
 ser levantado;
-    {\itshape\item action}: Identificar ação, padrão é restart;
+    {\itshape\item action}: Identificar ação, padrão é \textit{restart};
 \end{itemize}
 
 \subsection{\textit{Plugin} de Extração}
@@ -22,11 +22,11 @@ e extrai os atributos de \textit{service\_name}, \textit{provider}
 e \textit{action}.
 
 Esses atributos são coletados e para cada serviços extraído um objeto de serviço
-é criado para ser iterado no template posteriormente.
+é criado para ser iterado no \textit{template} posteriormente.
 
 \subsection{Bloco de Receita Gerado}
 Para a criação da receita que cria e executa esses serviços em outro ambiente, foi 
-definido como seria o template dos blocos de recurso de serviço na sintaxe das 
+definido como seria o \textit{template} dos blocos de recurso de serviço na sintaxe das 
 receitas Chef. Um exemplo pode ser visto no Código~\ref{code:serviceresource}.
 
 \noindent\begin{minipage}{\textwidth}
@@ -35,9 +35,9 @@ receitas Chef. Um exemplo pode ser visto no Código~\ref{code:serviceresource}.
 \end{minipage}\hfill
 
 Esse exemplo, se executado em um ambiente, diz para o
-gerenciador de serviços (\textit{Init System}) dar um start no serviço do tomcat.
+gerenciador de serviços (\textit{Init System}) dar \textit{start} no serviço do Tomcat.
 
-Dessa forma, para gerar diversos desses blocos na receita final, temos o template
+Dessa forma, para gerar diversos desses blocos na receita final, temos o \textit{template}
 do Código~\ref{code:servicetemplate}.
 
 \noindent\begin{minipage}{\textwidth}
@@ -46,7 +46,7 @@ do Código~\ref{code:servicetemplate}.
 \end{minipage}\hfill
 
 Então para gerar um bloco de receita de recursos de serviço Chef é necessário
-saber como vai ser o template da escrita desse bloco e qual \textit{plugin} o
+saber como vai ser o \textit{template} da escrita desse bloco e qual \textit{plugin} o
 coletor vai utilizar para a extração.
 
 \subsection{Problemas Encontrados}

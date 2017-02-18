@@ -13,13 +13,13 @@ precisar extrair os seguintes atributos:
 
 \subsection{\textit{Plugin} de Extração}
 
-O Ohai provê um plugin nativo que coleta todos os pacotes instalados. O suporte
+O Ohai provê um \textit{plugin} nativo que coleta todos os pacotes instalados. O suporte
 das plataformas são: Debian, Redhat, Fedora e OpenSUSE\@. Os dados coletados pelo
-plugin de cada pacote são: nome do pacote e versão.
+\textit{plugin} de cada pacote são: nome do pacote e versão.
 
-Para a plataforma Debian, o plugin utiliza a ferramenta \texttt{dpkg-query} disponível
+Para a plataforma Debian, o \textit{plugin} utiliza a ferramenta \texttt{dpkg-query} disponível
 por padrão nas distro Debian \textit{based}. O \texttt{dpkg-query} retorna uma lista de todos os pacotes
-instalados no ambiente que é interpretada pelo plugin e transformada em um JSON
+instalados no ambiente que é interpretada pelo \textit{plugin} e transformada em um JSON
 construído com a estrutura \texttt{``package\_name'' => \{ ``version'' => ``version\_number'' \}}
 como mostrada no Código~\ref{code:json_pkg}.
 
@@ -27,17 +27,17 @@ como mostrada no Código~\ref{code:json_pkg}.
   \lstset{style=shell}
   \lstinputlisting[frame=single,
     label=code:json_pkg,
-    caption="Saída JSON do plugin Ohai \textit{packages}"]{editaveis/code/json_pkg.json}
+    caption="Saída JSON do \textit{plugin} Ohai \textit{packages}"]{editaveis/code/json_pkg.json}
 \end{minipage}\hfill
 
-Para as plataformas Redhat, Fedora e OpenSUSE, o plugin utiliza a ferramenta \texttt{rpm}
+Para as plataformas Redhat, Fedora e OpenSUSE, o \textit{plugin} utiliza a ferramenta \texttt{rpm}
 disponível por padrão nas distros Redhat \textit{based}. O Cupper ainda não oferece suporte
 para distros Redhat \textit{based}, portanto não foram feitos testes para esse tipo de ambiente.
 
-Não há suporte para a plataforma Archlinux, portanto um plugin foi desenvolvido
+Não há suporte para a plataforma Archlinux, portanto um \textit{plugin} foi desenvolvido
 para extrair as mesmas informações. A extração utiliza a ferramenta \texttt{pacman} disponível
 nas distros Archlinux. O \texttt{pacman} retorna uma lista de pacotes instalados no ambiente
-que é interpretada pelo plugin e transformada em um JSON construído com a estrutura
+que é interpretada pelo \textit{plugin} e transformada em um JSON construído com a estrutura
 \texttt{"package\_name" => \{ "version" => "version\_number" \}} como mostrada no
 Código~\ref{code:json_pkg_pacman}.
 
@@ -45,7 +45,7 @@ Código~\ref{code:json_pkg_pacman}.
   \lstset{style=shell}
   \lstinputlisting[frame=single,
     label=code:json_pkg_pacman,
-    caption="Saída JSON do plugin Ohai \textit(pacman)"]{editaveis/code/json_pkg_pacman.json}
+    caption="Saída JSON do \textit{plugin} Ohai \textit(pacman)"]{editaveis/code/json_pkg_pacman.json}
 \end{minipage}\hfill
 
 \subsection{Bloco de Receita Gerado}
@@ -102,7 +102,7 @@ dependências.
 Foi criado o Cupperfile, que é um arquivo de configuração de extração que define atributos
 que são usados para restringir ou permitir mais atributos ou recursos na receita gerada.
 Então para a resolução do problema acima, é colocar um atributo de configuração de extração no
-Cupperfile que possibilita o usuário definir se a receita gerada force a intalação de uma
+Cupperfile que possibilita o usuário definir se a receita gerada force a instalação de uma
 versão antiga. A forma de realizar esse \textit{downgrade} é eliminando o pacote e suas dependências
 e instalando a versão mais antiga.
 

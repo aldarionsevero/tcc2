@@ -26,7 +26,7 @@ referentes à grupos já que o Ohai já possui um. O nome \textit{plugin} usado 
 \subsection{Bloco de Receita Gerado}
 
 Para a criação da receita que cria os grupos em um novo ambiente, foi definido
-como seria o template dos blocos de recurso de grupo na sintaxe das receitas Chef.
+como seria o \textit{template} dos blocos de recurso de grupo na sintaxe das receitas Chef.
 Um exemplo pode ser visto no Código~\ref{code:groupresource}.
 
 \noindent\begin{minipage}{\textwidth}
@@ -37,15 +37,15 @@ Um exemplo pode ser visto no Código~\ref{code:groupresource}.
 Se uma receita com esse recurso for executada em um ambiente, o grupo \textit{www-data}
 irá ser modificado com um novo membro \textit{maintenance}.
 
-Para gerar então diversos desses blocos na receita final o template do Código~\ref{code:grouptemplate} foi definido.
+Para gerar então diversos desses blocos na receita final o \textit{template} do Código~\ref{code:grouptemplate} foi definido.
 
 \noindent\begin{minipage}{\textwidth}
   \lstset{style=shell}
-  \lstinputlisting[language=Ruby, frame=single, label=code:grouptemplate, caption="Template para os blocos de recursos de grupo Chef"]{editaveis/code/grouptemplate.rb}
+  \lstinputlisting[language=Ruby, frame=single, label=code:grouptemplate, caption="\textit{Template} para os blocos de recursos de grupo Chef"]{editaveis/code/grouptemplate.rb}
 \end{minipage}\hfill
 
 Dessa forma, como visto acima, para criar um bloco de receita de recursos Chef é
-necessário saber qual vai ser o template da escrita desse bloco e qual \textit{plugin}
+necessário saber qual vai ser o \textit{template} da escrita desse bloco e qual \textit{plugin}
 o coletor vai utilizar para a extração.
 
 \subsection{Problemas Encontrados}
