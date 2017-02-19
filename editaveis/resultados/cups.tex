@@ -6,17 +6,17 @@ esse ambiente não se trata de um ambiente real de uso, e foi criado somente par
 esse fim.
 
 A máquina virtual utilizada para esse teste foi montada com a distro Debian 8.
-O CUPS, que é um serviço de gerenciamento de impressões criado pela Apple foi
-instalado nesse ambiente base, juntamente com suas dependências e nginx. A instalação
-do CUPS já levanta o seu serviço web que fica ativo no host local na porta 631.
-Além de instalar o CUPS, um arquivo de configuração para o CUPS foi criado
+O Cups, que é um serviço de gerenciamento de impressões criado pela Apple foi
+instalado nesse ambiente base, juntamente com suas dependências e Nginx. A instalação
+do Cups já levanta o seu serviço web que fica ativo no \textit{host} local na porta 631.
+Além de instalar o Cups, um arquivo de configuração para o Cups foi criado
 para verificar se essa configuração seria passada para o novo ambiente. O
 conteúdo desse arquivo pode ser visto no Código~\ref{code:cupsconfig}. Outro 
 arquivo de configuração para o Nginx foi definido para efetuar o 
 \textit{proxypass} da porta 631 para a porta 80 (Código~\ref{code:nginxconfig}), fazendo assim pelo menos duas
 aplicações se relacionarem.
 
-O novo ambiente foi montado com a mesma imagem usada ná máquina virtual já citada.
+O novo ambiente foi montado com a mesma imagem usada na máquina virtual já citada.
 Os pacotes já instalados e serviços ativos, antes de executar a receita, foram somente 
 os que já vem por padrão na distribuição.
 
