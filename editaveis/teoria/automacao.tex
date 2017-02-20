@@ -7,36 +7,32 @@ automática de um processo com o mínimo de intervenção humana. Para a área
 de TI, a automação ocorre nos processos de controle e administração de
 sistemas ou softwares~\cite{sharma:2015}.
 
-Pode-se citar algumas das vantagens da automação~\cite{sharma:2015}:
-\begin{itemize}
-  \item Ajuda a reduzir a complexidade de um processo;
-  \item Ajuda a reduzir possibilidade de erros humanos em tarefas
-    repetitivas;
-\end{itemize}
+Pode-se citar algumas das vantagens da automação~\cite{sharma:2015} como
+ajudar a reduzir a complexidade de um processo e a reduzir
+possibilidade de erros humanos em tarefas repetitivas;
 
 \citeonline{sharma:2015} abordam as necessidade de se adotar automação na área
 de TI (Tecnologia da Informação) e os relaciona com conceitos dos métodos ágeis como
 implantação contínua (várias implantações em um curto intervalo de tempo), entrega contínua (várias
 \textit{releases} entregues rapidamente), computação em nuvem (tendência do mercado a
 utilizar infraestrutura em nuvem), etc. Além disso, são citados os benefícios da
-automação mapeados com as principais preocupações da industria de TI. Algumas delas:
+automação mapeados com as principais preocupações da industria de TI. São a:
 
 \begin{itemize}
-  \item \textbf{Agilidade}: promove pontualidade e agilidade para a TI. Em conjunto
-    com os métodos ágeis resulta em múltiplas implantações em um curto intervalo
+  \item \textbf{agilidade}: promove pontualidade para a TI. Em conjunto
+    com os métodos ágeis, resulta em múltiplas implantações em um curto intervalo
     de tempo, além do rápido \textit{feedback};
-  \item \textbf{Escalabilidade}: a automação ajuda a transformar a infraestrutura
+  \item \textbf{escalabilidade}: a automação ajuda a transformar a infraestrutura
     em códigos simples, ou seja, a construção, reconstrução e configuração é possível
-    ser feita em poucos minutos. Sendo assim é possível manipular grandes quantidades
-    de ambientes;
-  \item \textbf{Precisão de Implantação}: com a utilização de \textit{scritps}
+    ser feita em poucos minutos. Sendo assim é possível manipular vários ambientes;
+  \item \textbf{precisão de implantação}: com a utilização de \textit{scritps}
     é possível realizar rápidas mudanças nas configurações de um ambiente
     obtendo os resultados esperados.
 \end{itemize}
 
 \citeonline{hummer:2013} identificam, dentro do contexto de automação, a idempotência
 como chave para uma boa implementação de automação. Uma tarefa idempotente pode ser
-executada inúmeras vezes resultando sempre no mesmo resultado. Dentro de DevOps,
+executada inúmeras vezes gerando sempre no mesmo resultado. Dentro de DevOps,
 as entregas frequentes necessitam da garantia de realizar a implantação de um
 sistema e de que esta tenha sempre o mesmo resultado.
 
@@ -86,7 +82,7 @@ SaltStack e Ansible. A Tabela~\ref{tab:chef-rival} mostra a comparação elas.
 
 \begin{table}[H]
   \centering
-  \caption[Ferramenta de Automação]{Comparativo das ferramentas de automação, adaptado de \citeonline{sharma:2015}.}
+  \caption[Ferramenta de Automação]{Comparativo das ferramentas de automação, adaptado de \citeonline{sharma:2015}}
   \label{tab:chef-rival}
   \resizebox{\textwidth}{!}{%
     \begin{tabular}{l|l|l|l|l}
@@ -98,7 +94,7 @@ SaltStack e Ansible. A Tabela~\ref{tab:chef-rival} mostra a comparação elas.
         Arquitetura & Master/Agente &  Master/Agente & Master/Agente & Master/Agente \\ 
       \hline
         \begin{tabular}[c]{@{}l@{}}Mecanismo de\\ Push/Pull\tablefootnote{Mecanismo de \textit{network communication}.
-          \textit{Push}: o servidor realiza a requisição. \textit{Pull}: o cliente realiza a requisição por dados.\cite{cho:2007}.}\end{tabular} & \textit{Pull} & \textit{Pull} & \textit{Push} & \textit{Push} \\
+          \textit{Push}: o servidor realiza a requisição. \textit{Pull}: o cliente realiza a requisição por dados~\cite{cho:2007}.}\end{tabular} & \textit{Pull} & \textit{Pull} & \textit{Push} & \textit{Push} \\
       \hline
         \textit{\begin{tabular}[c]{@{}l@{}}Cloud \\ Integration\end{tabular}} & \begin{tabular}[c]{@{}l@{}}Amazon EC2,\\ Windows Azure,\\ HP Cloud, Google\\ Computer Engine,\\ Joyent Cloud,\\ Rackspace,\\ VMWare, IBM\\ Smartcloud e\\ OpenStack\end{tabular} & \begin{tabular}[c]{@{}l@{}}Amazon AWS,\\ VMware e\\ Google Computer\\ Engine\end{tabular} & \begin{tabular}[c]{@{}l@{}}Amazon AWS,\\ Rackspace,\\ SoftLayer,\\ GoGrid, HP\\ Cloud, Google\\ Computer Engine,\\ VMware, Windows\\ Azure e Parallels\end{tabular} & \begin{tabular}[c]{@{}l@{}}Amazon AWS,\\ VMware, OpenStack,\\ CloudStack, Eucalyptus\\ Cloud e KVM.\end{tabular} \\
       \hline
@@ -107,26 +103,6 @@ SaltStack e Ansible. A Tabela~\ref{tab:chef-rival} mostra a comparação elas.
     \end{tabular}
   }
 \end{table}
-
-As vantagens e pontos chave que o Chef tem em relação ao seus
-concorrentes~\cite{sharma:2015}:
-\begin{itemize}
-  \item O Chef é puramente uma \textit{Domain Specific Language (DSL)}.~\citeonline{van:2000}
-    propõem a definição de DSL como uma linguagem de programação executável que
-    contém notações e abstrações específicas para um domínio de problemas. O Chef
-    estende a sua DSL da linguagem Ruby;
-  \item O Chef contém uma consistente documentação, materiais de treinamento e
-    atualizações constantes;
-  \item O suporte da comunidade do Chef é grande e responde rapidamente a dúvidas
-    e problemas de instalação, configuração e utilização da ferramenta Chef.
-    Além disso, constantemente publicam conferências \textit{online} e materiais multimídia
-    gratuitamente.
-\end{itemize}
-
-A ferramenta Cupper, proposta deste trabalho, é focada para auxiliar especificamente
-o Chef. Além das vantagens apresentadas, também foi considerado a experiência do grupo
-com a ferramenta e a utilização dela durante o curso para determinar a sua utilização
-neste projeto. %TODO: nun sei se é necessário colocar isso
 
 \subsubsection{Chef}
 \label{sec:chef}
@@ -157,8 +133,8 @@ possa executar sua função. Os principais componentes são~\cite{chefdoc:2016}:
   \item \textit{Chef Server}: funciona como um \textit{hub} de informações. Todos os
     \textit{cookbooks} e as políticas são atualizadas no Chef Server pelos usuários
     dos \textit{workstations}. O Chef Client acessa o Chef Server para verificar
-    as informações necessárias para sua tarefas e retorna dados para o servidor
-    que serão usados para gerar relatórios;
+    as informações necessárias para sua tarefas e retorna dados para o servidor,
+    que são usados para gerar relatórios;
   \item \textit{Chef Analytics}: visibilidade em tempo real de dados informativos
     sobre o servidor como mudanças realizadas, os autores das mudanças e quando
     ocorreram. Além de detalhes das tarefas executadas nas máquinas \textit{nodes};
@@ -172,7 +148,7 @@ A Figura \ref{fig:chef-comp} mostra a relação entre esses três componentes. E
 mínimos para a implementação do Chef~\cite{chefdoc:2016}:
 
 \begin{itemize}
-  \item As máquinas \textit{node} devem ter uma plataforma instalada (RedHat,
+  \item As máquinas \textit{node} devem ter um sistema operacional instalado (RedHat,
     Debian, OpenSUSE, etc);
   \item A máquina que contenha o Chef Server deve ter os requisitos
       mínimos de hardware especificada no site oficial do Chef\footnote{Disponível em \url{https://docs.chef.io/chef\_system\_requirements.html}.};

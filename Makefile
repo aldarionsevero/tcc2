@@ -34,7 +34,7 @@ SOURCES = $(FIXOS_FILES) $(EDITAVEIS_FILES)
 
 .PHONY: all clean dist-clean
 
-all: 
+all: clean
 	@make $(TARGET)
      
 $(TARGET): $(MAIN_FILE) $(SOURCES) bibliografia.bib
