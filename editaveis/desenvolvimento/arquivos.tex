@@ -43,7 +43,7 @@ O Código~\ref{code:files_json} mostra um exemplo do JSON gerado pelo \textit{pl
   \lstset{style=shell}
   \lstinputlisting[
     label=code:files_json,
-    caption="Saída JSON do \textit{plugin} Ohai \textit{files}"]{editaveis/code/json_files.json}
+    caption=Saída JSON do \textit{plugin} Ohai \textit{files}]{editaveis/code/json_files.json}
 \end{minipage}\hfill
 
 Os arquivos considerados sensíveis, ou seja, com conteúdo sigiloso, como
@@ -62,7 +62,7 @@ Os atributos usados na receita gerada são \textit{source}, \textit{owner},
   \lstset{style=shell}
   \lstinputlisting[
     label=code:files_recipe,
-    caption="Exemplo de receita gerada pela extração de arquivos de configuração"]{editaveis/code/files_recipe.rb}
+    caption=Exemplo de receita gerada pela extração de arquivos de configuração]{editaveis/code/files_recipe.rb}
 \end{minipage}\hfill
 
 O conteúdo do arquivo coletado é salvo no diretório \texttt{files} do projeto Cupper
@@ -88,9 +88,8 @@ atributo no Cupperfile (Código~\ref{code:sensiblefiles})
   \lstinputlisting[
     language=Ruby,
     label=code:sensiblefiles,
-    caption="Definição do atributo de \textit{sensible files}"]{editaveis/code/sensiblefiles.rb}
+    caption=Definição do atributo de \textit{sensible files}]{editaveis/code/sensiblefiles.rb}
 \end{minipage}\hfill
 
 Arquivos que não são vinculados a um pacote são descartados. Essa abordagem força
 a padronização de ambientes que seguem a instalação e configuração por pacote.
-
