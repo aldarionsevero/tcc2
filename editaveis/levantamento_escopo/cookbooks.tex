@@ -11,8 +11,10 @@ files, libraries, custom resourses, metadata, resources e providers, templates
 cookbook versions}~\cite{chefdoc:2016}.
 
 Para o funcionamento de um \textit{cookbook}, com uma estrutura mínima, é necessário que tenha
-ao menos um \textit{recipe default} definido. O Código~\ref{code:tree} mostra essa
-estrutura mínima necessária para realizar a configuração do \textit{cookbook app} e o Código~\ref{code:fulltree} mostra uma estrutura completa.
+ao menos um \textit{recipe default} definido. A Figura~\ref{code:tree} mostra essa
+estrutura mínima necessária para realizar a configuração do \textit{cookbook app} e a Figura~\ref{code:fulltree} mostra uma estrutura completa.
+
+\renewcommand{\lstlistingname}{Figura}
 
 \noindent\begin{minipage}{.45\textwidth}
   \lstinputlisting[language=Bash, frame=single, label=code:tree, caption="Estrutura mínima de um \textit{cookbook}"]{editaveis/code/minimal_tree}
@@ -20,6 +22,8 @@ estrutura mínima necessária para realizar a configuração do \textit{cookbook
 \noindent\begin{minipage}{.45\textwidth}
   \lstinputlisting[language=Bash, frame=single, label=code:fulltree, caption="Estrutura completa de um \textit{cookbook}"]{editaveis/code/full_tree}
 \end{minipage}
+
+\renewcommand{\lstlistingname}{Código}
 
 As Seções seguintes explicam os componentes dos \textit{cookbooks} e quais serão gerados
 pelo Cupper.
