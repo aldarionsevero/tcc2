@@ -40,26 +40,17 @@ configurações de hardware e/ou apresentar comportamentos inesperados no sistem
 Além das aplicações terem seus requisitos mínimos, algumas são desenhadas
 para um tipo específico de arquitetura.
 
-A Tabela~\ref{tab:atrhard} mostra diversas informações de hardware possíveis de serem extraídas
-do sistema a partir de comandos do sistema operacional e também da ferramenta Ohai, 
+A Tabela~\ref{tab:atrhard}, que está no apêndice,  mostra diversas informações 
+de hardware possíveis de serem extraídas do sistema a partir de comandos 
+do sistema operacional e também da ferramenta Ohai, 
 dependência prevista para a implementação do Cupper (como descrito na 
 Seção~\ref{sec:tec}). Nem todas essas informações serão úteis para a 
 implementação, mas nessa Seção fazemos um levantamento geral antes de fazer uma
 seleção.
-A primeira coluna das Tabelas mostra o atributo em questão; a segunda mostra
-a origem do atributo, podendo ser um comando do sistema, ou caminho de um arquivo;
-a terceira coluna mostra se o atributo é relevante para a aplicação; a quarta mostra se
-esse atributo pode ser conseguido por meio do \textit{Ohai}; a quinta coluna 
-diz se é viável implementar o acesso a esse atributo e a ultima coluna
-diz se o atributo foi selecionado para ser usado pelo Cupper. 
 
 A camada de hardware será uma das camadas a serem analisadas, e a seleção de 
-seus atributos irão seguir os critérios descritos na Seção~\ref{sec:defcritcamada}.
-
-A Tabela~\ref{tab:atrhard} mostra atributos relacionados a CPU, Memória e 
-\textit{Moterboard}, e a Tabela~\ref{tab:hdmount} mostra atributos relacionados
-a partições, armazenamento, dispositivos PCI, USB e dispositivos de rede.
-
+seus atributos irão seguir os critérios descritos na 
+Seção~\ref{sec:defcritcamada}.
 
 \subsection{\textit{Operating System}}
 \label{sec:cam-os}
@@ -74,7 +65,8 @@ da ferramenta para mais Sistemas Operacionais.
 Inicialmente a ferramenta Cupper irá abordar dois sistemas operacionais, 
 ambos baseados em GNU/Linux: Archlinux e Debian.
 
-A Tabela~\ref{tab:so} mostra informações a respeito do Kernel e da distribuição
+A Tabela~\ref{tab:so}, que está no apêndice,
+mostra informações a respeito do Kernel e da distribuição
 analisada. Também mostra algumas configurações gerais do sistema, como
 configurações de rede.
 
@@ -135,7 +127,8 @@ release} justamente por sua cultura de não formatar e somente atualizar.
 
 Dessa forma, iremos relacionar os \textit{Init Systems} às distribuições
 diretamente levando em conta o \textit{Init System} padrão da distribuição.
-A Tabela~\ref{tab:inits-distro} mostra a relação de \textit{Init System} padrão de cada 
+A Tabela~\ref{tab:inits-distro}, que está no apêndice, 
+mostra a relação de \textit{Init System} padrão de cada 
 distribuição. De qualquer maneira o escopo inicial do projeto prevê
 implementação somente para Archlinux e Debian.
 
