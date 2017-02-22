@@ -16,7 +16,7 @@ disponível na distribuição.
 A Tabela~\ref{tab:result_moodle} mostra os principais serviços e pacotes instalados
 na máquina em produção e os resultados dos mesmos no ambiente replicado.
 
-\begin{table}[H]
+\begin{table}[]
   \centering
   \caption{Resultados da máquina virtual com o serviço Moodle}
   \label{tab:result_moodle}
@@ -32,6 +32,7 @@ na máquina em produção e os resultados dos mesmos no ambiente replicado.
   \multirow{-6}{*}{Aplicação}            & \begin{tabular}[c]{@{}c@{}}Aplicação Moodle\\ Instalada\end{tabular}           & \begin{tabular}[c]{@{}c@{}}Aplicação Moodle\\ Não Instalada\end{tabular}       &                                           \\ \hline
                                            & \begin{tabular}[c]{@{}c@{}}Serviço Apache\\ Executando\end{tabular}            & \begin{tabular}[c]{@{}c@{}}Serviço Apache\\ Executando\end{tabular}            & X                                         \\ \cline{2-4} 
   \multirow{-2}{*}{Serviços}             & \begin{tabular}[c]{@{}c@{}}Serviço Mysql\\ Executando\end{tabular}             & \begin{tabular}[c]{@{}c@{}}Serviço Mysql\\ Executando\end{tabular}             & X                                         \\ \hline
+    \multicolumn{3}{c|}{Porcentagem Replicada}                                                                                                                                                                    & 87\%                                                            \\ \hline
   \end{tabular}
 \end{table}
 
@@ -48,3 +49,5 @@ comando no ambiente.
 É importante ressaltar que, os dados presentes no banco da aplicação não são
 extraídos, sendo isso uma responsabilidade do usuário em realizar o \textit{backup} dos
 dados da forma que considerar mais apropriada.
+
+Resultados podem ser vistos na tabela~\ref{tab:result_moodle}.
