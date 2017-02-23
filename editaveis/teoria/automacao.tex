@@ -170,12 +170,11 @@ do ambiente alvo \cite{sharma:2015}.
 
 \citeonline{sharma:2015} Classifica os \textit{cookbooks} em três categorias:
 \begin{itemize}
-  \item \textbf{Aplicação}: contém as configurações de acordo com a instalação de
-    uma aplicação. Exemplo PostgreSQL, Apache, Nginx;
-  \item \textbf{Biblioteca}: define recursos a serem utilizados por outros \textit{cookbooks}
-    (mais detalhes sobre recursos na Seção~\ref{sec:lev-rec} no Capítulo~\ref{chap:lev_es} de levantamento).
-    Não é recomendado utilizado diretamente em um node;
-  \item \textbf{\textit{Wrapper}}: são \textit{cookbooks} prontos construídos pela comunidade que podem
+  \item \textbf{aplicação}: contém as configurações de acordo com a instalação.
+    Exemplo PostgreSQL, Apache, Nginx;
+  \item \textbf{biblioteca}: define recursos a serem utilizados por outros \textit{cookbooks}
+    (mais detalhes sobre recursos na Seção~\ref{sec:lev-rec} no Capítulo~\ref{chap:lev_es} de levantamento);
+  \item \textbf{\textit{wrapper}}: são \textit{cookbooks} prontos construídos pela comunidade que podem
     ser alterados para que se adéquem ao ambiente que será implantado.
 \end{itemize}
 
@@ -185,6 +184,27 @@ indicados pelo \textit{Chef Server} quando necessário, ou seja, se não houver
 nenhuma mudança quanto as configurações do ambiente o \textit{chef-client} não irá
 alterar nada, do contrário ele irá aplicar as configurações necessárias~\cite{chefdoc:2016}.
 
+A organização da documentação oficial é dividida nos principais componentes
+da arquitetura do Chef além de outros itens para conhecimento gerais sobre a
+ferramenta \cite{chefdoc:2016}. As seções da documentação oficial são:
 
+\begin{itemize}
+  \item \textit{Getting Started}: visão geral de toda a estrutura do Chef
+    como componentes, recursos, ferramentas auxiliares, etc;
+  \item \textit{The Workstation}: todos os recursos envolvidos na máquina de \textit{workstation}
+    como estrutura, linhas de comando, \textit{kit} de desenvolvimento, etc;
+  \item \textit{The Node}: todos os recursos envolvidos nas máquinas \textit{node}
+    como atributos do \textit{node}, componentes, etc;
+  \item \textit{Cookbook}: explicação de toda a estrutura de um \textit{cookbook}
+    como módulos \textit{recipes, templates, files}, etc;
+  \item \textit{The Chef Server}: todos os recursos envolvidos na máquina \textit{server}
+    como gerenciamento de \textit{nodes}, análise de recursos, \textit{logs}, etc;
+  \item \textit{Chef Compliance}: todos os recursos envolvidos na máquina \textit{compliance}
+    como informações sobre a infraestrutura, auditoria de configurações, etc.
+\end{itemize}
 
+Para o projeto Cupper, os foco principal de estudo dos recursos Chef estão
+concentrados em duas seções principais na documentação oficial: \textit{The Node} e
+\textit{Cookbook}. As outras seções são complementares para o entendimento de toda
+a estrutura e, a princípio, não serão consultadas.
 

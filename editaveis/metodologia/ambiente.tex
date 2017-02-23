@@ -27,10 +27,8 @@ Para classificar um atributo como relevante para análise, ele deve seguir os
 seguintes critérios:
 
 \begin{enumerate}
-\item Um atributo é relevante quando ele é necessário para a geração de uma
-receita Chef que atenda aos nossos requisitos. 
 
-Na Seção~\ref{sec:lev-rec} e~\ref{sec:escopo} definimos os recursos Chef
+  \item Na Seção~\ref{sec:lev-rec} e~\ref{sec:escopo} definimos os recursos Chef
 que iremos utilizar nas criações de \textit{cookbooks} e até que ponto 
 avançaremos nas funcionalidades do Cupper, e dessa forma, os atributos
 são relevantes se eles se enquadram nesse patamar, para alcançar esses objetivos.
@@ -49,13 +47,13 @@ Com relação à dificuldade de implementação e de integração ao Cupper o
 atributo deve seguir os seguinte critérios em ordem de prioridade:
 
 \begin{enumerate}
-\item O atributo tem maior prioridade de ser selecionado se é um dos dados 
-que o Ohai lança por padrão e sem extensões.
-\item O atributo tem média prioridade se, não é um dos dados que o Ohai
-lança por padrão e sem extensões, mas existe um comando do sistema que facilita 
+\item O atributo tem maior prioridade de ser selecionado se é um dos atributos 
+que o Ohai obtém por padrão e sem extensões.
+\item O atributo tem média prioridade se não é um dos dados que o Ohai
+obtém por padrão e sem extensões, mas existe um comando do sistema operacional que facilita 
 sua extração, e dessa forma facilitando a criação de \textit{plugins} pro 
 Ohai.
-\item O atributo tem menor prioridade se não é lançado pelo Ohai e nem tem 
-comandos do sistema para recuperá-lo.
+\item O atributo tem menor prioridade se não é obtido pelo Ohai e nem tem 
+comandos do sistema operacional para recuperá-lo.
 \end{enumerate}
 

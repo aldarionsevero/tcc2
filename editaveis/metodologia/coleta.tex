@@ -1,34 +1,34 @@
 \section{Coleta e Análise de Resultados}
 
-Nesta Seção será apresentado o método de coleta e análise dos resultados deste % TODO: melhorar
-trabalho para validação da proposta. Como disposto nos objetivos (\ref{sec:obj}),
-o resultado da execução do Cupper é um \textit{script} em formato de receita Chef.
+O resultado da execução do Cupper é um \textit{script} em formato de receita Chef.
 Tal receita poderá ser utilizada pelo Chef para replicar o ambiente. Sendo assim
 o foco da coleta e análise de dados está na capacidade de replicar um ambiente
 utilizando o Cupper e Chef de maneira automatizada.
 
 Divide-se a coleta e análise de dados em quatro etapas:
-
-\textbf{Etapa 1}: Nesta etapa serão coletados os dados sobre quais informações o Cupper consegue
+\begin{description}
+  \item \textbf{Etapa 1}: Nesta etapa serão coletados os dados sobre quais informações o Cupper consegue
 extrair e quais são as replicações. A coleta será feita por um \textit{checklist} que contenha
 todos os itens propostos para implementação da ferramenta. O \textit{checklist} será
 utilizado para delimitar os dados base que serão coletados do ambiente para
 a validação. Também é um informativo sobre até qual ponto o projeto conseguiu
 alcançar.
 
-\textbf{Etapa 2}: Nesta etapa será construído um ambiente que seja possível extrair as configurações
+\item \textbf{Etapa 2}: Nesta etapa será construído um ambiente que seja possível extrair as configurações
 sem a utilização do Cupper. Essas informações estarão alinhadas ao \textit{checklist} da etapa
 anterior e serão a base para o comparativo com o ambiente replicado.
 
-\textbf{Etapa 3}: Nesta etapa a ferramenta Cupper irá ser executada no ambiente construído na etapa
+\item \textbf{Etapa 3}: Nesta etapa a ferramenta Cupper irá ser executada no ambiente construído na etapa
 anterior. As receitas geradas serão usadas pelo Chef em um ambiente limpo que contenha
 apenas as configurações mínimas para o seu funcionamento, ou seja, um sistema
 operacional (Debian ou Arch), acesso por interface de rede e o Chef (a Seção
 ~\ref{sec:chef} define o ambiente mínimo para o funcionamento do Chef).
 
-\textbf{Etapa 4}: Nesta etapa é feito a extração sem utilização do Cupper, assim como foi realizado
+\item \textbf{Etapa 4}: Nesta etapa é feito a extração sem utilização do Cupper, assim como foi realizado
 na etapa 2, no ambiente replicado. Então será feito uma comparação das configurações
 dos dois ambientes.
+
+\end{description}
 
 A conclusão dos dados coletado e analizados será realizado pela porcentagem de
 item correspondentes dos ambientes como demonstrado na Tabela \ref{tab:ex_result}.

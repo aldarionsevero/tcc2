@@ -3,15 +3,14 @@
 
 O Cupper, aplicação proposta por este trabalho, tem a intenção de entrar
 na família de ferramentas relacionadas ao Chef. Portanto é interessante que
-as tecnologias, linguagem e padrões sejam adotados. % TODO: ficou um pouco estranho a ultima frase.
+as tecnologias, linguagens e padrões sejam adotados e que estejam alinhados
+com as políticas e interesses do Chef.
 
 O motivo da decisão do Cupper ser direcionado para o Chef vem da experiência do
-grupo com a utilização da ferramenta que por consequência resultou na identificação
-da oportunidade de melhoria.
+grupo com a utilização da ferramenta.
 
 O Chef está relacionado ao desenvolvimento do Cupper, mas ele não é uma
-dependência para a execução do mesmo, e sim a ferramenta que usa a saída do Cupper,
-que será explicado no Capítulo~\ref{chap:lev_es}, de Levantamento.
+dependência do mesmo, e sim a ferramenta que usa a saída do Cupper.
 
 \subsection{Ferramentas e Serviços de Suporte ao Desenvolvimento}
 \label{sec:supdev}
@@ -42,7 +41,7 @@ considerados os itens do \textit{Backlog}, descrito na Seção~\ref{sec:praticas
 \label{sec:supdev:travis}
 
 O Travis é um serviço de integração contínua integrada com o serviço Github que automatiza
-a \textit{build} do código e verifica os testes~\cite{travis:2016}. O Travis será utilizado para
+a \textit{build} do código e verifica os testes~\cite{travis:2016}. O Travis foi utilizado para
 realizar a \textit{build} automática da ferramenta Cupper, determinando se a funcionalidade ou \textit{bugfix}
 será integrada ao código.
 
@@ -50,13 +49,9 @@ será integrada ao código.
 \label{sec:supdev:rubygems}
 
 O RubyGems é um \textit{framework} de empacotamento e instalação de bibliotecas e aplicações
-construídas com Ruby. As vantagens de se utilizar RubyGem~\cite{thomas:2001}:
-
-\begin{itemize}
- \item Padronizar formatos de pacotes;
- \item Centralizar o repositório para distribuição dos pacotes Gem;
- \item Facilitar a instalação, gerenciamento e manipulação dos pacotes Gem.
-\end{itemize}
+construídas com Ruby. As vantagens de se utilizar RubyGem~\cite{thomas:2001}: padronizar
+formatos de pacotes, centralizar o repositório para distribuição dos pacotes Gem, facilitar
+a instalação, gerenciamento e manipulação dos pacotes Gem.
 
 A ferramenta Cupper, por ser construída em Ruby, seguirá os padrões adotados
 pelo RubyGems.
@@ -75,7 +70,7 @@ a sintaxe para descrever os cenários e comportamentos.
 
 Foram identificadas as ferramentas dependentes para a construção do Cupper.
 São ferramentas que estão dentro da família de ferramentas do Chef e são
-de código aberto disponíveis no repositório oficial do Chef.
+de código aberto, disponíveis no repositório oficial do Chef.
 
 \subsubsection{Ohai}
 \label{sec:deps:ohai}
@@ -85,7 +80,7 @@ informações que podem ser: detalhe de plataforma, dados de CPU, dados de redes
 O Ohai é uma dependência do \textit{chef-client} e é extensível através de \textit{plugins}
 para incluir mais tipos de dados a serem coletados~\cite{ohaidoc:2016}.
 
-Para o desenvolvimento do Cupper, a ferramenta Ohai será utilizada para realizar a
+Para o desenvolvimento do Cupper, a ferramenta Ohai foi utilizada para realizar a
 interface de coleta de dados. Como será apresentado na Seção~\ref{sec:cam-amb}, o
 Ohai, sem extensões, pode coletar uma certa quantidade de atributos do ambiente, sendo
 necessário a criação de \textit{plugins} de acordo com a necessidade de implementação do Cupper.
